@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+<div class="panel panel-default" id="rrapp" v-cloak>
+	<div class="panel-heading">{{title}}</div>
+	<form class="form-horizontal" id="uploadForm" enctype="multipart/form-data">
+		<!-- <div class="form-group">
+		   	<div class="col-sm-2 control-label">题目编号 ：</div>
+		   	<div class="col-sm-10">
+		      <input type="text" class="form-control" v-model="sysItem.itemNum" placeholder=""/>
+		    </div>
+		</div> -->
+		<div class="form-group">
+		   	<div class="col-sm-2 control-label">题目标题 ：</div>
+		   	<div class="col-sm-10">
+		      <input type="text" class="form-control" name = "title" v-model="sysItem.title" placeholder=""/>
+		    </div>
+		</div>
+		<div class="form-group">
+		   	<div class="col-sm-2 control-label">内容和要求：</div>
+		   	<div class="col-sm-10">
+		   		<textarea class="form-control"  name="context" id="context"></textarea>
+		      <!-- <input type="text" class="form-control" v-model="sysItem.context" placeholder=""/> -->
+		    </div>
+		</div>
+		<div class="form-group">
+		   	<div class="col-sm-2 control-label">题目命名：</div>
+		   	<div class="col-sm-10">
+		      <input type="text" class="form-control" name = "itemName" v-model="sysItem.name" placeholder=""/>
+		    </div>
+		</div>
+		<div class="form-group">
+		   	<div class="col-sm-2 control-label">test_bench文件 ：</div>
+		   	<div class="col-sm-10">
+				<input class="form-control" type="file" data-options="required:true" name="ImportFile" data-options="required:true"/>
+		    </div>
+		</div>
+		<div class="form-group">
+		   	<div class="col-sm-2 control-label">题目难度 ：</div>
+		   	<div class="col-sm-10">
+			   	<select class="selectpicker show-tick form-control" name = "level" v-model="sysItem.level">
+						<option value="1">超简单</option>
+						<option value="2">简单</option>
+						<option value="3">难</option>
+						<option value="4">很难</option>
+				</select>
+	<!-- 	      <input type="text" class="form-control" v-model="sysItem.level" placeholder=""/> -->
+		    </div>
+		</div>
+		<div class="form-group">
+		   	<div class="col-sm-2 control-label">分值 ：</div>
+		   	<div class="col-sm-10">
+		      <input type="text" class="form-control" name="score" v-model="sysItem.score" placeholder=""/>
+		    </div>
+		</div>
+		<div style="display:none;">
+			<input type="text" v-model="sysItem.author"  value=${sessionScope.username} placeholder=""/>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-2 control-label"></div> <!--  @click="saveOrUpdate"  -->
+			<input type="button" class="btn btn-primary" onclick="doUpload()"value="确定"/>
+			&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="back" value="返回"/>
+		</div>
+	</form>
+</div>
+
+<script src="${rc.contextPath}/js/sysitem/sysitem_add.js?_${date.systemTime}"></script>
+
+<script type="text/javascript">
+CKEDITOR.replace('context');
+
+</script>
+</body>
+</html>

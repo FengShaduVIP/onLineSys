@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twp.dao.ClassInfoDao">
+
+	<select id="queryObject" resultType="com.twp.entity.ClassInfoEntity">
+		select * from class_info where class_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.twp.entity.ClassInfoEntity">
+		select * from class_info 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from class_info 
+	</select>
+	 
+	<insert id="save" parameterType="com.twp.entity.ClassInfoEntity">
+		insert into class_info
+		(
+			`class_id`, 
+			`class_no`, 
+			`class_name`, 
+			`teach_id`, 
+			`create_year`, 
+			`class_sort`, 
+			`status`
+		)
+		values
+		(
+			#{classId}, 
+			#{classNo}, 
+			#{className}, 
+			#{teachId}, 
+			#{createYear}, 
+			#{classSort}, 
+			#{status}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.twp.entity.ClassInfoEntity">
+		update class_info 
+		<set>
+			<if test="classNo != null">`class_no` = #{classNo}, </if>
+			<if test="className != null">`class_name` = #{className}, </if>
+			<if test="teachId != null">`teach_id` = #{teachId}, </if>
+			<if test="createYear != null">`create_year` = #{createYear}, </if>
+			<if test="classSort != null">`class_sort` = #{classSort}, </if>
+			<if test="status != null">`status` = #{status}</if>
+		</set>
+		where class_id = #{classId}
+	</update>
+	
+	<delete id="delete">
+		delete from class_info where class_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from class_info where class_id in 
+		<foreach item="classId" collection="array" open="(" separator="," close=")">
+			#{classId}
+		</foreach>
+	</delete>
+
+</mapper>

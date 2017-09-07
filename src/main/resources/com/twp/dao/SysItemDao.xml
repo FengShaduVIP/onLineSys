@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twp.dao.SysItemDao">
+
+	<select id="queryObject" resultType="com.twp.entity.SysItemEntity">
+		select * from sys_item where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.twp.entity.SysItemEntity">
+		select * from sys_item 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_item 
+	</select>
+	
+	<select id="findLastId" resultType="String">
+		 select max(id) from sys_item
+	</select>
+	
+	<insert id="save" parameterType="com.twp.entity.SysItemEntity">
+		insert into sys_item
+		(
+			`id`, 
+			`title`, 
+			`name`, 
+			`context`, 
+			`score`, 
+			`level`, 
+			`author`, 
+			`create_time`, 
+			`is_visible`,
+			`item_num`
+		)
+		values
+		(
+			#{id}, 
+			#{title}, 
+			#{name}, 
+			#{context}, 
+			#{score}, 
+			#{level}, 
+			#{author}, 
+			#{createTime}, 
+			#{isVisible},
+			#{itemNum}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.twp.entity.SysItemEntity">
+		update sys_item 
+		<set>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="context != null">`context` = #{context}, </if>
+			<if test="score != null">`score` = #{score}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="author != null">`author` = #{author}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="isVisible != null">`is_visible` = #{isVisible}</if>
+			<if test="itemNum != null">`item_num` = #{itemNum}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_item where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_item where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.twp.dao.ExamPaperDao">
+
+	<select id="queryObject" resultType="com.twp.entity.ExamPaperEntity">
+		select * from exam_paper where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.twp.entity.ExamPaperEntity">
+		select * from exam_paper 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from exam_paper 
+	</select>
+	 
+	<insert id="save" parameterType="com.twp.entity.ExamPaperEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into exam_paper
+		(
+			`title`, 
+			`detail`, 
+			`create_time`, 
+			`author_id`
+		)
+		values
+		(
+			#{title}, 
+			#{detail}, 
+			#{createTime}, 
+			#{authorId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.twp.entity.ExamPaperEntity">
+		update exam_paper 
+		<set>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="detail != null">`detail` = #{detail}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="authorId != null">`author_id` = #{authorId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from exam_paper where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from exam_paper where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
