@@ -93,6 +93,21 @@ public class ExampaperItemController {
 	}
 	
 	/**
+	 * 删除试卷与题目关联数据
+	 */
+	@ResponseBody
+	@RequestMapping("/deleteExamItem")
+	public R deleteExamItem(@RequestBody Map map){
+		Integer exmaId = (Integer) map.get("exmaId");
+		Integer[] itemIds = (Integer[]) map.get("itemIds");
+		for(int i = 0;i<itemIds.length ;i++) {
+			Integer itemId = itemIds[i];
+			exampaperItemService.deleteExamItem(exmaId,itemId);
+		}
+		return R.ok();
+	}
+	
+	/**
 	 * 信息
 	 */
 	@ResponseBody

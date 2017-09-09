@@ -56,5 +56,10 @@ public class ExampaperItemServiceImpl implements ExampaperItemService {
 	public void deleteBatch(Integer[] ids){
 		exampaperItemDao.deleteBatch(ids);
 	}
+
+	@Override
+	public void deleteExamItem(Integer exmaId, Integer itemId) {
+		exampaperItemDao.deleteExamItem(exmaId,itemId);
+	}
 	
 }

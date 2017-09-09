@@ -28,5 +28,7 @@ public interface ExampaperItemService {
 	
 	void delete(Integer id);
 	
+	void deleteExamItem(Integer exmaId,Integer itemId);
+	
 	void deleteBatch(Integer[] ids);
 }

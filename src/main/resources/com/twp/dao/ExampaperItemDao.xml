@@ -50,6 +50,10 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<delete id="deleteExamItem">
+		delete from exampaper_item where exampaper_id = #{exmaId} and  item_id = #{itemId}
+	</delete>
 
 	<select id="queryItemInfo" resultType="java.util.HashMap">
 			select  b.id,b.title,b.score,b.`level`
