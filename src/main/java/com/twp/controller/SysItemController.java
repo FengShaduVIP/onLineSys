@@ -49,7 +49,17 @@ public class SysItemController {
 	public String edit(){
 		return "sysitem/sysitem_edit.html";
 	}
-	
+
+	@RequestMapping("/stuItemList.html")
+	public String stuItemList(){
+		return "onlineitem/itemList.html";
+	}
+
+    @RequestMapping("/itemDetail.html")
+    public String itemDetail(){
+        return "onlineitem/itemDetail.html";
+    }
+
 	/**
 	 * 列表
 	 */

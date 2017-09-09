@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+	<link rel="stylesheet" href="${rc.contextPath}/statics/plugins/layui/css/layui.css">
+</head>
+<body>
+	<div class="layui-container">
+		<div>返回列表</div>
+		<div style="width: 80%;margin:0 auto;" class="panel panel-default" id="rrapp" v-cloak>
+			<div></div>
+			<div class="panel-heading">题目标题 ：</div>
+			<div class="panel-body" style="padding: 20px">
+				<h2>{{sysItem.title}}</h2>
+			</div>
+			<div class="panel-heading">内容和要求：</div>
+			<div class="panel-body">
+				<h4><div v-html='sysItem.context'></div></h4>
+			</div>
+			<div class="panel-heading">代码：</div>
+			<div class="panel-body">
+				<div class="layui-input-block">
+					<textarea placeholder="请输入代码内容" class="layui-textarea"></textarea>
+				</div>
+				<button class="layui-btn layui-btn-radius">提交</button>
+			</div>
+		</div>
+	</div>
+	<script src="${rc.contextPath}/js/onlineitem/itemDetail.js?_${date.systemTime}"></script>
+	<script src="${rc.contextPath}/statics/plugins/layui/layui.js"></script>
+</body>
+</html>

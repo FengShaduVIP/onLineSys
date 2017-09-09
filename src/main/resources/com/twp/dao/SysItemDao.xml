@@ -79,7 +79,7 @@
 	</delete>
 	
 	<select id="queryStuList" resultType="java.util.HashMap">
-		select a.id,a.title,a.name,b.real_name from sys_item a,sys_user b where a.author = b.username and a. is_visible = 1; 
+		select a.id,a.title,a.level,a.name,b.real_name as author from sys_item a,sys_user b where a.author = b.username and a. is_visible = 1;
 	</select>
 
 </mapper>

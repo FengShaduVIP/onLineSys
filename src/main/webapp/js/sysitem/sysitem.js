@@ -4,9 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '题号', name: 'id', width: 50, key: true },
-			{ label: '题目标题', name: 'title', width: 150 },
-			//{ label: '', name: 'name', width: 80 }, 			
-			//{ label: '', name: 'context', width: 80 }, 			
+			{ label: '题目标题', name: 'title', width: 150,formatter:statusFmt2},
 			{ label: '分数', name: 'score', width: 25 }, 			
 			//{ label: '难度', name: 'level', width: 50 }, 			
 			{ label: '作者', name: 'author', width: 80 }, 			
@@ -48,6 +46,11 @@ function statusFmt(v) {
 		v = '<i class="fa fa-check" aria-hidden="true"></i>';
 	}
 	return v;
+}
+
+function statusFmt2(cellvalue, options, rowObject) {
+    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'">'+rowObject.title+'</a>';
+    return v;
 }
 var vm = new Vue({
 	el:'#rrapp',
