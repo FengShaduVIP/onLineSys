@@ -51,4 +51,9 @@
 		</foreach>
 	</delete>
 
+	<select id="queryItemInfo" resultType="java.util.HashMap">
+			select  b.id,b.title,b.score,b.`level`
+			from exampaper_item a,sys_item b
+			where a.exampaper_id = #{examId} and b.id = a.item_id 
+	</select>
 </mapper>

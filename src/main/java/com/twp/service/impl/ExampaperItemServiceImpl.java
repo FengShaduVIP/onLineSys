@@ -28,6 +28,11 @@ public class ExampaperItemServiceImpl implements ExampaperItemService {
 	}
 	
 	@Override
+	public List<Map<String, String>> queryItemInfo(Map<String, Object> map){
+		return exampaperItemDao.queryItemInfo(map);
+	}
+	
+	@Override
 	public int queryTotal(Map<String, Object> map){
 		return exampaperItemDao.queryTotal(map);
 	}

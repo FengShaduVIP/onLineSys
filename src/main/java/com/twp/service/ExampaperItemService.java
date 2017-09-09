@@ -18,6 +18,8 @@ public interface ExampaperItemService {
 	
 	List<ExampaperItemEntity> queryList(Map<String, Object> map);
 	
+	List<Map<String, String>> queryItemInfo(Map<String, Object> map);
+	
 	int queryTotal(Map<String, Object> map);
 	
 	void save(ExampaperItemEntity exampaperItem);

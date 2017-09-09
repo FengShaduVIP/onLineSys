@@ -18,7 +18,7 @@ import com.twp.utils.PageUtils;
 import com.twp.utils.R;
 
 @Controller
-@RequestMapping("exampaperitem")
+@RequestMapping("/exampaperitem")
 public class ExampaperItemController {
 	@Autowired
 	private ExampaperItemService exampaperItemService;
@@ -53,6 +53,26 @@ public class ExampaperItemController {
 		return R.ok().put("page", pageUtil);
 	}
 	
+	
+	/**
+	 * 试卷与题目关联列表查询
+	 */
+	@ResponseBody
+	@RequestMapping("/examItemList")
+	public R examItemList(Integer page, Integer limit,Integer exmaId){
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", (page - 1) * limit);
+		map.put("limit", limit);
+		map.put("examId", exmaId);
+		
+		//查询列表数据
+		List<Map<String, String>> exampaperItemList = exampaperItemService.queryItemInfo(map);
+		int total = exampaperItemService.queryTotal(map);
+		
+		PageUtils pageUtil = new PageUtils(exampaperItemList, total, limit, page);
+		
+		return R.ok().put("page", pageUtil);
+	}
 	
 	/**
 	 * 信息
