@@ -75,6 +75,24 @@ public class ExampaperItemController {
 	}
 	
 	/**
+	 * 保存试卷与题目关联数据
+	 */
+	@ResponseBody
+	@RequestMapping("/saveExamItem")
+	public R saveExamItem(@RequestBody Map map){
+		Integer exmaId = (Integer) map.get("exmaId");
+		Integer[] itemIds = (Integer[]) map.get("itemIds");
+		for(int i = 0;i<itemIds.length ;i++) {
+			Integer itemId = itemIds[i];
+			ExampaperItemEntity exampaperItem = new ExampaperItemEntity();
+			exampaperItem.setExampaperId(exmaId);
+			exampaperItem.setItemId(itemId);
+			exampaperItemService.save(exampaperItem);
+		}
+		return R.ok();
+	}
+	
+	/**
 	 * 信息
 	 */
 	@ResponseBody
