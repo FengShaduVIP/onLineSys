@@ -70,6 +70,25 @@ public class SysItemController {
 		return R.ok().put("page", pageUtil);
 	}
 	
+	/**
+	 * 学生题目列表
+	 */
+	@ResponseBody
+	@RequestMapping("/stuList")
+	public R stuList(Integer page, Integer limit){
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", (page - 1) * limit);
+		map.put("limit", limit);
+		
+		//查询列表数据
+		List<SysItemEntity> sysItemList = sysItemService.queryStuList(map);
+		int total = sysItemService.queryTotal(map);
+		
+		PageUtils pageUtil = new PageUtils(sysItemList, total, limit, page);
+		
+		return R.ok().put("page", pageUtil);
+	}
+	
 	
 	/**
 	 * 信息

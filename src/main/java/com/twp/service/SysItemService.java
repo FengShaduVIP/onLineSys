@@ -12,6 +12,8 @@ public interface SysItemService {
 	
 	List<SysItemEntity> queryList(Map<String, Object> map);
 	
+	List<SysItemEntity> queryStuList(Map<String, Object> map);
+	
 	int queryTotal(Map<String, Object> map);
 	
 	void save(SysItemEntity sysItem);

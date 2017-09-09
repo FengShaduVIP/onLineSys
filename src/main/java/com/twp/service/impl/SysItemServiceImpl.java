@@ -28,6 +28,11 @@ public class SysItemServiceImpl implements SysItemService {
 	}
 	
 	@Override
+	public List<SysItemEntity> queryStuList(Map<String, Object> map){
+		return sysItemDao.queryStuList(map);
+	}
+	
+	@Override
 	public int queryTotal(Map<String, Object> map){
 		return sysItemDao.queryTotal(map);
 	}
