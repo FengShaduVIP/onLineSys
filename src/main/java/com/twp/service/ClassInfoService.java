@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface ClassInfoService {
 	
-	ClassInfoEntity queryObject(String classId);
+	ClassInfoEntity queryObject(Integer classId);
 	
 	List<ClassInfoEntity> queryList(Map<String, Object> map);
 	

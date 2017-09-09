@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', width: 50, key: true,hidden:true },
-			{ label: '姓名', name: 'userId', width: 80 }, 			
+			{ label: '姓名', name: 'stuName', width: 80 },
 			{ label: '学号', name: 'stuNo', width: 80 }, 			
 			{ label: '班级', name: 'classId', width: 80 }, 			
 			{ label: '教师姓名', name: 'teachId', width: 80 }			
@@ -50,15 +50,16 @@ var vm = new Vue({
 			if(id == null){
 				return ;
 			}
-			
 			location.href = "stuinfo_add.html?id="+id;
 		},
+        addStu:function (event) {
+            location.href = "stuinfo_add.html?classId="+classId;
+        },
 		del: function (event) {
 			var ids = getSelectedRows();
 			if(ids == null){
 				return ;
 			}
-			
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",

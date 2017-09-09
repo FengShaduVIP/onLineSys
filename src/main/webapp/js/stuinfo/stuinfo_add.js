@@ -1,11 +1,12 @@
 var id = T.p("id");
 var classId = T.p("classId");
-
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		title:"新增",
-		stuInfo:{}
+		stuInfo:{
+			classId:classId,
+		}
 	},
 	created: function() {
 		if(id != null){

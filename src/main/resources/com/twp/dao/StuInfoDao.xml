@@ -8,14 +8,16 @@
 	</select>
 
 	<select id="queryList" resultType="com.twp.entity.StuInfoEntity">
-		select * from stu_info 
+		select stu_id AS stuId, stu_name AS stuName  from stu_info
+		where class_id = #{classId}
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from stu_info 
+		select count(*) from stu_info
+		where class_id = #{classId}
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.StuInfoEntity" useGeneratedKeys="true" keyProperty="id">
@@ -23,14 +25,16 @@
 		(
 			`user_id`, 
 			`stu_no`, 
-			`class_id`, 
+			`class_id`,
+			`stu_name`,
 			`teach_id`
 		)
 		values
 		(
 			#{userId}, 
 			#{stuNo}, 
-			#{classId}, 
+			#{classId},
+			#{stuName},
 			#{teachId}
 		)
 	</insert>
@@ -41,6 +45,7 @@
 			<if test="userId != null">`user_id` = #{userId}, </if>
 			<if test="stuNo != null">`stu_no` = #{stuNo}, </if>
 			<if test="classId != null">`class_id` = #{classId}, </if>
+			<if test="stuName != null">`stu_name` = #{stuName}, </if>
 			<if test="teachId != null">`teach_id` = #{teachId}</if>
 		</set>
 		where id = #{id}

@@ -72,7 +72,7 @@ public class ClassInfoController {
 	@ResponseBody
 	@RequestMapping("/info/{classId}")
 	//@RequiresPermissions("classInfo:info")
-	public R info(@PathVariable("classId") String classId){
+	public R info(@PathVariable("classId") Integer classId){
 		ClassInfoEntity classInfo = classInfoService.queryObject(classId);
 		
 		return R.ok().put("classInfo", classInfo);

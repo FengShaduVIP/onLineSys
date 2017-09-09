@@ -1,10 +1,17 @@
 package com.twp.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.twp.entity.ClassInfoEntity;
+import com.twp.entity.SysUserEntity;
+import com.twp.service.ClassInfoService;
+import com.twp.service.SysUserRoleService;
+import com.twp.service.SysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +37,11 @@ import com.twp.utils.R;
 public class StuInfoController {
 	@Autowired
 	private StuInfoService stuInfoService;
-	
+	@Autowired
+	private SysUserService sysUserService;
+	@Autowired
+	private ClassInfoService classInfoService;
+
 	@RequestMapping("/stuinfo.html")
 	public String list(){
 		return "stuinfo/stuinfo.html";
@@ -47,11 +58,11 @@ public class StuInfoController {
 	@ResponseBody
 	@RequestMapping("/list")
 	//@RequiresPermissions("stuinfo:list")
-	public R list(Integer page, Integer limit){
+	public R list(Integer classId, Integer page, Integer limit){
 		Map<String, Object> map = new HashMap<>();
+		map.put("classId",classId);
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
-		
 		//查询列表数据
 		List<StuInfoEntity> stuInfoList = stuInfoService.queryList(map);
 		int total = stuInfoService.queryTotal(map);
@@ -81,8 +92,25 @@ public class StuInfoController {
 	@RequestMapping("/save")
 	//@RequiresPermissions("stuinfo:save")
 	public R save(@RequestBody StuInfoEntity stuInfo){
+		List<Long> userRoleList = new ArrayList<Long>();
+		userRoleList.add(3L);
+		//保存学生登陆用户信息
+		SysUserEntity userEntity = new SysUserEntity();
+		userEntity.setRealName(stuInfo.getStuName());
+		userEntity.setPassword(stuInfo.getStuNo().toString());
+		userEntity.setStatus(1);
+		userEntity.setUsername(stuInfo.getStuNo()+"");
+		userEntity.setLevel(0);
+		userEntity.setRoleIdList(userRoleList);
+		sysUserService.save(userEntity);
+		Integer classId = stuInfo.getClassId();
+		stuInfo.setUserId(userEntity.getUserId());
+		ClassInfoEntity classInfoEntity = classInfoService.queryObject(classId);
+		if(classInfoEntity!=null){
+			stuInfo.setTeachId(classInfoEntity.getTeachId());
+		}
 		stuInfoService.save(stuInfo);
-		
+		//保存学生权限信息
 		return R.ok();
 	}
 	

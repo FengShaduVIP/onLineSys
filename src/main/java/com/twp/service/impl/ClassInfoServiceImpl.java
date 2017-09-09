@@ -18,7 +18,7 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 	private ClassInfoDao classInfoDao;
 	
 	@Override
-	public ClassInfoEntity queryObject(String classId){
+	public ClassInfoEntity queryObject(Integer classId){
 		return classInfoDao.queryObject(classId);
 	}
 	

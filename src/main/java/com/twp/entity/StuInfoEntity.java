@@ -18,13 +18,17 @@ public class StuInfoEntity implements Serializable {
 	//
 	private Long id;
 	//姓名
+	private  String stuName;
+	//登陆表id
 	private Long userId;
 	//学号
 	private Integer stuNo;
-	//班级
+	//班级表ID
 	private Integer classId;
 	//教师姓名
 	private Long teachId;
+
+	private String className;
 
 	/**
 	 * 设置：
@@ -85,5 +89,21 @@ public class StuInfoEntity implements Serializable {
 	 */
 	public Long getTeachId() {
 		return teachId;
+	}
+
+	public void setStuName(String stuName) {
+		this.stuName = stuName;
+	}
+
+	public String getStuName() {
+		return stuName;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 }
