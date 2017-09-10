@@ -104,12 +104,12 @@ public class ExampaperItemController {
 	@RequestMapping("/saveExamItem")
 	public R saveExamItem(@RequestBody Map map){
 		Integer exmaId = (Integer) map.get("exmaId");
-		Integer[] itemIds = (Integer[]) map.get("itemIds");
+		String[] itemIds = (String[]) map.get("itemIds");
 		for(int i = 0;i<itemIds.length ;i++) {
-			Integer itemId = itemIds[i];
+			String itemId = itemIds[i];
 			ExampaperItemEntity exampaperItem = new ExampaperItemEntity();
 			exampaperItem.setExampaperId(exmaId);
-			exampaperItem.setItemId(itemId);
+			exampaperItem.setItemId(Integer.parseInt(itemId));
 			exampaperItemService.save(exampaperItem);
 		}
 		return R.ok();
@@ -122,10 +122,10 @@ public class ExampaperItemController {
 	@RequestMapping("/deleteExamItem")
 	public R deleteExamItem(@RequestBody Map map){
 		Integer exmaId = (Integer) map.get("exmaId");
-		Integer[] itemIds = (Integer[]) map.get("itemIds");
+		String[] itemIds = (String[]) map.get("itemIds");
 		for(int i = 0;i<itemIds.length ;i++) {
-			Integer itemId = itemIds[i];
-			exampaperItemService.deleteExamItem(exmaId,itemId);
+			String itemId = itemIds[i];
+			exampaperItemService.deleteExamItem(exmaId,Integer.parseInt(itemId));
 		}
 		return R.ok();
 	}
