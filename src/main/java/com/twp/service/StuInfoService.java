@@ -29,4 +29,6 @@ public interface StuInfoService {
 	void delete(Long id);
 	
 	void deleteBatch(Long[] ids);
+	
+	void deleteUser(Long id);
 }

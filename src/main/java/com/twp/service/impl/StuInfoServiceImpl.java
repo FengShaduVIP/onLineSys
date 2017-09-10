@@ -57,4 +57,9 @@ public class StuInfoServiceImpl implements StuInfoService {
 		stuInfoDao.deleteBatch(ids);
 	}
 	
+	@Override
+	public void deleteUser(Long id){
+		stuInfoDao.deleteUser(id);
+	}
+	
 }

@@ -51,7 +51,7 @@
 		where id = #{id}
 	</update>
 	
-		<update id="updateUserInfo" >
+	<update id="updateUserInfo" >
 		update sys_user
 		set username = #{1}
 		Where user_id = (select user_id from stu_info where id = #{0})
@@ -66,6 +66,10 @@
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
+	</delete>
+	
+	<delete id="deleteUser">
+		delete from sys_user where user_id = (select user_id from stu_info where id = #{id}) 
 	</delete>
 
 </mapper>

@@ -137,7 +137,10 @@ public class StuInfoController {
 	//@RequiresPermissions("stuinfo:delete")
 	public R delete(@RequestBody Long[] ids){
 		stuInfoService.deleteBatch(ids);
-		
+		for(int i = 0;i < ids.length;i++) {
+			Long id = ids[i];
+			stuInfoService.deleteUser(id);
+		}
 		return R.ok();
 	}
 	
