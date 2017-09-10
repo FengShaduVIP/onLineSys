@@ -52,7 +52,7 @@
 	</delete>
 	
 	<delete id="deleteExamItem">
-		delete from exampaper_item where exampaper_id = #{exmaId} and  item_id = #{itemId}
+		delete from exampaper_item where exampaper_id = #{0} and  item_id = #{1}
 	</delete>
 
    <!--试卷与题目关联列表  -->
