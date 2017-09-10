@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="queryList" resultType="com.twp.entity.StuInfoEntity">
-		select stu_no AS stuNo, stu_name AS stuName  from stu_info
+		select *  from stu_info
 		where class_id = #{classId}
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}

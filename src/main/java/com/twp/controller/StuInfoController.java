@@ -122,10 +122,10 @@ public class StuInfoController {
 	@RequestMapping("/update")
 	//@RequiresPermissions("stuinfo:update")
 	public R update(@RequestBody StuInfoEntity stuInfo){
-		stuInfoService.update(stuInfo);
 		Long id = stuInfo.getId();
 		String username = stuInfo.getStuName();
 		stuInfoService.updateUserInfo(id,username);
+		stuInfoService.update(stuInfo);
 		return R.ok();
 	}
 	
@@ -136,11 +136,11 @@ public class StuInfoController {
 	@RequestMapping("/delete")
 	//@RequiresPermissions("stuinfo:delete")
 	public R delete(@RequestBody Long[] ids){
-		stuInfoService.deleteBatch(ids);
 		for(int i = 0;i < ids.length;i++) {
 			Long id = ids[i];
 			stuInfoService.deleteUser(id);
 		}
+		stuInfoService.deleteBatch(ids);
 		return R.ok();
 	}
 	
