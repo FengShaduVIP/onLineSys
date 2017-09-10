@@ -8,17 +8,23 @@
 <div id="rrapp">
 	<div class="layui-container">
 		<div class="layui-row">
-			<div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-				<div class="grid-demo grid-demo-bg1">
-					<table id="jqGrid_have"></table>
-					<div id="jqGridPager_have"></div>
+			<div id="exampaperItem_have">
+				<div class="grid-btn">
+					<button type="button" class="btn btn-link">已添加题目列表</button>
+					<button type="button" class="btn btn-danger" @click="delItem">删除题目</button>
 				</div>
+				<table id="jqGridItem_have"></table>
+				<div id="jqGridPagerItem_have"></div>
 			</div>
-			<div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-				<div class="grid-demo">
-					<table id="jqGrid_nohave"></table>
-					<div id="jqGridPager_nohave"></div>
+		</div>
+		<div class="layui-row">
+			<div id="exampaperItem_nohave" style="padding: 30px 0">
+				<div class="grid-btn">
+					<button type="button" class="btn btn-link">未添加题目列表</button>
+					<button type="button" class="btn btn-success" @click="addItem">添加题目</button>
 				</div>
+				<table id="jqGridItem_nohave"></table>
+				<div id="jqGridPagerItem_nohave"></div>
 			</div>
 		</div>
 	</div>

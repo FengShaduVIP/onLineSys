@@ -73,18 +73,11 @@ var vm = new Vue({
 			});
 		},
         examList :function(event) {
-            var id = getSelectedRow();
-            if (id == null) {
+            var examPaperId = getSelectedRow();
+            if (examPaperId == null) {
                 return;
             }
-            layer.open({
-                type: 1,
-                skin: 'layui-layer-molv',
-                title: "试卷题目列表",
-                area: ['75%', '90%'],
-                shadeClose: true,
-                content: jQuery("#examList"),
-            });
+            location.href = "paperDetail.html?examPaperId="+examPaperId;
         }
 	}
 });
