@@ -27,6 +27,10 @@ public class ExamTestEntity implements Serializable {
 	private Date endTime;
 	//
 	private Integer createTime;
+	//
+	private Integer status;
+	//
+	private String examTitle;
 
 	/**
 	 * 设置：
@@ -99,5 +103,33 @@ public class ExamTestEntity implements Serializable {
 	 */
 	public Integer getCreateTime() {
 		return createTime;
+	}
+	/**
+	 * 设置：
+	 * @param status
+	 */
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	/**
+	 * 获取:
+	 * @return
+	 */
+	public Integer getStatus() {
+		return status;
+	}
+	/**
+	 * 设置：
+	 * @param status
+	 */
+	public void setExamTitle(String examTitle) {
+		this.examTitle = examTitle;
+	}
+	/**
+	 * 获取:
+	 * @return
+	 */
+	public String getExamTitle() {
+		return examTitle;
 	}
 }

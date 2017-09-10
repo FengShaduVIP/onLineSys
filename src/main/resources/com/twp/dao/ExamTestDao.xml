@@ -25,7 +25,9 @@
 			`author_id`, 
 			`start_time`, 
 			`end_time`, 
-			`create_time`
+			`create_time`,
+			`status`,
+			`exam_title`
 		)
 		values
 		(
@@ -33,7 +35,9 @@
 			#{authorId}, 
 			#{startTime}, 
 			#{endTime}, 
-			#{createTime}
+			#{createTime},
+			#{status},
+			#{examTitle}
 		)
 	</insert>
 	 
@@ -44,7 +48,9 @@
 			<if test="authorId != null">`author_id` = #{authorId}, </if>
 			<if test="startTime != null">`start_time` = #{startTime}, </if>
 			<if test="endTime != null">`end_time` = #{endTime}, </if>
-			<if test="createTime != null">`create_time` = #{createTime}</if>
+			<if test="createTime != null">`create_time` = #{createTime},</if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="examTitle != null">`exam_title` = #{examTitle}</if>
 		</set>
 		where id = #{id}
 	</update>
