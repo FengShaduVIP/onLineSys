@@ -78,7 +78,7 @@ public class ExamTestController {
 //	@RequiresPermissions("examtest:list")
 	public R examTestList(Integer id){
 		//查询列表数据
-		List<ExamTestEntity> examTestList = examTestService.queryExamTestList(id);
+		List<Map<String, String>> examTestList = examTestService.queryExamTestList(id);
 		return R.ok().put("list", examTestList);
 	}
 	
