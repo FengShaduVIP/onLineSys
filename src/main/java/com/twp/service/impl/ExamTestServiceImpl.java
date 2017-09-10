@@ -61,5 +61,10 @@ public class ExamTestServiceImpl implements ExamTestService {
 	public void deleteBatch(Integer[] ids){
 		examTestDao.deleteBatch(ids);
 	}
+
+	@Override
+	public List<ExamTestEntity> queryExamTestList(Integer id) {
+		return examTestDao.queryExamTestList(id);
+	}
 	
 }

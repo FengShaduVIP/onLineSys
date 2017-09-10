@@ -71,6 +71,18 @@ public class ExamTestController {
 	}
 	
 	/**
+	 * 考试的题目列表查询
+	 */
+	@ResponseBody
+	@RequestMapping("/examTestList")
+//	@RequiresPermissions("examtest:list")
+	public R examTestList(Integer id){
+		//查询列表数据
+		List<ExamTestEntity> examTestList = examTestService.queryExamTestList(id);
+		return R.ok().put("list", examTestList);
+	}
+	
+	/**
 	 * 查询正在考试列表
 	 */
 	@ResponseBody

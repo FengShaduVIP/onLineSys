@@ -28,6 +28,11 @@
 	<select id="queryIsGoingTotal" resultType="int">
 		select count(*) from exam_test  where status = 1
 	</select>
+	
+	<select id="queryExamTestList" resultType="java.util.HashMap">
+		select c.id,c.title,c.context,c.score from exam_test a,exampaper_item b,sys_item c 
+		where a.id = #{id} and a.exam__paper_id = b.exampaper_id and b.item_id = c.id ORDER BY c.id ASC
+	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.ExamTestEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into exam_test

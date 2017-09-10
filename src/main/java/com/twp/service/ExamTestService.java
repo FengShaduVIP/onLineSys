@@ -18,6 +18,8 @@ public interface ExamTestService {
 	
 	List<ExamTestEntity> queryList(Map<String, Object> map);
 	
+	List<ExamTestEntity> queryExamTestList(Integer id);
+	
 	List<ExamTestEntity> queryIsGoingList(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);
