@@ -18,7 +18,11 @@ public interface ClassInfoService {
 	
 	List<ClassInfoEntity> queryList(Map<String, Object> map);
 	
+	List<Map<String, Object>> queryOnAdminList(Map<String, Object> map);
+	
 	int queryTotal(Map<String, Object> map);
+	
+	int queryOnAdminTotal(Map<String, Object> map);
 	
 	void save(ClassInfoEntity classInfo);
 	

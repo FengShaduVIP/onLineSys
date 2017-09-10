@@ -28,8 +28,18 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 	}
 	
 	@Override
+	public List<Map<String, Object>> queryOnAdminList(Map<String, Object> map){
+		return classInfoDao.queryOnAdminList(map);
+	}
+	
+	@Override
 	public int queryTotal(Map<String, Object> map){
 		return classInfoDao.queryTotal(map);
+	}
+	
+	@Override
+	public int queryOnAdminTotal(Map<String, Object> map){
+		return classInfoDao.queryOnAdminTotal(map);
 	}
 	
 	@Override
