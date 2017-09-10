@@ -1,5 +1,8 @@
 package com.twp.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.twp.entity.ExamTestEntity;
 
 /**
@@ -11,4 +14,7 @@ import com.twp.entity.ExamTestEntity;
  */
 public interface ExamTestDao extends BaseDao<ExamTestEntity> {
 	
+	List<ExamTestEntity> queryIsGoingList(Map<String, Object> map);
+	
+	int queryIsGoingTotal(Map<String, Object> map);
 }

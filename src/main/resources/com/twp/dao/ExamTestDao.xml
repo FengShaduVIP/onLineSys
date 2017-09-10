@@ -7,8 +7,15 @@
 		select * from exam_test where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="com.twp.entity.ExamTestEntity">
-		select * from exam_test 
+	<select id="queryList" resultType="java.util.HashMap">
+		select a.* ,b.real_name from exam_test a,sys_user b where a.author_id = b.user_id order by a.start_time DESC
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryIsGoingList" resultType="java.util.HashMap">
+		select a.* ,b.real_name from exam_test a,sys_user b where a.status = 1 and a.author_id = b.user_id order by a.start_time DESC
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
@@ -16,6 +23,10 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from exam_test 
+	</select>
+	
+	<select id="queryIsGoingTotal" resultType="int">
+		select count(*) from exam_test  where status = 1
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.ExamTestEntity" useGeneratedKeys="true" keyProperty="id">
@@ -27,7 +38,8 @@
 			`end_time`, 
 			`create_time`,
 			`status`,
-			`exam_title`
+			`exam_title`,
+			`class_id`
 		)
 		values
 		(
@@ -37,7 +49,8 @@
 			#{endTime}, 
 			#{createTime},
 			#{status},
-			#{examTitle}
+			#{examTitle},
+			#{classId}
 		)
 	</insert>
 	 
@@ -50,7 +63,8 @@
 			<if test="endTime != null">`end_time` = #{endTime}, </if>
 			<if test="createTime != null">`create_time` = #{createTime},</if>
 			<if test="status != null">`status` = #{status}, </if>
-			<if test="examTitle != null">`exam_title` = #{examTitle}</if>
+			<if test="examTitle != null">`exam_title` = #{examTitle},</if>
+			<if test="classId != null">`class_id` = #{classId}</if>
 		</set>
 		where id = #{id}
 	</update>

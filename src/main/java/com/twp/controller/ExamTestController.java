@@ -1,5 +1,8 @@
 package com.twp.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 
 import com.twp.entity.ExamTestEntity;
 import com.twp.service.ExamTestService;
+import com.twp.utils.DateUtils;
 import com.twp.utils.PageUtils;
 import com.twp.utils.R;
 
@@ -42,11 +46,11 @@ public class ExamTestController {
 	}
 	
 	/**
-	 * 列表
+	 * 查询所有考试列表
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	@RequiresPermissions("examtest:list")
+//	@RequiresPermissions("examtest:list")
 	public R list(Integer page, Integer limit){
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
@@ -55,6 +59,26 @@ public class ExamTestController {
 		//查询列表数据
 		List<ExamTestEntity> examTestList = examTestService.queryList(map);
 		int total = examTestService.queryTotal(map);
+		
+		PageUtils pageUtil = new PageUtils(examTestList, total, limit, page);
+		
+		return R.ok().put("page", pageUtil);
+	}
+	
+	/**
+	 * 查询正在考试列表
+	 */
+	@ResponseBody
+	@RequestMapping("/isGoingList")
+//	@RequiresPermissions("examtest:list")
+	public R isGoingList(Integer page, Integer limit){
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", (page - 1) * limit);
+		map.put("limit", limit);
+		
+		//查询列表数据
+		List<ExamTestEntity> examTestList = examTestService.queryIsGoingList(map);
+		int total = examTestService.queryIsGoingTotal(map);
 		
 		PageUtils pageUtil = new PageUtils(examTestList, total, limit, page);
 		
@@ -79,8 +103,12 @@ public class ExamTestController {
 	 */
 	@ResponseBody
 	@RequestMapping("/save")
-	@RequiresPermissions("examtest:save")
+//	@RequiresPermissions("examtest:save")
 	public R save(@RequestBody ExamTestEntity examTest){
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		examTest.setStartTime(now);
+		examTest.setStatus(1);
+		examTest.setCreateTime(DateUtils.time());
 		examTestService.save(examTest);
 		
 		return R.ok();

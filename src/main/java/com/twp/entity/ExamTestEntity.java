@@ -31,6 +31,8 @@ public class ExamTestEntity implements Serializable {
 	private Integer status;
 	//
 	private String examTitle;
+	//
+	private Integer classId;
 
 	/**
 	 * 设置：
@@ -131,5 +133,19 @@ public class ExamTestEntity implements Serializable {
 	 */
 	public String getExamTitle() {
 		return examTitle;
+	}
+	/**
+	 * 设置：
+	 * @param status
+	 */
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
+	/**
+	 * 获取:
+	 * @return
+	 */
+	public Integer getClassId() {
+		return classId;
 	}
 }
