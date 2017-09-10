@@ -24,6 +24,8 @@ public interface StuInfoService {
 	
 	void update(StuInfoEntity stuInfo);
 	
+	void updateUserInfo(long id,String username);
+	
 	void delete(Long id);
 	
 	void deleteBatch(Long[] ids);

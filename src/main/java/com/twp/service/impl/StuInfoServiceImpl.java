@@ -43,6 +43,11 @@ public class StuInfoServiceImpl implements StuInfoService {
 	}
 	
 	@Override
+	public void updateUserInfo(long id,String username){
+		stuInfoDao.updateUserInfo(id,username);
+	}
+	
+	@Override
 	public void delete(Long id){
 		stuInfoDao.delete(id);
 	}

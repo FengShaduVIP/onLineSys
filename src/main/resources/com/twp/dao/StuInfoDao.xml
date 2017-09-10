@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="queryList" resultType="com.twp.entity.StuInfoEntity">
-		select stu_id AS stuId, stu_name AS stuName  from stu_info
+		select stu_no AS stuNo, stu_name AS stuName  from stu_info
 		where class_id = #{classId}
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
@@ -49,6 +49,12 @@
 			<if test="teachId != null">`teach_id` = #{teachId}</if>
 		</set>
 		where id = #{id}
+	</update>
+	
+		<update id="updateUserInfo" >
+		update sys_user
+		set username = #{1}
+		Where user_id = (select user_id from stu_info where id = #{0})
 	</update>
 	
 	<delete id="delete">

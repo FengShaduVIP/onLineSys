@@ -10,6 +10,7 @@ import com.twp.entity.SysUserEntity;
 import com.twp.service.ClassInfoService;
 import com.twp.service.SysUserRoleService;
 import com.twp.service.SysUserService;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,9 @@ public class StuInfoController {
 	//@RequiresPermissions("stuinfo:update")
 	public R update(@RequestBody StuInfoEntity stuInfo){
 		stuInfoService.update(stuInfo);
-		
+		Long id = stuInfo.getId();
+		String username = stuInfo.getStuName();
+		stuInfoService.updateUserInfo(id,username);
 		return R.ok();
 	}
 	

@@ -11,4 +11,6 @@ import com.twp.entity.StuInfoEntity;
  */
 public interface StuInfoDao extends BaseDao<StuInfoEntity> {
 	
+	int updateUserInfo(long id,String username);
+	
 }
