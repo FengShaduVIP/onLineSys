@@ -29,6 +29,8 @@ public class StuExamItemEntity implements Serializable {
 	private Integer createTime;
 	//
 	private Integer classId;
+	//
+	private Integer examTestId;
 
 	/**
 	 * 设置：
@@ -113,5 +115,17 @@ public class StuExamItemEntity implements Serializable {
 	 */
 	public Integer getClassId() {
 		return classId;
+	}
+	/**
+	 * 设置：
+	 */
+	public void setExamTestId(Integer examTestId) {
+		this.examTestId = examTestId;
+	}
+	/**
+	 * 获取：
+	 */
+	public Integer getExamTestId() {
+		return examTestId;
 	}
 }
