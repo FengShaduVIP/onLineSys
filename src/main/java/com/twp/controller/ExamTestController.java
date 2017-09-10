@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.stereotype.Controller;
 
+import com.twp.entity.ClassTestEntity;
 import com.twp.entity.ExamTestEntity;
+import com.twp.service.ClassTestService;
 import com.twp.service.ExamTestService;
 import com.twp.utils.DateUtils;
 import com.twp.utils.PageUtils;
 import com.twp.utils.R;
+import com.twp.utils.ShiroUtils;
 
 
 /**
@@ -34,6 +37,8 @@ import com.twp.utils.R;
 public class ExamTestController {
 	@Autowired
 	private ExamTestService examTestService;
+	@Autowired
+	private ClassTestService classTestService;
 	
 	@RequestMapping("/examtest.html")
 	public String list(){
@@ -108,8 +113,18 @@ public class ExamTestController {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		examTest.setStartTime(now);
 		examTest.setStatus(1);
+		examTest.setAuthorId((String) ShiroUtils.getSessionAttribute("username"));
 		examTest.setCreateTime(DateUtils.time());
 		examTestService.save(examTest);
+		ClassTestEntity classTest = new ClassTestEntity();
+		Integer examTestId = examTest.getId();
+		List<String> classIds = examTest.getClassIds();
+		for(int i = 0; i<classIds.size(); i++) {
+			String classId = classIds.get(i);
+			classTest.setClassId(Integer.parseInt(classId));
+			classTest.setExamTestId(examTestId);
+			classTestService.save(classTest);
+		}
 		
 		return R.ok();
 	}

@@ -2,6 +2,7 @@ package com.twp.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -20,7 +21,7 @@ public class ExamTestEntity implements Serializable {
 	//
 	private Integer examPaperId;
 	//
-	private Integer authorId;
+	private String authorId;
 	//
 	private Date startTime;
 	//
@@ -33,7 +34,21 @@ public class ExamTestEntity implements Serializable {
 	private String examTitle;
 	//
 	private Integer classId;
+	//
+	private List<String> classIds;
 
+	/**
+	 * 设置：
+	 */
+	public void setClassIds(List<String> classIds) {
+		this.classIds = classIds;
+	}
+	/**
+	 * 获取：
+	 */
+	public List<String> getClassIds() {
+		return classIds;
+	}
 	/**
 	 * 设置：
 	 */
@@ -61,17 +76,14 @@ public class ExamTestEntity implements Serializable {
 	/**
 	 * 设置：
 	 */
-	public void setAuthorId(Integer authorId) {
+	public void setAuthorId(String authorId) {
 		this.authorId = authorId;
 	}
-	/**
-	 * 获取：
-	 */
-	public Integer getAuthorId() {
+	public String getAuthorId() {
 		return authorId;
 	}
 	/**
-	 * 设置：
+	 * 获取：
 	 */
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
