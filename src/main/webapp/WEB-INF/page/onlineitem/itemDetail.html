@@ -7,23 +7,33 @@
 </head>
 <body>
 	<div class="layui-container">
-		<div>返回列表</div>
-		<div style="width: 80%;margin:0 auto;" class="panel panel-default" id="rrapp" v-cloak>
-			<div></div>
-			<div class="panel-heading">题目标题 ：</div>
-			<div class="panel-body" style="padding: 20px">
-				<h2>{{sysItem.title}}</h2>
+		<div class="layui-row" style="margin: 20px; height: 30px">
+			<div class="layui-col-xs1">
+				<a href="javascript:history.go(-1)">返回列表</a>
 			</div>
-			<div class="panel-heading">内容和要求：</div>
-			<div class="panel-body">
-				<h4><div v-html='sysItem.context'></div></h4>
+			<div class="layui-col-xs5">
 			</div>
-			<div class="panel-heading">代码：</div>
-			<div class="panel-body">
-				<div class="layui-input-block">
-					<textarea placeholder="请输入代码内容" class="layui-textarea"></textarea>
+			<div class="layui-col-xs6">
+			</div>
+		</div>
+		<div class="layui-row">
+			<div style="width: 80%;margin: 20px auto;" class="panel panel-default" id="rrapp" v-cloak>
+				<div></div>
+				<div class="panel-heading">题目标题 ：</div>
+				<div class="panel-body" style="padding: 20px">
+					<h2>{{sysItem.title}}</h2>
 				</div>
-				<button class="layui-btn layui-btn-radius">提交</button>
+				<div class="panel-heading">内容和要求：</div>
+				<div class="panel-body">
+					<h4><div v-html='sysItem.context'></div></h4>
+				</div>
+				<div class="panel-heading">代码：</div>
+				<div class="panel-body">
+					<div class="layui-input-block">
+						<textarea placeholder="请输入代码内容" class="layui-textarea"></textarea>
+					</div>
+					<button class="layui-btn layui-btn-radius">提交</button>
+				</div>
 			</div>
 		</div>
 	</div>
