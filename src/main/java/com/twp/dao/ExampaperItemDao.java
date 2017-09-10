@@ -16,5 +16,7 @@ public interface ExampaperItemDao extends BaseDao<ExampaperItemEntity> {
 	
 	List<Map<String, String>> queryItemInfo(Map<String, Object> map);
 	
+	List<Map<String, String>> queryUnItemInfo(Map<String, Object> map);
+	
 	void deleteExamItem(Integer exmaId, Integer itemId);
 }

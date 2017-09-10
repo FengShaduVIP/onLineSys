@@ -33,6 +33,11 @@ public class ExampaperItemServiceImpl implements ExampaperItemService {
 	}
 	
 	@Override
+	public List<Map<String, String>> queryUnItemInfo(Map<String, Object> map){
+		return exampaperItemDao.queryUnItemInfo(map);
+	}
+	
+	@Override
 	public int queryTotal(Map<String, Object> map){
 		return exampaperItemDao.queryTotal(map);
 	}

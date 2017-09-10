@@ -55,9 +55,16 @@
 		delete from exampaper_item where exampaper_id = #{exmaId} and  item_id = #{itemId}
 	</delete>
 
+   <!--试卷与题目关联列表  -->
 	<select id="queryItemInfo" resultType="java.util.HashMap">
 			select  b.id,b.title,b.score,b.`level`
 			from exampaper_item a,sys_item b
 			where a.exampaper_id = #{examId} and b.id = a.item_id 
+	</select>
+	<!-- 试卷与题目未关联列表 -->
+	<select id="queryUnItemInfo" resultType="java.util.HashMap">
+			select  b.id,b.title,b.score,b.`level`
+			from exampaper_item a,sys_item b
+			where a.exampaper_id = #{examId} and b.id not in (SELECT a.item_id from exampaper_item a where a.exampaper_id = #{examId}) 
 	</select>
 </mapper>

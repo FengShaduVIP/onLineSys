@@ -74,6 +74,29 @@ public class ExampaperItemController {
 		return R.ok().put("page", pageUtil);
 	}
 	
+
+	/**
+	 * 试卷与题目未关联列表查询
+	 */
+	@ResponseBody
+	@RequestMapping("/unExamItemList")
+	public R unExamItemList(Integer page, Integer limit,Integer exmaId){
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", (page - 1) * limit);
+		map.put("limit", limit);
+		map.put("examId", exmaId);
+		
+		//查询列表数据
+		List<Map<String, String>> exampaperItemList = exampaperItemService.queryUnItemInfo(map);
+		int total = exampaperItemService.queryTotal(map);
+		
+		PageUtils pageUtil = new PageUtils(exampaperItemList, total, limit, page);
+		
+		return R.ok().put("page", pageUtil);
+	}
+	
+	
+	
 	/**
 	 * 保存试卷与题目关联数据
 	 */
