@@ -73,19 +73,13 @@ public class ClassInfoController {
 	@ResponseBody
 	@RequestMapping("/listOnAdmin")
 	//@RequiresPermissions("classInfo:list")
-	public R listOnAdmin(Integer page, Integer limit){
+	public R listOnAdmin(){
 		Map<String, Object> map = new HashMap<>();
-		map.put("offset", (page - 1) * limit);
-		map.put("limit", limit);
 		map.put("teachId",ShiroUtils.getUserId());
 		
 		//查询列表数据
 		List<Map<String, Object>> classInfoList = classInfoService.queryOnAdminList(map);
-		int total = classInfoService.queryOnAdminTotal(map);
-		
-		PageUtils pageUtil = new PageUtils(classInfoList, total, limit, page);
-		
-		return R.ok().put("page", pageUtil);
+		return R.ok().put("list", classInfoList);
 	}
 	
 	

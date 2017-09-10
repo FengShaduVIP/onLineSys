@@ -22,8 +22,6 @@ public interface ClassInfoService {
 	
 	int queryTotal(Map<String, Object> map);
 	
-	int queryOnAdminTotal(Map<String, Object> map);
-	
 	void save(ClassInfoEntity classInfo);
 	
 	void update(ClassInfoEntity classInfo);

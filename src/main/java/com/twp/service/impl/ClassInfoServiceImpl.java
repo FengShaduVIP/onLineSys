@@ -38,11 +38,6 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 	}
 	
 	@Override
-	public int queryOnAdminTotal(Map<String, Object> map){
-		return classInfoDao.queryOnAdminTotal(map);
-	}
-	
-	@Override
 	public void save(ClassInfoEntity classInfo){
 		classInfoDao.save(classInfo);
 	}

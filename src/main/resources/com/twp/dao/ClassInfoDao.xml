@@ -16,17 +16,10 @@
 	
 	<select id="queryOnAdminList" resultType="java.util.HashMap">
 		select a.class_id,a.class_no,a.class_name from class_info a where a.teach_id = #{teachId}  order by a.class_sort DESC 
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from class_info 
-	</select>
-	
-	<select id="queryOnAdminTotal" resultType="int">
-		select count(*) from class_info  where teach_id = #{teachId}
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.ClassInfoEntity">
