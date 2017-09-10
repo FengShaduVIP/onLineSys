@@ -1,5 +1,4 @@
 //jqGrid的配置信息
-$.jgrid.defaults.width = 1000;
 $.jgrid.defaults.responsive = true;
 $.jgrid.defaults.styleUI = 'Bootstrap';
 
@@ -23,6 +22,15 @@ $.ajaxSetup({
 	contentType: "application/json",
 	cache: false
 });
+/*var userInfo = function () {
+	var user;
+    $.getJSON("sys/user/info?_"+$.now(), function(r){
+        user = r.user;
+    });
+    return user;
+};
+//获取当前登陆人信息
+T.user = userInfo;*/
 
 //重写alert
 window.alert = function(msg, callback){

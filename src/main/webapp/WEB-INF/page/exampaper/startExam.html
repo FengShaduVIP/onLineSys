@@ -11,7 +11,7 @@
 			<div class="layui-inline">
 				<label class="layui-form-label" style="padding-left:5px ">考试名称：</label>
 				<div class="layui-input-inline">
-					<input type="text" name="title" lay-verify="title" v-model="examTest.title" autocomplete="off" placeholder="考试名称" class="layui-input">
+					<input type="text" name="title" lay-verify="title" v-model="examTest.examTitle" autocomplete="off" placeholder="考试名称" class="layui-input">
 				</div>
 			</div>
 		</div>
@@ -23,6 +23,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label" style="padding-left:5px ">参与班级：</label>
+				<div class="layui-input-inline">
+					<input type="text" id="classIds" class="form-control" style="cursor:pointer;"  @click="classTree" readonly="readonly" placeholder="我的班级"/>
+				</div>
+			</div>
+		</div>
 		<div class="form-group">
 			<div class="col-sm-2 control-label">
 				<input type="button" class="btn btn-primary" @click="startExam" value="确定"/>
@@ -30,8 +38,20 @@
 		</div>
 	</form>
 </div>
-
+<div id="classLayer" style="display: none;padding:10px;">
+	<ul id="classTree" class="ztree"></ul>
+</div>
 <script type="text/javascript">
+	var setting = {
+        view: {
+            selectedMulti: true,
+        },
+		check:{
+            enable:true,
+		}
+    };
+	var classTree;
+
     var examPaperId = T.p("examPaperId");
     layui.use(['form', 'laydate'], function(){
         var form = layui.form
@@ -46,12 +66,37 @@
             }
         });
     });
+
+
     var vm = new Vue({
         el:'#rrapp',
         data:{
 			examTest:{
                 examPaperId:examPaperId,
+				classIds:[],
 			},
+        },
+        created: function() {
+            //加载班级树
+            $.get("../classInfo/listOnAdmin", function(r){
+                var classList = r.list;
+                var list=new Array();
+                for(var i=0;i<classList.length;i++){
+                    var classObj = classList[i];
+                    var node ={
+                        id:classObj.class_id,
+						name :classObj.class_name,
+					}
+                    list.push(node);
+				}
+                var nodes = [
+                    {
+                        id:'-1', name: "我的班级",chkDisabled:true, children:list
+                    }
+                ]
+                classTree = $.fn.zTree.init($("#classTree"), setting, nodes);
+                classTree.expandAll(true);
+            })
         },
         methods: {
 			startExam:function () {
@@ -60,9 +105,13 @@
 			        alert('考试结束时间设置不能为空！');
 			        return
 				}
-				var title = vm.examTest.title;
+				var title = vm.examTest.examTitle;
 			    if(title==null||title==''){
                     alert('考试名称不能为空！');
+                    return
+				}
+				if(vm.examTest.classIds.length==0||vm.examTest.classIds==[]){
+                    alert('参与班级不能为空！');
                     return
 				}
                 $.ajax({
@@ -72,15 +121,44 @@
                     success: function(r){
                         if(r.code === 0){
                             alert('操作成功', function(index){
-                                vm.back();
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index);
                             });
                         }else{
                             alert(r.msg);
                         }
                     }
                 });
-            }
+            },
+            classTree:function () {
+                layer.open({
+                    type: 1,
+                    offset: '50px',
+                    skin: 'layui-layer-molv',
+                    title: "选择菜单",
+                    area: ['280px', '300px'],
+                    shade: 0,
+                    shadeClose: false,
+                    content: jQuery("#classLayer"),
+                    btn: ['确定', '取消'],
+                    btn1: function (index) {
+                        var className='';
+                        var classIds = [];
+                        var node = classTree.getCheckedNodes();
+                        for(var i=0;i<node.length;i++){
+                            var classObj = node[i];
+                            if(classObj.id!='-1'){
+                                className += " "+classObj.name;
+                                classIds.push(classObj.id);
+							}
+						}
+						vm.examTest.classIds=classIds;
+                        document.getElementById('classIds').value=className;
 
+                        layer.close(index);
+                    }
+                });
+            }
         }
     });
 

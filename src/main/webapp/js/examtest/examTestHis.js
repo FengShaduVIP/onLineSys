@@ -4,18 +4,20 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', width: 50, key: true,hidden:true },
-			{ label: '考试名称', name: 'exam_title', width: 100, formatter:statusFmt},
-			{ label: '考试开始时间', name: 'start_time', width: 50 },
-			{ label: '考试结束时间', name: 'end_time', width: 50 },
-			{ label: '创建人', name: 'real_name', width: 30 }
+			{ label: '', name: 'examPaperId', width: 80 }, 			
+			{ label: '', name: 'authorId', width: 80 }, 			
+			{ label: '', name: 'startTime', width: 80 }, 			
+			{ label: '', name: 'endTime', width: 80 }, 			
+			{ label: '', name: 'createTime', width: 80 }			
         ],
 		viewrecords: true,
-        height: '430px',
+        height: '85%',
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
+        multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -34,11 +36,6 @@ $(function () {
         }
     });
 });
-
-function statusFmt(cellvalue, options, rowObject) {
-    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'" >'+rowObject.exam_title+'</a>';
-    return v;
-}
 
 var vm = new Vue({
 	el:'#rrapp',

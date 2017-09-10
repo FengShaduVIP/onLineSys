@@ -80,7 +80,7 @@ var vm = new Vue({
 					//选择上级菜单
 					vm.menu.parentId = node[0].menuId;
 					vm.menu.parentName = node[0].name;
-					
+
 					layer.close(index);
 	            }
 			});
