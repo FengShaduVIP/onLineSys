@@ -9,7 +9,7 @@ $(function () {
             { label: '作者', name: 'author', width: 50 },
         ],
         viewrecords: true,
-        height: 'auto',
+        height: '400px',
         rowNum: 10,
         rowList : [10,30,50],
         rownumbers: true,

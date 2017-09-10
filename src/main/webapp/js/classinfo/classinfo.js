@@ -16,7 +16,7 @@ $(function () {
 			{ label: '创建年份班级届', name: 'createYear', width: 80 },
         ],
 		viewrecords: true,
-        height: '85%',
+        height: '400px',
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 

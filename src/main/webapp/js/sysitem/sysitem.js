@@ -4,15 +4,15 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: '题号', name: 'id', width: 50, key: true },
-			{ label: '题目标题', name: 'title', width: 150,formatter:statusFmt2},
-			{ label: '分数', name: 'score', width: 25 }, 			
-			//{ label: '难度', name: 'level', width: 50 }, 			
-			{ label: '作者', name: 'author', width: 80 }, 			
-			{ label: '创建时间', name: 'createTime', width: 50 }, 			
+			{ label: '题目标题', name: 'title', width: 150},
+			{ label: '分数', name: 'score', width: 25 },
+            { label: '难度', name: 'level', width: 20 ,formatter:levelFmt},
+			{ label: '作者', name: 'author', width: 30 },
+			{ label: '创建时间', name: 'createTime', width: 50,formatter:getLocalTime },
 			{ label: '是否可见', name: 'isVisible', width: 30, formatter:statusFmt}		
         ],
 		viewrecords: true,
-        height: 'auto',
+        height: '400px',
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
@@ -48,10 +48,25 @@ function statusFmt(v) {
 	return v;
 }
 
-function statusFmt2(cellvalue, options, rowObject) {
-    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'">'+rowObject.title+'</a>';
-    return v;
+function getLocalTime(nS) {
+    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
 }
+
+
+function levelFmt(level) {
+    var levelStr = '难';
+    if(level==1){
+        levelStr='简单';
+    }else if(level=2){
+        levelStr='一般';
+    }else if(level=3){
+        levelStr='难';
+    }else if(level=4){
+        levelStr='困难';
+    }
+    return levelStr;
+}
+
 var vm = new Vue({
 	el:'#rrapp',
 	data:{

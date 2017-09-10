@@ -22,6 +22,7 @@
 			<button type="button" class="btn btn-default" @click="del">删除</button>
 			<button type="button" class="btn btn-default" data-toggle="modal"
 				@click="examList">试卷题目</button>
+			<button type="button" class="btn btn-default" @click="examStart">开始考试</button>
 		</div>
 		<table id="jqGrid"></table>
 		<div id="jqGridPager"></div>
@@ -42,32 +43,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div id="exampaperItem_nohave">
-					<div class="grid-btn">
-						<button type="button" class="btn btn-link">未添加题目列表</button>
-						<button type="button" class="btn btn-success" @click="addItem">添加题目</button>
-					</div>
-					<table id="jqGridItem_nohave"></table>
-					<div id="jqGridPagerItem_nohave"></div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<!-- 模态框（Modal） -->
 
-
-	<script
-		src="${rc.contextPath}/js/exampaper/examitem_have.js?_${date.systemTime}"></script>
-	<script
-		src="${rc.contextPath}/js/exampaper/examitem_nohave.js?_${date.systemTime}"></script>
 	<script
 		src="${rc.contextPath}/js/exampaper/exampaper.js?_${date.systemTime}"></script>
 	<script type="text/javascript">
 
 	</script>
-
-
 </body>
 </html>

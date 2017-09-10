@@ -3,14 +3,13 @@ $(function () {
         url: '../exampaper/list',
         datatype: "json",
         colModel: [			
-			{ label: '试卷编号', name: 'id', width: 50, key: true },
-			{ label: '试卷标题', name: 'title', width: 80 }, 			
-			//{ label: '试卷要求', name: 'detail', width: 80 }, 			
-			{ label: '创建时间', name: 'createTime', width: 80 }, 			
-			{ label: '作者', name: 'authorId', width: 80 }			
+			{ label: '试卷编号', name: 'id', width: 20, key: true },
+			{ label: '试卷标题', name: 'title', width: 100 },
+			{ label: '创建时间', name: 'createTime', width: 30 ,formatter:getLocalTime },
+			{ label: '作者', name: 'authorId', width: 20 }
         ],
         viewrecords: true,
-        height: 'auto',
+        height: '400px',
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
@@ -36,6 +35,10 @@ $(function () {
     });
 });
 
+function getLocalTime(nS) {
+    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+}
+
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
@@ -54,7 +57,6 @@ var vm = new Vue({
 			if(ids == null){
 				return ;
 			}
-			
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
@@ -78,7 +80,25 @@ var vm = new Vue({
                 return;
             }
             location.href = "paperDetail.html?examPaperId="+examPaperId;
+        },
+        examStart :function (event) {
+            layer.open({
+                type: 2,
+                offset: '50px',
+                shade: 0,
+                title: '开始考试',
+                area: ['700px', '450px'],
+                closeBtn: 0,
+                shadeClose: false,
+                skin: 'layui-layer-molv',
+                btn: ['确定', '取消'],
+                content: 'startExam.html',
+                btn1: function (index) {
+                   alert(222)
+                }
+            });
         }
+
 	}
 });
 

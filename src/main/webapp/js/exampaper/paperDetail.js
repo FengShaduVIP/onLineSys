@@ -10,7 +10,7 @@ $(function () {
             { label: '作者', name: 'authorId', width: 15 }
         ],
         viewrecords: true,
-        height: '350px',
+        height: '400px',
         autowidth:true,
         shrinkToFit: true,
         rowNum: 10,

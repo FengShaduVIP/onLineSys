@@ -23,7 +23,7 @@
 		<div class="form-group">
 		   	<div class="col-sm-2 control-label">密码</div>
 		   	<div class="col-sm-10">
-				<input id="password" type="password" class="form-control" v-model="stuInfo.classId" placeholder="初始密码为学号"/>
+				<input id="password" type="password" class="form-control" placeholder="初始密码为学号"/>
 		    </div>
 		</div>
 		<div class="form-group">
@@ -40,6 +40,7 @@
        var password =  document.getElementById("password");
        if(id==null){
            password.setAttribute("disabled","disabled");
+           password.setAttribute("type","text");
 	   }
        console.log('id',id)
     });

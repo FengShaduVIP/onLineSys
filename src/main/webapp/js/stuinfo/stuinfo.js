@@ -10,7 +10,7 @@ $(function () {
 			{ label: '教师姓名', name: 'teachId', width: 80 }			
         ],
 		viewrecords: true,
-        height: '85%',
+        height: '400px',
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
