@@ -34,7 +34,7 @@ import com.twp.utils.R;
  * @date 2017-08-05 15:59:28
  */
 @Controller
-@RequestMapping("stuinfo")
+@RequestMapping("/stuinfo")
 public class StuInfoController {
 	@Autowired
 	private StuInfoService stuInfoService;
