@@ -46,6 +46,11 @@ public class ExamPaperController {
 	public String paperDetail(){
 		return "exampaper/paperDetail.html";
 	}
+
+	@RequestMapping("/startExam.html")
+	public String startExam(){
+		return "exampaper/startExam.html";
+	}
 	
 	/**
 	 * 列表

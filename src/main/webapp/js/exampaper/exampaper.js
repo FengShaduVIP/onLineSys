@@ -82,20 +82,20 @@ var vm = new Vue({
             location.href = "paperDetail.html?examPaperId="+examPaperId;
         },
         examStart :function (event) {
+            var examPaperId = getSelectedRow();
+            if (examPaperId == null) {
+                return;
+            }
             layer.open({
                 type: 2,
                 offset: '50px',
                 shade: 0,
                 title: '开始考试',
-                area: ['700px', '450px'],
-                closeBtn: 0,
+                area: ['500px', '470px'],
+                closeBtn: 2,
                 shadeClose: false,
                 skin: 'layui-layer-molv',
-                btn: ['确定', '取消'],
-                content: 'startExam.html',
-                btn1: function (index) {
-                   alert(222)
-                }
+                content: 'startExam.html?examPaperId='+examPaperId,
             });
         }
 
