@@ -27,7 +27,21 @@ public class StuGradeEntity implements Serializable {
 	private Integer score;
 	//
 	private Integer createTime;
+	//
+	private Integer examTestId;
 
+	/**
+	 * 设置：
+	 */
+	public void setExamTestId(Integer examTestId) {
+		this.examTestId = examTestId;
+	}
+	/**
+	 * 获取：
+	 */
+	public Integer getExamTestId() {
+		return examTestId;
+	}
 	/**
 	 * 设置：
 	 */
