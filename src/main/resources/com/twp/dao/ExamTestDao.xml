@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="queryGoingList" resultType="java.util.HashMap">
-		select *  from exam_test where status = 1  order by start_time DESC
+		select *  from exam_test where status = 1  order by end_time ASC
 	</select>
 	
  	<select id="queryTotal" resultType="int">
