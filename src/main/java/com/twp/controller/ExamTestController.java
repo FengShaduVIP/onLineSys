@@ -88,10 +88,11 @@ public class ExamTestController {
 	@ResponseBody
 	@RequestMapping("/isGoingList")
 //	@RequiresPermissions("examtest:list")
-	public R isGoingList(Integer page, Integer limit){
+	public R isGoingList(Integer page, Integer limit,Integer classId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
+		map.put("classId", classId);
 		
 		//查询列表数据
 		List<ExamTestEntity> examTestList = examTestService.queryIsGoingList(map);

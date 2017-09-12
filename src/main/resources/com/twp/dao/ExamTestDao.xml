@@ -15,10 +15,15 @@
 	</select>
 	
 	<select id="queryIsGoingList" resultType="java.util.HashMap">
-		select a.* ,b.real_name from exam_test a,sys_user b where a.status = 1 and a.author_id = b.user_id order by a.start_time DESC
+		select a.* ,b.real_name from exam_test a,sys_user b ,class_test c where c.class_id = #{classId} and c.exam_test_id = a.id
+		and  a.status = 1 and a.author_id = b.user_id order by a.start_time DESC
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
+	</select>
+	
+	<select id="queryGoingList" resultType="java.util.HashMap">
+		select *  from exam_test where status = 1  order by start_time DESC
 	</select>
 	
  	<select id="queryTotal" resultType="int">
