@@ -44,6 +44,11 @@ public class ExamTestController {
 	public String list(){
 		return "examtest/examtest.html";
 	}
+
+	@RequestMapping("/examTestHis.html")
+	public String examTestHis(){
+		return "examtest/examTestHis.html";
+	}
 	
 	@RequestMapping("/examtest_add.html")
 	public String add(){

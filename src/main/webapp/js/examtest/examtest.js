@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../examtest/list',
+        url: '../examtest/examTestList',
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', width: 50, key: true,hidden:true },
