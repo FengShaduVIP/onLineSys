@@ -3,16 +3,15 @@ package com.twp.task;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.twp.entity.ExamTestEntity;
-import com.twp.entity.SysUserEntity;
 import com.twp.service.ExamTestService;
-import com.twp.service.SysUserService;
 
+@Component("examTest")
 public class ExamTest {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -41,9 +40,6 @@ public class ExamTest {
 				}
 			}
 		}
-//		SysUserEntity user = sysUserService.queryObject(1L);
-//		System.out.println(ToStringBuilder.reflectionToString(user));
-		
 	}
 	
 	
