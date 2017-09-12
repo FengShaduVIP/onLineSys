@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="queryList" resultType="java.util.HashMap">
-		select a.* ,b.real_name from exam_test a,sys_user b where a.author_id = b.username order by a.start_time DESC
+		select a.* ,b.real_name from exam_test a,sys_user b where a.author_id = b.username order by a.end_time DESC, a.status DESC
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
@@ -16,7 +16,7 @@
 	
 	<select id="queryIsGoingList" resultType="java.util.HashMap">
 		select a.* ,b.real_name from exam_test a,sys_user b ,class_test c where c.class_id = #{classId} and c.exam_test_id = a.id
-		and  a.status = 1 and a.author_id = b.username order by a.start_time DESC
+		and  a.status = 1 and a.author_id = b.username order by a.end_time DESC
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
