@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+#parse("sys/header.html")
+</head>
+<body>
+<div class="layui-container">
+	<div class="layui-row">
+		<div class="layui-col-xs6">
+			<h2>考试名称：</h2>
+		</div>
+		<div class="layui-col-xs6">
+			<div class="layui-inline">
+				<input type="text" class="layui-input" id="test1" value="2099-01-01 00:00:00">
+			</div>
+			<blockquote class="layui-elem-quote" style="margin-top: 10px;">
+				<h3>剩余时间：</h3>
+				<div id="test2"></div>
+			</blockquote>
+		</div>
+	</div>
+	<div class="layui-row">
+		<div class="layui-collapse" lay-filter="test">
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">为什么JS社区大量采用未发布或者未广泛支持的语言特性？</h2>
+				<div class="layui-colla-content">
+					<p>有不少其他答案说是因为JS太差。我下面的答案已经说了，这不是根本性的原因。但除此之外，我还要纠正一些对JS具体问题的误解。JS当初是被作为脚本语言设计的，所以某些问题并不是JS设计得差或者是JS设计者的失误。比如var的作用域问题，并不是“错误”，而是当时绝大部分脚本语言都是这样的，如perl/php/sh等。模块的问题也是，脚本语言几乎都没有模块/命名空间功能。弱类型、for-in之类的问题也是，只不过现在用那些老的脚本语言的人比较少，所以很多人都误以为是JS才有的坑。另外有人说JS是半残语言，满足不了开发需求，1999年就该死。半残这个嘛，就夸张了。JS虽然有很多问题，但是设计总体还是优秀的。——来自知乎@贺师俊</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="${rc.contextPath}/js/examtest/ExamTestDetail.js?_${date.systemTime}"></script>
+<script type="text/javascript">
+    layui.use(['util', 'laydate'], function(){
+        var util = layui.util
+            ,laydate = layui.laydate;
+        //倒计时
+        var thisTimer, setCountdown = function(y, M, d, H, m, s){
+            var endTime = new Date(y, M||0, d||1, H||0, m||0, s||0) //结束日期
+                ,serverTime = new Date(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+            clearTimeout(thisTimer);
+            util.countdown(endTime, serverTime, function(date, serverTime, timer){
+                var str = date[0] + '天' + date[1] + '时' +  date[2] + '分' + date[3] + '秒';
+                lay('#test2').html(str);
+                thisTimer = timer;
+            });
+        };
+        setCountdown(2099,1,1);
+        laydate.render({
+            elem: '#test1'
+            ,type: 'datetime'
+            ,done: function(value, date){
+                setCountdown(date.year, date.month - 1, date.date, date.hours, date.minutes, date.seconds);
+            }
+        });
+    });
+</script>
+</body>
+</html>
