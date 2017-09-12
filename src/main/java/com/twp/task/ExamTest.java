@@ -19,14 +19,9 @@ public class ExamTest {
 	@Autowired
 	private ExamTestService examTestService;
 	
-	public void closeExamTest(String params){
-		logger.info("我是带参数的test方法，正在被执行，参数为：" + params);
-		
-		try {
-			Thread.sleep(1000L);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public void closeExamTest(){
+
+		logger.info("执行关闭在线考试任务");
 		
 		List<ExamTestEntity> examTestList = examTestService.queryGoingList();
 		if(examTestList != null && examTestList.size() > 0) {
@@ -36,7 +31,7 @@ public class ExamTest {
 				if(endTime.before(nowTime))  {  //若 结束时间在当前时间之前 则改变status
 					ExamTestEntity examTestEntity = examTestList.get(i);
 					examTestEntity.setStatus(0);  //状态改变成  0   表示考试已结束。
-					examTestService.save(examTestEntity);
+					examTestService.update(examTestEntity);
 				}
 			}
 		}

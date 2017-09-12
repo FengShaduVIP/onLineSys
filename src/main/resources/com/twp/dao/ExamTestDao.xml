@@ -22,7 +22,7 @@
 		</if>
 	</select>
 	
-	<select id="queryGoingList" resultType="java.util.HashMap">
+	<select id="queryGoingList" resultType="com.twp.entity.ExamTestEntity">
 		select *  from exam_test where status = 1  order by start_time DESC
 	</select>
 	
