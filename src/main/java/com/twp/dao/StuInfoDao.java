@@ -17,5 +17,5 @@ public interface StuInfoDao extends BaseDao<StuInfoEntity> {
 	
 	int deleteUser(Object id);
 	
-	Long queryStuClass(long userId);
+	int queryStuClass(long userId);
 }

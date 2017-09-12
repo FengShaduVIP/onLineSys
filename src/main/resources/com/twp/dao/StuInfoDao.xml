@@ -72,8 +72,8 @@
 		delete from sys_user where user_id = (select user_id from stu_info where id = #{id}) 
 	</delete>
 	
-	<select id="queryStuClass" resultType="Long">
-		select class_id from stu_info where user_id = #{userId}) 
+	<select id="queryStuClass" resultType="int">
+		select class_id from stu_info where user_id = #{userId}
 	</select>
 
 </mapper>

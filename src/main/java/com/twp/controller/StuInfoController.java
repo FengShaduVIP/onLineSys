@@ -96,7 +96,7 @@ public class StuInfoController {
 	//@RequiresPermissions("stuinfo:info")
 	public R queryStuClass(){
 		Long userId = ShiroUtils.getUserId();
-		Long classId = stuInfoService.queryStuClass(userId);
+		int classId = stuInfoService.queryStuClass(userId);
 		return R.ok().put("classId", classId);
 	}
 	

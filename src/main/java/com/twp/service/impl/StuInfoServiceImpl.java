@@ -33,7 +33,7 @@ public class StuInfoServiceImpl implements StuInfoService {
 	}
 	
 	@Override
-	public Long queryStuClass(long userId){
+	public int queryStuClass(long userId){
 		return stuInfoDao.queryStuClass(userId);
 	}
 	
