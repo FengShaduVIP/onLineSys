@@ -96,10 +96,10 @@ public class StuGradeController {
 		map.put("classsId", classId);
 		
 		//查询列表数据
-		List<Map<String, Object>> stuGradeList = stuGradeService.StuGradeLists(map);
+		List<Map<String, Object>> stuGradeLists = stuGradeService.StuGradeLists(map);
 		int total = stuGradeService.queryStuTotals(map);
 		
-		PageUtils pageUtil = new PageUtils(stuGradeList, total, limit, page);
+		PageUtils pageUtil = new PageUtils(stuGradeLists, total, limit, page);
 		
 		return R.ok().put("page", pageUtil);
 	}

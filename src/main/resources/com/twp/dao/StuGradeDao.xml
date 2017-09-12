@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="queryStuTotals" resultType="int">
-		select count(*) from stu_grade  where classId = #{classId}
+		select count(*) from stu_grade  where class_id = #{classId}
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.StuGradeEntity" useGeneratedKeys="true" keyProperty="id">
