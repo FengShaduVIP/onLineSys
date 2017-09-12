@@ -33,6 +33,11 @@ public class ExamTestServiceImpl implements ExamTestService {
 	}
 	
 	@Override
+	public List<ExamTestEntity> queryGoingList( ){
+		return examTestDao.queryGoingList();
+	}
+	
+	@Override
 	public int queryTotal(Map<String, Object> map){
 		return examTestDao.queryTotal(map);
 	}

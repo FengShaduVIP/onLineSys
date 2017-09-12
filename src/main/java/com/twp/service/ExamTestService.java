@@ -22,6 +22,8 @@ public interface ExamTestService {
 	
 	List<ExamTestEntity> queryIsGoingList(Map<String, Object> map);
 	
+	List<ExamTestEntity> queryGoingList();
+	
 	int queryTotal(Map<String, Object> map);
 	
 	int queryIsGoingTotal(Map<String, Object> map);
