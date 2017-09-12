@@ -28,8 +28,28 @@ public class StuGradeServiceImpl implements StuGradeService {
 	}
 	
 	@Override
+	public List<Map<String, Object>> StuGradeList(Map<String, Object> map){
+		return stuGradeDao.StuGradeList(map);
+	}
+	
+	@Override
+	public List<Map<String,Object>> StuGradeLists(Map<String, Object> map){
+		return stuGradeDao.StuGradeLists(map);
+	}
+	
+	@Override
 	public int queryTotal(Map<String, Object> map){
 		return stuGradeDao.queryTotal(map);
+	}
+	
+	@Override
+	public int queryStuTotal(Map<String, Object> map){
+		return stuGradeDao.queryStuTotal(map);
+	}
+	
+	@Override
+	public int queryStuTotals (Map<String, Object> map){
+		return stuGradeDao.queryStuTotals(map);
 	}
 	
 	@Override

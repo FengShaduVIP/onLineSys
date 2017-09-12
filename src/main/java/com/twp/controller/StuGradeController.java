@@ -16,6 +16,7 @@ import com.twp.entity.StuGradeEntity;
 import com.twp.service.StuGradeService;
 import com.twp.utils.PageUtils;
 import com.twp.utils.R;
+import com.twp.utils.ShiroUtils;
 
 
 /**
@@ -46,7 +47,7 @@ public class StuGradeController {
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	@RequiresPermissions("stugrade:list")
+//	@RequiresPermissions("stugrade:list")
 	public R list(Integer page, Integer limit){
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
@@ -55,6 +56,48 @@ public class StuGradeController {
 		//查询列表数据
 		List<StuGradeEntity> stuGradeList = stuGradeService.queryList(map);
 		int total = stuGradeService.queryTotal(map);
+		
+		PageUtils pageUtil = new PageUtils(stuGradeList, total, limit, page);
+		
+		return R.ok().put("page", pageUtil);
+	}
+	
+	/**
+	 * 学生查询个人成绩列表
+	 */
+	@ResponseBody
+	@RequestMapping("/StuGradeList")
+//	@RequiresPermissions("stugrade:list")
+	public R StuGradeList(Integer page, Integer limit){
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", (page - 1) * limit);
+		map.put("limit", limit);
+		map.put("userId", ShiroUtils.getUserId());
+		
+		//查询列表数据
+		List<Map<String, Object>> stuGradeList = stuGradeService.StuGradeList(map);
+		int total = stuGradeService.queryStuTotal(map);
+		
+		PageUtils pageUtil = new PageUtils(stuGradeList, total, limit, page);
+		
+		return R.ok().put("page", pageUtil);
+	}
+	
+	/**
+	 * 教师查询学生成绩列表
+	 */
+	@ResponseBody
+	@RequestMapping("/StuGradeLists")
+//	@RequiresPermissions("stugrade:list")
+	public R StuGradeLists(Integer page, Integer limit,Integer classId){
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", (page - 1) * limit);
+		map.put("limit", limit);
+		map.put("classsId", classId);
+		
+		//查询列表数据
+		List<Map<String, Object>> stuGradeList = stuGradeService.StuGradeLists(map);
+		int total = stuGradeService.queryStuTotals(map);
 		
 		PageUtils pageUtil = new PageUtils(stuGradeList, total, limit, page);
 		

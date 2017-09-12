@@ -14,8 +14,31 @@
 		</if>
 	</select>
 	
+	<select id="StuGradeList" resultType="java.util.HashMap">
+		select a.*,b.exam_title from stu_grade a,exam_test b where a.stu_id = #{userId} AND a.exam_test_id = b.id order by a.create_time DESC
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="StuGradeLists" resultType="java.util.HashMap">
+	SELECT a.*, b.exam_title, c.real_name FROM stu_grade a, exam_test b, sys_user c WHERE
+	a.class_id = #{classId} AND a.exam_test_id = b.id AND a.stu_id = c.user_id ORDER BY a.score DESC
+	<if test="offset != null and limit != null">
+		limit #{offset}, #{limit}
+	</if>
+</select>
+	
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_grade 
+	</select>
+	
+	<select id="queryStuTotal" resultType="int">
+		select count(*) from stu_grade where stu_id = #{userId}
+	</select>
+	
+	<select id="queryStuTotals" resultType="int">
+		select count(*) from stu_grade  where classId = #{classId}
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.StuGradeEntity" useGeneratedKeys="true" keyProperty="id">
@@ -25,7 +48,8 @@
 			`stu_id`, 
 			`class_id`, 
 			`score`, 
-			`create_time`
+			`create_time`,
+			`exam_test__id`
 		)
 		values
 		(
@@ -33,7 +57,8 @@
 			#{stuId}, 
 			#{classId}, 
 			#{score}, 
-			#{createTime}
+			#{createTime},
+			#{examTestId}
 		)
 	</insert>
 	 
@@ -45,6 +70,7 @@
 			<if test="classId != null">`class_id` = #{classId}, </if>
 			<if test="score != null">`score` = #{score}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}</if>
+			<if test="examTestId != null">`exam_test__id` = #{examTestId}</if>
 		</set>
 		where id = #{id}
 	</update>
