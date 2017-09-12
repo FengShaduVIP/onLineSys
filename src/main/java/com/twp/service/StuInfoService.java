@@ -18,6 +18,8 @@ public interface StuInfoService {
 	
 	List<StuInfoEntity> queryList(Map<String, Object> map);
 	
+	Long queryStuClass(long userId);
+	
 	int queryTotal(Map<String, Object> map);
 	
 	void save(StuInfoEntity stuInfo);

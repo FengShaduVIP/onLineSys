@@ -24,6 +24,7 @@ import com.twp.entity.StuInfoEntity;
 import com.twp.service.StuInfoService;
 import com.twp.utils.PageUtils;
 import com.twp.utils.R;
+import com.twp.utils.ShiroUtils;
 
 
 /**
@@ -84,6 +85,19 @@ public class StuInfoController {
 		StuInfoEntity stuInfo = stuInfoService.queryObject(id);
 		
 		return R.ok().put("stuInfo", stuInfo);
+	}
+	
+	
+	/**
+	 * 根据学生id查询学生所在班级
+	 */
+	@ResponseBody
+	@RequestMapping("/queryStuClass")
+	//@RequiresPermissions("stuinfo:info")
+	public R queryStuClass(){
+		Long userId = ShiroUtils.getUserId();
+		Long classId = stuInfoService.queryStuClass(userId);
+		return R.ok().put("classId", classId);
 	}
 	
 	/**
