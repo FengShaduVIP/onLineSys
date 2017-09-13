@@ -1,6 +1,7 @@
 package com.twp.controller;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,13 +21,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.stereotype.Controller;
 
+import com.twp.entity.StuExamItemEntity;
 import com.twp.entity.SysItemEntity;
+import com.twp.service.StuExamItemService;
 import com.twp.service.SysItemService;
 import com.twp.utils.DateUtils;
 import com.twp.utils.FileUtils;
+import com.twp.utils.OperateFile;
 import com.twp.utils.PageUtils;
 import com.twp.utils.PublicUtils;
 import com.twp.utils.R;
+import com.twp.utils.ShiroUtils;
 
 
 @Controller
@@ -34,6 +39,9 @@ import com.twp.utils.R;
 public class SysItemController {
 	@Autowired
 	private SysItemService sysItemService;
+	@Autowired
+	private StuExamItemService stuExamItemService;
+	
 	
 	@RequestMapping("/sysitem.html")
 	public String list(){
@@ -113,6 +121,56 @@ public class SysItemController {
 		sysItem.setTestBeach(FileUtils.readfile(filePath));
 		return R.ok().put("sysItem", sysItem);
 	}
+	
+	/**
+	 * 提交题目
+	 */
+//	@ResponseBody
+//	@RequestMapping("/tijiao")
+//	public R tijiao(String Text, Integer ItemId,Integer examTestId) throws IOException {
+//			Long userId = ShiroUtils.getUserId();  //登陆人id
+//			String result[] = new String[2];
+//			int isRight = 0;
+//			Integer scorce = 0;
+//			result = onlineTestService.BianYi(Text,ItemId,name);
+//			if(result[1].contains("error")){
+//				result[1] = "<br/>编译代码出错！！<br/><br/>"+result[1];
+//			}else{
+//				try {
+//					OperateFile reade = new OperateFile();
+//					String filePath = result[0]+File.separator+"run_sim.sh";
+//					String read = reade.readfile(result[0]+File.separator+"run_sim.sh");
+//					read = read +"vsim  +nospecify -c -lib work "+name+"_tb   -do 'run -all'";
+//					File file = new File(filePath);
+//					FileWriter out = new FileWriter(file);
+//					out.write(read);
+//					out.close();
+//					
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//				if(result[1].contains("Success")||result[1].contains("success")){//仿真通过
+//					isRight = 1;
+//					result[1] = "仿真成功。代码通过验证！！<br/><br/>";
+//				}else if(result[1].contains("Error")||result[1].contains("error")){//仿真失败 代码错误
+//					result[1] = "仿真失败。代码未通过验证！！<br/><br/>";
+//				}else{
+//					result[1] = "请刷新重新上传！";
+//				}
+//			}
+//				StuExamItemEntity stuExamItem = new StuExamItemEntity();
+//				stuExamItem.setExamPaperId(examPaperId);  //试卷id
+//				stuExamItem.setItemId(itemId);            //题目id
+//				stuExamItem.setStuId(stuId);              //登陆人id
+//				stuExamItem.setScore(score);              //分数
+//				stuExamItem.setCreateTime(new Date());    //创建时间
+//				stuExamItem.setClassId(classId);          //班级id
+//				stuExamItem.setExamTestId(examTestId);    //考试Id
+//				stuExamItem.setStatus(status);            //状态
+//				stuExamItemService.save(stuExamItem);
+//			}
+//		return R.ok();
+//	}
 	
 	/**
 	 * 保存
