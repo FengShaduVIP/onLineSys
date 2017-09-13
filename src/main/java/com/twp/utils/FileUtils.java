@@ -48,6 +48,35 @@ public class FileUtils {
 		logger.info("文件保存成功");
 	}
 
+	public static String saveFile(MultipartFile uploadFile,String fileName) {
+		logger.info("新增问题创建文件—————");
+		String TI_KU = PublicUtils.getConfig("FILE_PATH")+"TI_KU";
+		String filePath = TI_KU + File.separator + fileName;
+		logger.info("文件路径--"+filePath);
+		File file = new File(filePath);
+		if (file.exists())
+			file.delete();
+		if (!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
+		try {
+			InputStream inputStream = uploadFile.getInputStream();
+			byte[] b = new byte[1024 * 1024];
+			int length = inputStream.read(b);
+			FileOutputStream outputStream = new FileOutputStream(filePath);
+			outputStream.write(b, 0, length);
+			file.setExecutable(true);// 设置可执行权限
+			file.setReadable(true);// 设置可读权限
+			file.setWritable(true);// 设置可写权限
+			inputStream.close();
+			outputStream.close();
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		logger.info("文件保存成功");
+		return filePath;
+	}
+	
 	/**
 	 * @throws IOException
 	 * 

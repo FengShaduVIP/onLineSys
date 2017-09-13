@@ -3,6 +3,7 @@ package com.twp.controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,10 +24,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.stereotype.Controller;
 
 import com.twp.entity.StuExamItemEntity;
+import com.twp.entity.StuInfoEntity;
 import com.twp.entity.SysItemEntity;
+import com.twp.entity.SysUserEntity;
 import com.twp.service.StuExamItemService;
+import com.twp.service.StuInfoService;
 import com.twp.service.SysItemService;
+import com.twp.service.SysUserService;
 import com.twp.utils.DateUtils;
+import com.twp.utils.Excel;
 import com.twp.utils.FileUtils;
 import com.twp.utils.OperateFile;
 import com.twp.utils.PageUtils;
@@ -41,6 +48,10 @@ public class SysItemController {
 	private SysItemService sysItemService;
 	@Autowired
 	private StuExamItemService stuExamItemService;
+	@Autowired
+	private SysUserService sysUserService;
+	@Autowired
+	private StuInfoService stuInfoService;
 	
 	
 	@RequestMapping("/sysitem.html")
@@ -171,6 +182,70 @@ public class SysItemController {
 //			}
 //		return R.ok();
 //	}
+	
+	/**
+	 * excel导入
+	 */
+	@ResponseBody
+	@RequestMapping("/importExcel")
+	public R ImportExcel(HttpServletRequest request) {
+		String classId = request.getParameter("classId");  //获取班级id
+		Long userId = ShiroUtils.getUserId();              //获取登陆教师id
+		Integer classid = Integer.parseInt(classId);
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
+		MultipartFile uploadFile =req.getFile("ImportFile");
+		String path = FileUtils.saveFile(uploadFile,uploadFile.getName());  //获取到路径
+		Map<String, List<List<Object>>> tMap = Excel.readExcel(path);
+		List<String> msgList=new ArrayList<String>();
+		String addclassid = null;
+		int page_all=tMap.size();
+		for(int page=1;page<=page_all;page++){
+			int i=1;
+			List<List<Object>> oList=tMap.get("page_"+page);
+			if(oList.size()>0){
+				oList.remove(0);
+				for(List<Object> list:oList){
+					i++;
+					if(list.get(0)!=null){
+						String tId=(String) list.get(0);
+						Integer cId=Integer.valueOf(tId);   //获取学生id
+						String improttId = (String) list.get(2);
+						addclassid = improttId;
+						if(tId.matches("^[0-9]*$")){
+							List lists = stuInfoService.findStuByNo(cId,classid);
+							if(lists.size()==0){
+								//保存到用户信息表中
+								SysUserEntity sysUser=new SysUserEntity();
+								sysUser.setUsername(tId);   //用户名
+								sysUser.setPassword(new Sha256Hash(tId).toHex());   //用户密码
+								sysUser.setRealName((String) list.get(1));   //用户姓名
+//								sysUser.setEmail(email);         //电子邮件
+//								sysUser.setMobile(mobile);       //手机号码
+								sysUser.setStatus(1);            //设置用户状态 1 有效  
+								sysUser.setCreateTime(new Date());//用户创建时间
+								sysUser.setLevel(0);             //用户等级 0表示学生
+								sysUserService.save(sysUser);
+								//保存到学生信息表中
+								StuInfoEntity stuInfo = new StuInfoEntity();
+								stuInfo.setStuName((String) list.get(1));    //用户姓名
+								stuInfo.setUserId(sysUser.getUserId());      //用户id
+								stuInfo.setStuNo(cId);        //学号
+								stuInfo.setClassId(classid);
+								stuInfo.setTeachId(userId);
+								stuInfoService.save(stuInfo);
+							}else{
+								msgList.add("第"+page+"页 -第"+i+"行 :已在班級中");
+							}
+						}else{
+							msgList.add("学号："+cId+" 姓名："+(String)list.get(1)+" 在该班级已存在！");
+						}
+					}
+				}
+			}
+			
+		}
+		return R.ok();
+	}
 	
 	/**
 	 * 保存

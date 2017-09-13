@@ -66,5 +66,10 @@ public class StuInfoServiceImpl implements StuInfoService {
 	public void deleteUser(Long id){
 		stuInfoDao.deleteUser(id);
 	}
+
+	@Override
+	public List findStuByNo(Integer cId, Integer classid) {
+		return stuInfoDao.findStuByNo(cId,classid);
+	}
 	
 }

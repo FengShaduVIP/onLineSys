@@ -15,6 +15,11 @@
 		</if>
 	</select>
 	
+	<select id="findStuByNo" resultType="com.twp.entity.StuInfoEntity">
+		select *  from stu_info
+		where stu_no = #{0} and class_id = #{1}
+	</select>
+	
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_info
 		where class_id = #{classId}

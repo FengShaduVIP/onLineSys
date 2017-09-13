@@ -33,4 +33,6 @@ public interface StuInfoService {
 	void deleteBatch(Long[] ids);
 	
 	void deleteUser(Long id);
+
+	List findStuByNo(Integer cId, Integer classid);
 }

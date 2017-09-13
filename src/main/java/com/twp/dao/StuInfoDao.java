@@ -1,5 +1,6 @@
 package com.twp.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.twp.entity.StuInfoEntity;
@@ -18,4 +19,6 @@ public interface StuInfoDao extends BaseDao<StuInfoEntity> {
 	int deleteUser(Object id);
 	
 	int queryStuClass(long userId);
+	
+	List findStuByNo(Integer cId, Integer classid);
 }
