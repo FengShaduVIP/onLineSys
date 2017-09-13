@@ -27,7 +27,8 @@
 			`score`, 
 			`create_time`, 
 			`class_id`,
-			`exam_test_id`
+			`exam_test_id`,
+			`status`
 		)
 		values
 		(
@@ -37,7 +38,8 @@
 			#{score}, 
 			#{createTime}, 
 			#{classId},
-			#{examTestId}
+			#{examTestId},
+			#{status}
 		)
 	</insert>
 	 
@@ -51,6 +53,7 @@
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="classId != null">`class_id` = #{classId},</if>
 			<if test="examTestId != null">`exam_test_id` = #{examTestId}</if>
+			<if test="status != null">`status` = #{status}</if>
 		</set>
 		where id = #{id}
 	</update>

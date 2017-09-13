@@ -20,5 +20,5 @@ public interface ExamTestDao extends BaseDao<ExamTestEntity> {
 	
 	int queryIsGoingTotal(Map<String, Object> map);
 	
-	List<Map<String, String>> queryExamTestList(Integer id);
+	List<Map<String, String>> queryExamTestList(Integer id,Long userId);
 }

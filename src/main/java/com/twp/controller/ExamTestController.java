@@ -88,7 +88,8 @@ public class ExamTestController {
 //	@RequiresPermissions("examtest:list")
 	public R examTestList(Integer id){
 		//查询列表数据
-		List<Map<String, String>> examTestList = examTestService.queryExamTestList(id);
+		Long userId = ShiroUtils.getUserId();
+		List<Map<String, String>> examTestList = examTestService.queryExamTestList(id,userId);
 		return R.ok().put("list", examTestList);
 	}
 	

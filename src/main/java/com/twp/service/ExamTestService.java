@@ -18,7 +18,7 @@ public interface ExamTestService {
 	
 	List<ExamTestEntity> queryList(Map<String, Object> map);
 	
-	List<Map<String, String>> queryExamTestList(Integer id);
+	List<Map<String, String>> queryExamTestList(Integer id,Long userId);
 	
 	List<ExamTestEntity> queryIsGoingList(Map<String, Object> map);
 	

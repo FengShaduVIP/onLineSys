@@ -68,8 +68,8 @@ public class ExamTestServiceImpl implements ExamTestService {
 	}
 
 	@Override
-	public List<Map<String, String>> queryExamTestList(Integer id) {
-		return examTestDao.queryExamTestList(id);
+	public List<Map<String, String>> queryExamTestList(Integer id,Long userId) {
+		return examTestDao.queryExamTestList(id,userId);
 	}
 	
 }

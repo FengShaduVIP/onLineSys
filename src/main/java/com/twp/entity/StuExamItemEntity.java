@@ -31,6 +31,8 @@ public class StuExamItemEntity implements Serializable {
 	private Integer classId;
 	//
 	private Integer examTestId;
+	//
+	private Integer status;
 
 	/**
 	 * 设置：
@@ -127,5 +129,17 @@ public class StuExamItemEntity implements Serializable {
 	 */
 	public Integer getExamTestId() {
 		return examTestId;
+	}
+	/**
+	 * 设置：
+	 */
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	/**
+	 * 获取：
+	 */
+	public Integer getStatus() {
+		return status;
 	}
 }
