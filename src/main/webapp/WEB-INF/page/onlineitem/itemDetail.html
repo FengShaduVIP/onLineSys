@@ -3,10 +3,9 @@
 <head>
 <title></title>
 #parse("sys/header.html")
-	<link rel="stylesheet" href="${rc.contextPath}/statics/plugins/layui/css/layui.css">
 </head>
 <body>
-	<div class="layui-container">
+	<div class="layui-container" id="rrapp">
 		<div class="layui-row" style="margin: 20px; height: 30px">
 			<div class="layui-col-xs1">
 				<a href="javascript:history.go(-1)">返回列表</a>
@@ -17,7 +16,7 @@
 			</div>
 		</div>
 		<div class="layui-row">
-			<div style="width: 80%;margin:0 auto;" class="panel panel-default" id="rrapp" v-cloak>
+			<div style="width: 80%;margin:0 auto;" class="panel panel-default"  v-cloak>
 				<div></div>
 				<div class="panel-heading">题目标题 ：</div>
 				<div class="panel-body" style="padding: 20px">
@@ -38,6 +37,5 @@
 		</div>
 	</div>
 	<script src="${rc.contextPath}/js/onlineitem/itemDetail.js?_${date.systemTime}"></script>
-	<script src="${rc.contextPath}/statics/plugins/layui/layui.js"></script>
 </body>
 </html>

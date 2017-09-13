@@ -105,7 +105,7 @@ public class SysItemController {
 	 */
 	@ResponseBody
 	@RequestMapping("/info/{id}")
-	@RequiresPermissions("tech:items:info")
+	//@RequiresPermissions("tech:items:info")
 	public R info(@PathVariable("id") Integer id){
 		SysItemEntity sysItem = sysItemService.queryObject(id);
 		String TI_KU = PublicUtils.getConfig("FILE_PATH")+File.separator+"TI_KU";

@@ -1,14 +1,12 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../stugrade/list',
+        url: '../stugrade/StuGradeList',
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', width: 50, key: true,hidden:true },
-			{ label: '', name: 'examPaperId', width: 80 }, 			
-			{ label: '', name: 'stuId', width: 80 }, 			
-			{ label: '', name: 'classId', width: 80 }, 			
-			{ label: '', name: 'score', width: 80 }, 			
-			{ label: '', name: 'createTime', width: 80 }			
+			{ label: '考试名称', name: 'exam_title', width: 80, formatter:statusFmt},
+			{ label: '分数', name: 'score', width: 80 },
+			{ label: '考试时间', name: 'create_time', width: 80 }
         ],
 		viewrecords: true,
         height: '400px',
@@ -37,42 +35,18 @@ $(function () {
     });
 });
 
+//点击题目标题跳转题目详情 做练习
+function statusFmt(cellvalue, options, rowObject) {
+    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'" >'+rowObject.title+'</a>';
+    return v;
+}
+
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		
 	},
 	methods: {
-		update: function (event) {
-			var id = getSelectedRow();
-			if(id == null){
-				return ;
-			}
-			
-			location.href = "stugrade_add.html?id="+id;
-		},
-		del: function (event) {
-			var ids = getSelectedRows();
-			if(ids == null){
-				return ;
-			}
-			
-			confirm('确定要删除选中的记录？', function(){
-				$.ajax({
-					type: "POST",
-				    url: "../stugrade/delete",
-				    data: JSON.stringify(ids),
-				    success: function(r){
-						if(r.code == 0){
-							alert('操作成功', function(index){
-								$("#jqGrid").trigger("reloadGrid");
-							});
-						}else{
-							alert(r.msg);
-						}
-					}
-				});
-			});
-		}
+
 	}
 });
