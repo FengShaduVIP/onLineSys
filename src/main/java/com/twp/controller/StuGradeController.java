@@ -41,6 +41,11 @@ public class StuGradeController {
 	public String add(){
 		return "stugrade/stugrade_add.html";
 	}
+
+	@RequestMapping("/myGradeList.html")
+	public String myGradeList(){
+		return "stugrade/MyGradeList.html";
+	}
 	
 	/**
 	 * 列表
