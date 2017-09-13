@@ -53,6 +53,11 @@ public class StuInfoController {
 	public String add(){
 		return "stuinfo/stuinfo_add.html";
 	}
+
+	@RequestMapping("/importStu.html")
+	public String importStu(){
+		return "stuinfo/importStu.html";
+	}
 	
 	/**
 	 * 列表

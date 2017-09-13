@@ -1,8 +1,6 @@
 package com.twp.controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,8 +50,8 @@ public class SysItemController {
 	private SysUserService sysUserService;
 	@Autowired
 	private StuInfoService stuInfoService;
-	
-	
+
+
 	@RequestMapping("/sysitem.html")
 	public String list(){
 		return "sysitem/sysitem.html";
@@ -194,7 +192,7 @@ public class SysItemController {
 		Integer classid = Integer.parseInt(classId);
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
 		MultipartFile uploadFile =req.getFile("ImportFile");
-		String path = FileUtils.saveFile(uploadFile,uploadFile.getName());  //获取到路径
+		String path = FileUtils.saveFile(uploadFile,uploadFile.getOriginalFilename());  //获取到路径
 		Map<String, List<List<Object>>> tMap = Excel.readExcel(path);
 		List<String> msgList=new ArrayList<String>();
 		String addclassid = null;
@@ -209,21 +207,22 @@ public class SysItemController {
 					if(list.get(0)!=null){
 						String tId=(String) list.get(0);
 						Integer cId=Integer.valueOf(tId);   //获取学生id
-						String improttId = (String) list.get(2);
-						addclassid = improttId;
 						if(tId.matches("^[0-9]*$")){
 							List lists = stuInfoService.findStuByNo(cId,classid);
 							if(lists.size()==0){
 								//保存到用户信息表中
+								List<Long> userRoleList = new ArrayList<Long>();
+								userRoleList.add(3L);
 								SysUserEntity sysUser=new SysUserEntity();
 								sysUser.setUsername(tId);   //用户名
-								sysUser.setPassword(new Sha256Hash(tId).toHex());   //用户密码
+								sysUser.setPassword(tId);   //用户密码
 								sysUser.setRealName((String) list.get(1));   //用户姓名
 //								sysUser.setEmail(email);         //电子邮件
 //								sysUser.setMobile(mobile);       //手机号码
 								sysUser.setStatus(1);            //设置用户状态 1 有效  
 								sysUser.setCreateTime(new Date());//用户创建时间
 								sysUser.setLevel(0);             //用户等级 0表示学生
+								sysUser.setRoleIdList(userRoleList);
 								sysUserService.save(sysUser);
 								//保存到学生信息表中
 								StuInfoEntity stuInfo = new StuInfoEntity();

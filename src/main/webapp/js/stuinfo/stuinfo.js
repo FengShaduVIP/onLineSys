@@ -76,6 +76,19 @@ var vm = new Vue({
 					}
 				});
 			});
-		}
+		},
+        importStu:function () {
+            layer.open({
+                type: 2,
+                offset: '50px',
+                shade: 0,
+                title: '导入学生信息',
+                area: ['600px', '260px'],
+                closeBtn: 2,
+                shadeClose: false,
+                skin: 'layui-layer-molv',
+                content: 'importStu.html?classId='+classId,
+            });
+        }
 	}
 });
