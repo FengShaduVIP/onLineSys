@@ -40,7 +40,7 @@ $(function () {
 });
 
 function statusFmt(cellvalue, options, rowObject) {
-    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'" >'+rowObject.exam_title+'</a>';
+    var v = '<a href="../examtest/examTestDetail.html?id='+rowObject.id+'" >'+rowObject.exam_title+'</a>';
     return v;
 }
 

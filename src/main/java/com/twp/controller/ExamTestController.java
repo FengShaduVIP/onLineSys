@@ -54,6 +54,11 @@ public class ExamTestController {
 	public String add(){
 		return "examtest/examtest_add.html";
 	}
+
+	@RequestMapping("/examTestDetail.html")
+	public String examTestDetail(){
+		return "examtest/ExamTestDetail.html";
+	}
 	
 	/**
 	 * 查询所有考试列表
