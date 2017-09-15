@@ -21,4 +21,6 @@ public interface StuGradeDao extends BaseDao<StuGradeEntity> {
 	int queryStuTotal(Map<String, Object> map);
 	
 	int queryStuTotals(Map<String, Object> map);
+
+	StuGradeEntity queryObjByMap(Map<String,String> map);
 }

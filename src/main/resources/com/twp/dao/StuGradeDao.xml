@@ -10,7 +10,14 @@
 	<select id="queryList" resultType="com.twp.entity.StuGradeEntity">
 		select * from stu_grade 
 		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+			limit #{offset}, #{limit} exam_test_id
+		</if>
+	</select>
+
+	<select id="queryObjByMap" resultType="com.twp.entity.StuGradeEntity">
+		select * from stu_grade
+		<if test="stuId != null and examTestId != null">
+			where stu_id = #{stuId} and exam_test__id = #{examTestId}
 		</if>
 	</select>
 	

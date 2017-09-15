@@ -35,4 +35,8 @@ public interface StuGradeService {
 	void delete(Integer id);
 	
 	void deleteBatch(Integer[] ids);
+
+    void saveStuGrade(Long userId, Integer examTestId,Integer stuSumScore);
+
+	StuGradeEntity queryObjByMap(Long stuId,Integer examTestId);
 }

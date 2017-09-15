@@ -1,8 +1,11 @@
 package com.twp.service.impl;
 
+import com.twp.dao.StuInfoDao;
+import com.twp.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +19,9 @@ import com.twp.service.StuExamItemService;
 public class StuExamItemServiceImpl implements StuExamItemService {
 	@Autowired
 	private StuExamItemDao stuExamItemDao;
+
+	@Autowired
+	private StuInfoDao stuInfoDao;
 	
 	@Override
 	public StuExamItemEntity queryObject(Integer id){
@@ -63,7 +69,43 @@ public class StuExamItemServiceImpl implements StuExamItemService {
 	 */
 	@Override
 	public void saveStuExamTestInfo(Long userId, Integer itemId, Integer examTestId, int isRight,int score) {
-
+		Integer stuId = Integer.parseInt(userId.toString());
+		List<StuExamItemEntity> entityList = this.queryObjByValue(stuId,examTestId,itemId);
+		StuExamItemEntity stuExamObj = new StuExamItemEntity();
+		if(entityList!=null&&entityList.size()>0){
+			stuExamObj = entityList.get(0);
+			stuExamObj.setStatus(isRight);
+			stuExamObj.setCreateTime(new Date());
+			stuExamObj.setScore(score);
+			this.update(stuExamObj);
+		}else{
+			int classId = stuInfoDao.queryStuClass(userId);
+			stuExamObj.setItemId(itemId);
+			stuExamObj.setClassId(classId);
+			stuExamObj.setStuId(stuId);
+			stuExamObj.setCreateTime(new Date());
+			stuExamObj.setScore(score);
+			stuExamObj.setExamTestId(examTestId);
+			stuExamObj.setStatus(isRight);
+			this.save(stuExamObj);
+		}
 	}
+
+	@Override
+	public List<StuExamItemEntity> queryObjByValue(Integer userId, Integer examTestId, Integer itemId) {
+		return stuExamItemDao.queryObjByValue(userId,examTestId,itemId);
+	}
+
+	/**
+	 * 查询学生 某场考试总分数
+	 * @param stuId
+	 * @param examTestId
+	 * @return
+	 */
+	@Override
+	public int queryStuSumScore(Integer stuId, Integer examTestId) {
+		return stuExamItemDao.queryStuSumScore(stuId,examTestId);
+	}
+
 
 }

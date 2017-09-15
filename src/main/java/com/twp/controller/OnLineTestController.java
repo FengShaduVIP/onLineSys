@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.twp.entity.SysUserEntity;
 import com.twp.service.StuExamItemService;
+import com.twp.service.StuGradeService;
 import com.twp.utils.OperateFile;
 import com.twp.utils.ShiroUtils;
 import org.slf4j.Logger;
@@ -37,6 +38,9 @@ public class OnLineTestController {
 
 	@Autowired
 	private StuExamItemService stuExamItemService;
+
+	@Autowired
+	private StuGradeService stuGradeService;
 
 
 	
@@ -103,7 +107,7 @@ public class OnLineTestController {
 					bianYiResult = "仿真成功。代码通过验证！！<br/><br/>";
 				}else if(bianYiResult.contains("Error")||bianYiResult.contains("error")){//仿真失败 代码错误
 					bianYiResult = "仿真失败。代码未通过验证！！<br/><br/>";
-					isRight = 3;
+					isRight = 0;
 					score=0;
 				}else{
 					bianYiResult = "请刷新重新上传！";
@@ -113,6 +117,8 @@ public class OnLineTestController {
 			}
 		}
 		stuExamItemService.saveStuExamTestInfo(userId,itemId,examTestId,isRight,score);
+		int stuSumScore = stuExamItemService.queryStuSumScore(Integer.parseInt(userId.toString()),examTestId);
+		stuGradeService.saveStuGrade(userId,examTestId,stuSumScore);
 		return R.ok().put("result",bianYiResult);
 	}
 

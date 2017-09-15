@@ -29,4 +29,8 @@ public interface StuExamItemService {
 	void deleteBatch(Integer[] ids);
 
     void saveStuExamTestInfo(Long userId, Integer itemId, Integer examTestId, int isRight,int score);
+
+    List<StuExamItemEntity> queryObjByValue(Integer userId,Integer examTestId,Integer itemId);
+
+    int queryStuSumScore(Integer stuId,Integer examTestId);
 }

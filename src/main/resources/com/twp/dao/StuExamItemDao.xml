@@ -17,7 +17,16 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_exam_item 
 	</select>
-	 
+
+	<select id="queryObjByValue" resultType="com.twp.entity.StuExamItemEntity">
+		SELECT * FROM stu_exam_item where stu_id = #{0} and exam_test_id = #{1} and item_id = #{2}
+	</select>
+
+	<!--查询学生某场考试总分数-->
+	<select id="queryStuSumScore" resultType="int">
+		SELECT SUM(score) AS sumScore FROM stu_exam_item where stu_id = #{0} and exam_test_id = #{1}
+	</select>
+
 	<insert id="save" parameterType="com.twp.entity.StuExamItemEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into stu_exam_item
 		(
