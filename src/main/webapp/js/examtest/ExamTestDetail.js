@@ -43,7 +43,8 @@ var vm = new Vue({
 	data:{
 		title:'',
 		examList:[],
-		sendData:{}
+		sendData:{},
+        layIndex:-1
 	},
 	created: function() {
 		if(id != null){

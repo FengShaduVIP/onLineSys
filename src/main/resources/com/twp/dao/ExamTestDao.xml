@@ -34,9 +34,32 @@
 		select count(*) from exam_test  where status = 1
 	</select>
 	
-	<select id="queryExamTestList" resultType="java.util.HashMap">
+<!--	<select id="queryExamTestList" resultType="java.util.HashMap">
 		SELECT c.id, c.title, c.context, c.score, d.`status` FROM exam_test a, exampaper_item b, sys_item c, stu_exam_item d
 		WHERE a.id = #{0} and a.exam__paper_id = b.exampaper_id and  b.item_id = c.id and d.item_id = b.item_id and d.stu_id = #{1} ORDER BY c.id ASC
+	</select>-->
+
+	<select id="queryExamTestList" resultType="java.util.HashMap">
+		SELECT
+			re.*, stu_item.status
+		FROM
+			stu_exam_item stu_item
+		RIGHT JOIN (
+			SELECT
+				c.id,
+				c.title,
+				c.context,
+				c.score
+			FROM
+				exam_test a,
+				exampaper_item b,
+				sys_item c
+			WHERE
+				a.id = #{0}
+			AND a.exam__paper_id = b.exampaper_id
+			AND b.item_id = c.id
+		) re ON stu_item.item_id = re.id
+		AND stu_item.stu_id = #{1}
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.ExamTestEntity" useGeneratedKeys="true" keyProperty="id">

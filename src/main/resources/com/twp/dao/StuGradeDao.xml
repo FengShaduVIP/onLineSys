@@ -17,7 +17,7 @@
 	<select id="queryObjByMap" resultType="com.twp.entity.StuGradeEntity">
 		select * from stu_grade
 		<if test="stuId != null and examTestId != null">
-			where stu_id = #{stuId} and exam_test__id = #{examTestId}
+			where stu_id = #{stuId} and exam_test_id = #{examTestId}
 		</if>
 	</select>
 	
@@ -56,7 +56,7 @@
 			`class_id`, 
 			`score`, 
 			`create_time`,
-			`exam_test__id`
+			`exam_test_id`
 		)
 		values
 		(
@@ -76,8 +76,8 @@
 			<if test="stuId != null">`stu_id` = #{stuId}, </if>
 			<if test="classId != null">`class_id` = #{classId}, </if>
 			<if test="score != null">`score` = #{score}, </if>
-			<if test="createTime != null">`create_time` = #{createTime}</if>
-			<if test="examTestId != null">`exam_test__id` = #{examTestId}</if>
+			<if test="createTime != null">`create_time` = #{createTime},</if>
+			<if test="examTestId != null">`exam_test_id` = #{examTestId}</if>
 		</set>
 		where id = #{id}
 	</update>

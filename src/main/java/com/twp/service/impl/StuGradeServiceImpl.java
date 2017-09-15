@@ -96,6 +96,7 @@ public class StuGradeServiceImpl implements StuGradeService {
 			}
 			this.update(stuGradeEntity);
 		}else{
+			stuGradeEntity = new StuGradeEntity();
 			int classId = stuInfoDao.queryStuClass(userId);
 			if(stuSumScore ==null){
 				stuGradeEntity.setScore(0);

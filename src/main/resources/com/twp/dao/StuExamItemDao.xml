@@ -61,7 +61,7 @@
 			<if test="score != null">`score` = #{score}, </if>
 			<if test="createTime != null">`create_time` = #{createTime}, </if>
 			<if test="classId != null">`class_id` = #{classId},</if>
-			<if test="examTestId != null">`exam_test_id` = #{examTestId}</if>
+			<if test="examTestId != null">`exam_test_id` = #{examTestId},</if>
 			<if test="status != null">`status` = #{status}</if>
 		</set>
 		where id = #{id}

@@ -52,7 +52,7 @@
             }
         });
     });
-    function sumbitItem(itemID) {
+    function submitItemTest(itemID) {
 		vm.sendData.text = document.getElementById(itemID).value;
 		vm.sendData.examTestId = id;
 		vm.sendData.itemId = itemID;
@@ -61,12 +61,20 @@
             url: "../onlinetest/sumbitItemTest",
             data: JSON.stringify(vm.sendData),
             dataType: "json",
+            beforeSend:function () {
+				vm.layIndex = 	layer.msg('加载中。。。', {icon: 4,time:100000});
+            },
             success: function(r){
                 if(r.code === 0){
+                    layer.close(vm.layIndex);
                     alert(r.result);
                 }else{
+                    layer.close(vm.layIndex);
                     alert(r.msg);
                 }
+            },error:function () {
+                layer.close(vm.layIndex);
+                alert('服务器出错，请联系管理员');
             }
         });
 
