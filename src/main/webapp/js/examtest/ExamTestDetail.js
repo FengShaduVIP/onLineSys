@@ -27,7 +27,7 @@ var examItem = Vue.extend({
 					'<div class="layui-form-item layui-form-text" style="padding-top: 20px">',
 						'<div class="layui-input-block">',
 							'<textarea :id="item.id"  :key="item.id" placeholder="请输入提交内容" class="layui-textarea"></textarea>',
-							'<button @click="sumbitItem(item.id)">提交</button>',
+							'<button @click="submitItemTest(item.id)">提交</button>',
 						'</div>',
 					'</div>',
 				'</div>',
@@ -43,6 +43,7 @@ var vm = new Vue({
 	data:{
 		title:'',
 		examList:[],
+		sendData:{}
 	},
 	created: function() {
 		if(id != null){
@@ -51,6 +52,7 @@ var vm = new Vue({
 		}
     },
 	methods: {
+		//获取考试题目列表
 		getInfo: function(id){
 			$.get("../examtest/examTestList?id="+id, function(r){
                 vm.examList = r.list;

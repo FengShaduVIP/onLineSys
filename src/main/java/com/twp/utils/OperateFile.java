@@ -10,7 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class OperateFile {
 	private static final String CONFIG_FILE = "upload.properties";
-	
+
+	private static Logger logger = LoggerFactory.getLogger(OperateFile.class);
 	//练习题目提交后显示加<br>换行
-	public String readTiJiao(String path) // 从文本文件中读取内容
+	public static String readTiJiao(String path) // 从文本文件中读取内容
 	{
 		String readStr = "";
 		try {
@@ -37,8 +41,9 @@ public class OperateFile {
 		return readStr; // 返回从文本文件中读取内容
 	}
 
-	public String readfile(String path) // 从文本文件中读取内容
-	{
+	// 从文本文件中读取内容
+	public static String readfile(String path){
+		logger.info("文件路径："+path);
 		String readStr = "";
 		try {
 			File file = new File(path);
@@ -48,16 +53,16 @@ public class OperateFile {
 			while ((read = bufread.readLine()) != null) {
 				readStr = readStr+ read+'\n';
 			}
+			logger.info("文件内容："+readStr);
 		} catch (Exception d) {
-			System.out.println(d.getMessage());
+			logger.debug("读取文件出错：",d.getMessage());
 		}
 		return readStr; // 返回从文本文件中读取内容
 	}
 	
-	public  void  copyFolder(String  oldPath,  String  newPath)  {    
-		System.out.println("oldPath"+oldPath);
-		System.out.println("newPath"+newPath);
-		   
+	public static void copyFolder(String oldPath,String newPath)  {
+		   logger.info("复制文件从："+oldPath);
+		   logger.info("复制到："+newPath);
 	       try  {    
 	           (new  File(newPath)).mkdirs();  //如果文件夹不存在  则建立新文件夹    
 	           File  a=new  File(oldPath);    
@@ -66,12 +71,10 @@ public class OperateFile {
 	           for  (int  i  =  0;  i  <  file.length;  i++)  {    
 	               if(oldPath.endsWith(File.separator)){    
 	                   temp=new  File(oldPath+file[i]);    
-	               }    
-	               else{    
+	               }else{
 	                   temp=new  File(oldPath+File.separator+file[i]);    
 	               }    
-	   
-	               if(temp.isFile()){    
+	   				if(temp.isFile()){
 	                   FileInputStream  input  =  new  FileInputStream(temp);    
 	                   FileOutputStream  output  =  new  FileOutputStream(newPath  +  File.separator  +   
 	                           (temp.getName()).toString());    
@@ -93,31 +96,29 @@ public class OperateFile {
 	           System.out.println("复制整个文件夹内容操作出错");    
 	           e.printStackTrace();    
 	       }    
-	   
+			logger.info("复制文件结束");
 	   }    
 	
 
 	// Linux 写文件
 	// 向文本文件中写入内容
-	public String writeFile(String content,Integer ItemId,String name, boolean append) throws IOException,
+	//返回临时文件路径 "../(n2s)/demo/"
+	public static String writeFile(String content,Integer ItemId,String name, boolean append) throws IOException,
 			InterruptedException {
-
 		// 获取练习题临时保存路径
-		String fileName = null;//n2s(Fn.time());
-		String practicePath = getConfig("PRCATICE") + File.separator+ fileName;
+		String fileName = n2s(DateUtils.time());
+		String practicePath = getConfig("PRCATICE") + File.separator+ fileName+File.separator+"demo"+File.separator;
+		logger.info("获取文件临时保存路径："+practicePath);
 		String name_1 = name+".v";
 		String name_2 = name+"_tb.v";
-		File writefile = new File(practicePath +File.separator+"demo"+File.separator+name_1);
-		System.out.println(practicePath);
+		File writefile = new File(practicePath+name_1);
 		String workPath = getConfig("DEMO");
-		System.out.println("practicePath"+practicePath +File.separator+"demo"+File.separator+name_1);
-
+		logger.info("获取DEMO路径："+workPath);
 		writefile.setExecutable(true);// 设置可执行权限
 		writefile.setReadable(true);// 设置可读权限
 		writefile.setWritable(true);// 设置可写权限
 		if (!writefile.getParentFile().exists()) {
 			writefile.getParentFile().mkdirs();
-			System.out.println("21"+writefile.getParentFile().exists());
 		}
 		boolean addStr = append;
 		FileWriter filewriter = new FileWriter(writefile, addStr);
@@ -125,25 +126,30 @@ public class OperateFile {
 		filewriter.write(content);
 		filewriter.flush();
 		filewriter.close();
-		System.out.println("workPath"+workPath);
-		System.out.println("practicePath + File.separator+"+practicePath + File.separator+"demo");
-		new OperateFile().copyFolder(workPath, practicePath + File.separator+"demo");
+		logger.info("上传内容保存到文件目录："+writefile);
+		copyFolder(workPath, practicePath);
 
-		
 		String ItemPath = UploadUtils.getConfig("TI_KU")+File.separator+ItemId+File.separator+name_2;
+		logger.info("题目目标文件路径："+ItemPath);
+		Process process = null;
 		try {
-            Process process = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "cp "+ItemPath+" "+practicePath+File.separator+"demo" });
+			process = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", "cp "+ItemPath+" "+practicePath});
             int exitCode = process.waitFor();
             File file = new File(ItemPath);
             file.setExecutable(true);// 设置可执行权限
 			file.setReadable(true);// 设置可读权限
 			file.setWritable(true);// 设置可写权限
-			System.out.println("ItemPath  : "+ItemPath);
-        } catch (java.lang.NullPointerException e) {
+			logger.info("题目目标文件复制到临时文件路径里面");
+        } catch (Exception e) {
+			try{
+				process.getErrorStream().close();
+				process.getInputStream().close();
+				process.getOutputStream().close();
+			}
+			catch(Exception ee){}
             System.err.println("NullPointerException " + e.getMessage());
         }
-
-		return practicePath + File.separator+"demo";
+		return practicePath;
 	}
 
 

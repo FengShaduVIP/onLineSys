@@ -27,4 +27,8 @@ public interface SysItemService {
 	void changeItems(Integer[] ids);
 	
 	String findLastId();
+
+	public Map<String,String> bianYi(String text, String itemName, Integer itemId);
+
+	public String judge_run(String filepath);
 }

@@ -27,4 +27,6 @@ public interface StuExamItemService {
 	void delete(Integer id);
 	
 	void deleteBatch(Integer[] ids);
+
+    void saveStuExamTestInfo(Long userId, Integer itemId, Integer examTestId, int isRight,int score);
 }

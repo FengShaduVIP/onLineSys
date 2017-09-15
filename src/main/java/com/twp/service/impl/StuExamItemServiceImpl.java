@@ -51,5 +51,19 @@ public class StuExamItemServiceImpl implements StuExamItemService {
 	public void deleteBatch(Integer[] ids){
 		stuExamItemDao.deleteBatch(ids);
 	}
-	
+
+
+	/**
+	 * 保存 在线测试学生提交的题目信息 记录分数
+	 * @param userId 用户ID
+	 * @param itemId 题目ID
+	 * @param examTestId 考试id 不是试卷ID
+	 * @param isRight 是否正确
+	 * @param score 所得分数
+	 */
+	@Override
+	public void saveStuExamTestInfo(Long userId, Integer itemId, Integer examTestId, int isRight,int score) {
+
+	}
+
 }

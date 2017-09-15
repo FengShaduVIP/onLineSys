@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title></title>
 #parse("sys/header.html")
 </head>
@@ -29,9 +30,9 @@
 				<div class="panel-heading">代码：</div>
 				<div class="panel-body">
 					<div class="layui-input-block">
-						<textarea placeholder="请输入代码内容" class="layui-textarea"></textarea>
+						<textarea id="submitContext" placeholder="请输入代码内容" class="layui-textarea"></textarea>
 					</div>
-					<button class="layui-btn layui-btn-radius">提交</button>
+					<button class="layui-btn layui-btn-radius" @click="submitItem">提交</button>
 				</div>
 			</div>
 		</div>

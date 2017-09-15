@@ -12,11 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -51,6 +50,7 @@ public class SysItemController {
 	@Autowired
 	private StuInfoService stuInfoService;
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@RequestMapping("/sysitem.html")
 	public String list(){
@@ -315,6 +315,58 @@ public class SysItemController {
 	public R change(@RequestBody Integer[] ids){
 		sysItemService.changeItems(ids);
 		return R.ok();
+	}
+
+	/**
+	 *在线练习页面 代码提交 测试
+	 * @param sendData
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/sumbitItem" , method = RequestMethod.POST)
+	public R sumbitItem(@RequestBody Map<String,String> sendData){
+		Map<String,Object> resultData = new HashMap<>();
+		SysUserEntity userObj = ShiroUtils.getUserEntity();
+		String submitContext = sendData.get("submitContext");
+		Integer itemId = Integer.parseInt(sendData.get("itemId"));
+		int isRight = 0;
+		SysItemEntity itemEntity = sysItemService.queryObject(itemId);
+		logger.info("用户："+userObj.getRealName()+"，提交在线测试题目："+itemEntity.getTitle()+"  题目ID"+itemEntity.getId());
+		Integer scorce = itemEntity.getScore();
+		String itemName = itemEntity.getName();//提交代码 编译文件名称
+		Map<String,String> resultMap  = sysItemService.bianYi(submitContext,itemName,itemId);
+		String bianYiResult = resultMap.get("bianYiResult");
+		if(bianYiResult.contains("error")) {
+			bianYiResult = "<br/>编译代码出错！！<br/><br/>" + bianYiResult;
+			logger.info("编译出错：\r\n"+bianYiResult);
+		}else {
+			logger.info("编译通过");
+			String filePath = resultMap.get("filePath");
+			try {
+				String fileNamePath = filePath+ File.separator+"run_sim.sh";
+				String read = OperateFile.readfile(fileNamePath);
+				read = read +"vsim  +nospecify -c -lib work "+itemName+"_tb   -do 'run -all'";
+				File file = new File(fileNamePath);
+				FileWriter out = new FileWriter(file);
+				out.write(read);
+				out.close();
+				bianYiResult =sysItemService.judge_run(filePath);
+				if(bianYiResult.contains("Success")||bianYiResult.contains("success")){//仿真通过
+					isRight = 1;
+					bianYiResult = "仿真成功。代码通过验证！！<br/><br/>";
+				}else if(bianYiResult.contains("Error")||bianYiResult.contains("error")){//仿真失败 代码错误
+					bianYiResult = "仿真失败。代码未通过验证！！<br/><br/>";
+					isRight = 3;
+				}else{
+					bianYiResult = "请刷新重新上传！";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		resultData.put("result",bianYiResult);
+		resultData.put("isRight",isRight+"");
+		return R.ok(resultData);
 	}
 	
 }

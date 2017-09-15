@@ -52,8 +52,24 @@
             }
         });
     });
-    function sumbitItem(itemId) {
-        var text = document.getElementById(itemId).value;
+    function sumbitItem(itemID) {
+		vm.sendData.text = document.getElementById(itemID).value;
+		vm.sendData.examTestId = id;
+		vm.sendData.itemId = itemID;
+        $.ajax({
+            type: "POST",
+            url: "../onlinetest/sumbitItemTest",
+            data: JSON.stringify(vm.sendData),
+            dataType: "json",
+            success: function(r){
+                if(r.code === 0){
+                    alert(r.result);
+                }else{
+                    alert(r.msg);
+                }
+            }
+        });
+
 
     }
 </script>
