@@ -3,6 +3,7 @@ var itemId = T.p("itemId");
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
+        layIndex:-1,
 		sysItem:{},
         sendData:{},
 	},
@@ -26,10 +27,14 @@ var vm = new Vue({
             vm.sendData.itemId=itemId;
             $.ajax({
                 type: "POST",
-                url: "../sysitem/sumbitItemTest",
+                url: "../sysitem/sumbitItem",
                 data: JSON.stringify(vm.sendData),
                 dataType: "json",
+                beforeSend:function () {
+                    vm.layIndex = 	layer.msg('加载中。。。', {icon: 4,time:100000});
+                },
                 success: function(r){
+                    layer.close(vm.layIndex);
                     if(r.code === 0){
                         alert(r.result);
                     }else{

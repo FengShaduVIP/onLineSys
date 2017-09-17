@@ -71,7 +71,7 @@ public class StuInfoController {
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
 		//查询列表数据
-		List<StuInfoEntity> stuInfoList = stuInfoService.queryList(map);
+		List<Map<String,String>> stuInfoList = stuInfoService.queryList2(map);
 		int total = stuInfoService.queryTotal(map);
 		
 		PageUtils pageUtil = new PageUtils(stuInfoList, total, limit, page);
@@ -90,6 +90,26 @@ public class StuInfoController {
 		StuInfoEntity stuInfo = stuInfoService.queryObject(id);
 		
 		return R.ok().put("stuInfo", stuInfo);
+	}
+
+	/**
+	 * 信息
+	 */
+	@ResponseBody
+	@RequestMapping("/getStuInfo")
+	@RequiresPermissions("stuinfo:restPassword")
+	public R restPassword(Integer stuNo,Integer classId){
+		List<Long> userRoleList = new ArrayList<Long>();
+		userRoleList.add(3L);
+		List<StuInfoEntity> objList = stuInfoService.findStuByNo(stuNo,classId);
+		if(objList.size()>0){
+			StuInfoEntity obj = objList.get(0);
+			SysUserEntity userObj = sysUserService.queryObject(obj.getUserId());
+			userObj.setPassword(stuNo+"");
+			userObj.setRoleIdList(userRoleList);
+			sysUserService.update(userObj);
+		}
+		return R.ok();
 	}
 	
 	

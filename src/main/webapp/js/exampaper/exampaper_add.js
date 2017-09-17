@@ -18,7 +18,7 @@ var vm = new Vue({
             });
 		},
 		saveOrUpdate: function (event) {
-			var data = CKEDITOR.instances.context.getData();
+			var data = CKEDITOR.instances.examDetail.getData();
 			var url = vm.examPaper.id == null ? "../exampaper/save" : "../exampaper/update";
 			vm.examPaper.detail = data;
 			$.ajax({

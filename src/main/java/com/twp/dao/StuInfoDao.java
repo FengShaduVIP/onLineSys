@@ -21,4 +21,7 @@ public interface StuInfoDao extends BaseDao<StuInfoEntity> {
 	int queryStuClass(long userId);
 	
 	List findStuByNo(Integer cId, Integer classid);
+
+	List<Map<String, String>> queryList2(Map<String, Object> map);
+
 }

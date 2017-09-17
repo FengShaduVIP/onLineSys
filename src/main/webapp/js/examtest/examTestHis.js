@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [
             { label: 'id', name: 'id', width: 50, key: true,hidden:true },
-            { label: '考试名称', name: 'exam_title', width: 100},
+            { label: '考试名称', name: 'exam_title', width: 100,formatter:lookDetail},
             { label: '考试开始时间', name: 'start_time', width: 50 },
             { label: '考试结束时间', name: 'end_time', width: 50 },
             { label: '考试状态', name: 'status', width: 50,formatter:statusFmt },
@@ -36,6 +36,11 @@ $(function () {
         }
     });
 });
+
+function lookDetail(cellvalue, options, rowObject) {
+    var v = '<a href="../stugrade/stugrade.html?examTestId='+rowObject.id+'" >'+rowObject.exam_title+'</a>';
+    return v;
+}
 
 
 function statusFmt(v) {

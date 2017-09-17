@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<div class="col-sm-2 control-label">试卷要求</div>
 					<div class="col-sm-10">
-						<textarea class="form-control" v-model="examPaper.detail"  name="detail" id="detail"></textarea>
+						<textarea class="form-control" v-model="examPaper.detail"  name="examDetail" id="examDetail"></textarea>
 						<!-- <input type="text" class="form-control" v-model="examPaper.detail" placeholder="试卷要求"/> -->
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 <script src="${rc.contextPath}/js/exampaper/exampaper_add.js?_${date.systemTime}"></script>
 <script src="${rc.contextPath}/js/exampaper/examitem_have.js?_${date.systemTime}"></script>
 <script type="text/javascript">
-CKEDITOR.replace('detail');
+var editor = CKEDITOR.replace('examDetail');
 </script>
 </body>
 </html>

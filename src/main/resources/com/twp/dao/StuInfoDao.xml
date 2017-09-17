@@ -7,9 +7,22 @@
 		select * from stu_info where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="com.twp.entity.StuInfoEntity">
-		select *  from stu_info
-		where class_id = #{classId}
+	<select id="queryList2" resultType="java.util.HashMap">
+		SELECT
+		a.id,
+		a.user_id as userId,
+		b.class_name AS classId,
+		a.stu_name AS stuName,
+		c.real_name AS teachId,
+		a.stu_no AS stuNo
+		FROM
+		stu_info a,
+		class_info b,
+		sys_user c
+		WHERE
+		a.class_id = b.class_id
+		AND a.teach_id = c.user_id
+		AND a.class_id = #{classId}
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

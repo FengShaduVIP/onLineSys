@@ -40,6 +40,17 @@ var vm = new Vue({
 		back: function (event) {
             console.log(classId);
 			history.go(-1);
-		}
+		},
+        getStuInfo : function () {
+            layer.confirm('确定要重置密码吗？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                $.get("../stuinfo/getStuInfo?stuNo="+vm.stuInfo.stuNo+"&classId="+vm.stuInfo.classId, function(r){
+                    layer.msg("重置密码成功",{time:1500},function () {
+                        vm.back();
+                    });
+                });
+            });
+        }
 	}
 });

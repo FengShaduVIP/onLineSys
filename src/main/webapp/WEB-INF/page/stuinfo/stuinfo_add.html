@@ -17,13 +17,13 @@
 		<div class="form-group">
 		   	<div class="col-sm-2 control-label">学号</div>
 		   	<div class="col-sm-10">
-		      <input type="text" class="form-control" v-model="stuInfo.stuNo" placeholder="学号"/>
+		      <input type="number" class="form-control" v-model="stuInfo.stuNo" placeholder="学号"/>
 		    </div>
 		</div>
 		<div class="form-group">
 		   	<div class="col-sm-2 control-label">密码</div>
 		   	<div class="col-sm-10">
-				<input id="password" type="password" class="form-control" placeholder="初始密码为学号"/>
+				<input id="password" type="password" @click="getStuInfo" class="form-control" placeholder="初始密码为学号"/>
 		    </div>
 		</div>
 		<div class="form-group">
@@ -41,8 +41,10 @@
        if(id==null){
            password.setAttribute("disabled","disabled");
            password.setAttribute("type","text");
+	   }else{
+           password.setAttribute("placeholder","点击重置密码");
+           password.setAttribute("type","text");
 	   }
-       console.log('id',id)
     });
 
 </script>

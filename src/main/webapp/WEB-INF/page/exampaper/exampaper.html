@@ -17,34 +17,16 @@
 <body>
 	<div id="rrapp">
 		<div class="grid-btn">
-			<a class="btn btn-default" href="exampaper_add.html">新增</a>
-			<button type="button" class="btn btn-default" @click="update">修改</button>
+			<a class="btn btn-default" href="exampaper_add.html">新增试卷</a>
+			<button type="button" class="btn btn-default" @click="update">修改试卷</button>
 			<button type="button" class="btn btn-default" @click="del">删除</button>
 			<button type="button" class="btn btn-default" data-toggle="modal"
-				@click="examList">试卷题目</button>
+				@click="examList">修改试卷题目</button>
 			<button type="button" class="btn btn-default" @click="examStart">开始考试</button>
 		</div>
 		<table id="jqGrid"></table>
 		<div id="jqGridPager"></div>
 	</div>
-
-
-	<div class="container" id="examList" style="display: none;">
-		<div class="row">
-			<div class="col-sm-12">
-				<!--Sidebar content-->
-				<div id="exampaperItem_have">
-					<div class="grid-btn">
-						<button type="button" class="btn btn-link">已添加题目列表</button>
-						<button type="button" class="btn btn-danger" @click="delItem">删除题目</button>
-					</div>
-					<table id="jqGridItem_have"></table>
-					<div id="jqGridPagerItem_have"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 模态框（Modal） -->
 
 	<script
 		src="${rc.contextPath}/js/exampaper/exampaper.js?_${date.systemTime}"></script>

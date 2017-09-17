@@ -15,7 +15,6 @@ $(function () {
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
-        multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
             root: "page.list",
@@ -37,7 +36,7 @@ $(function () {
 
 //点击题目标题跳转题目详情 做练习
 function statusFmt(cellvalue, options, rowObject) {
-    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'" >'+rowObject.title+'</a>';
+    var v = '<a href="../stugrade/examTestMy.html?examTestId='+rowObject.examTestId+'" >'+rowObject.exam_title+'</a>';
     return v;
 }
 

@@ -21,10 +21,11 @@ public class StuInfoServiceImpl implements StuInfoService {
 	public StuInfoEntity queryObject(Long id){
 		return stuInfoDao.queryObject(id);
 	}
-	
+
+
 	@Override
-	public List<StuInfoEntity> queryList(Map<String, Object> map){
-		return stuInfoDao.queryList(map);
+	public List<Map<String, String>> queryList2(Map<String, Object> map){
+		return stuInfoDao.queryList2(map);
 	}
 	
 	@Override

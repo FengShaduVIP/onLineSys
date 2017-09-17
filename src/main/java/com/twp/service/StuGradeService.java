@@ -21,7 +21,8 @@ public interface StuGradeService {
 	List<Map<String, Object>> StuGradeList(Map<String, Object> map);
 	
 	List<Map<String, Object>> StuGradeLists(Map<String, Object> map);
-	
+
+	int StuGradeListsCount(Map<String, Object> map);
 	int queryTotal(Map<String, Object> map);
 	
 	int queryStuTotal(Map<String, Object> map);

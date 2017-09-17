@@ -22,20 +22,53 @@
 	</select>
 	
 	<select id="StuGradeList" resultType="java.util.HashMap">
-		select a.*,b.exam_title from stu_grade a,exam_test b where a.stu_id = #{userId} AND a.exam_test_id = b.id order by a.create_time DESC
+		select a.*,b.exam_title ,b.id as examTestId from stu_grade a,exam_test b where a.stu_id = #{userId} AND a.exam_test_id = b.id order by a.create_time DESC
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
 	<select id="StuGradeLists" resultType="java.util.HashMap">
-	SELECT a.*, b.exam_title, c.real_name FROM stu_grade a, exam_test b, sys_user c WHERE
-	a.class_id = #{classId} AND a.exam_test_id = b.id AND a.stu_id = c.user_id ORDER BY a.score DESC
-	<if test="offset != null and limit != null">
-		limit #{offset}, #{limit}
-	</if>
-</select>
-	
+		SELECT
+		a.score,
+		c.real_name realName,
+		d.stu_no stuNo,
+		b.class_name className
+		FROM
+		stu_grade a,
+		class_info b,
+		stu_info d,
+		sys_user c
+		WHERE
+		a.stu_id = c.user_id
+		AND a.stu_id = d.user_id
+		AND d.class_id = a.class_id
+		AND b.class_id = a.class_id
+		AND b.class_id = #{classId}
+		AND a.exam_test_id = #{examTestId}
+		ORDER BY
+		a.score DESC
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="StuGradeListsCount" resultType="int">
+		select count(*)
+		FROM
+		stu_grade a,
+		class_info b,
+		stu_info d,
+		sys_user c
+		WHERE
+		a.stu_id = c.user_id
+		AND a.stu_id = d.user_id
+		AND d.class_id = a.class_id
+		AND b.class_id = a.class_id
+		AND b.class_id = #{classId}
+		AND a.exam_test_id = #{examTestId}
+	</select>
+
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_grade 
 	</select>

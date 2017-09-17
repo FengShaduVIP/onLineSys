@@ -16,7 +16,7 @@ public interface StuInfoService {
 	
 	StuInfoEntity queryObject(Long id);
 	
-	List<StuInfoEntity> queryList(Map<String, Object> map);
+	List<Map<String, String>> queryList2(Map<String, Object> map);
 	
 	int queryStuClass(long userId);
 	
@@ -35,4 +35,5 @@ public interface StuInfoService {
 	void deleteUser(Long id);
 
 	List findStuByNo(Integer cId, Integer classid);
+
 }

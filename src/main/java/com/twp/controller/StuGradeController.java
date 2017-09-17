@@ -1,9 +1,13 @@
 package com.twp.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.twp.entity.ExamTestEntity;
+import com.twp.service.ExamTestService;
+import com.twp.utils.ExportExcel;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +22,8 @@ import com.twp.utils.PageUtils;
 import com.twp.utils.R;
 import com.twp.utils.ShiroUtils;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * 
@@ -31,6 +37,9 @@ import com.twp.utils.ShiroUtils;
 public class StuGradeController {
 	@Autowired
 	private StuGradeService stuGradeService;
+
+	@Autowired
+	private ExamTestService examTestService;
 	
 	@RequestMapping("/stugrade.html")
 	public String list(){
@@ -46,6 +55,13 @@ public class StuGradeController {
 	public String myGradeList(){
 		return "stugrade/MyGradeList.html";
 	}
+
+	@RequestMapping("/examTestMy.html")
+	public String examTestMy(){
+		return "stugrade/ExamTestMy.html";
+	}
+
+
 	
 	/**
 	 * 列表
@@ -94,15 +110,16 @@ public class StuGradeController {
 	@ResponseBody
 	@RequestMapping("/StuGradeLists")
 //	@RequiresPermissions("stugrade:list")
-	public R StuGradeLists(Integer page, Integer limit,Integer classId){
+	public R StuGradeLists(Integer page, Integer limit,Integer classId,Integer examTestId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
-		map.put("classsId", classId);
+		map.put("classId", classId);
+		map.put("examTestId",examTestId);
 		
 		//查询列表数据
 		List<Map<String, Object>> stuGradeLists = stuGradeService.StuGradeLists(map);
-		int total = stuGradeService.queryStuTotals(map);
+		int total = stuGradeService.StuGradeListsCount(map);
 		
 		PageUtils pageUtil = new PageUtils(stuGradeLists, total, limit, page);
 		
@@ -157,5 +174,43 @@ public class StuGradeController {
 		
 		return R.ok();
 	}
+
+	/**
+	 * 导出学生成绩列表
+	 * @param classId
+	 * @param examTestId
+	 * @param response
+	 */
+	@ResponseBody
+	@RequestMapping("/outPutGrade")
+	public void outPutGrade(Integer classId, Integer examTestId, HttpServletResponse response){
+		ExamTestEntity examTestEntity = examTestService.queryObject(examTestId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("classId", classId);
+		map.put("examTestId",examTestId);
+		List<Map<String, Object>> stuGradeLists = stuGradeService.StuGradeLists(map);
+		List<Object []> objects = new ArrayList<>();
+		String title = "_";
+		for (int i=0;i<stuGradeLists.size();i++){
+			Map<String, Object> mapStu = stuGradeLists.get(i);
+			Object [] object = new Object[5];
+			object[1] = mapStu.get("stuNo");
+			object[2] = mapStu.get("realName");
+			object[3] = mapStu.get("score");
+			object[4] = mapStu.get("className");
+			objects.add(object);
+			title = mapStu.get("className")+"-"+examTestEntity.getExamTitle()+"-成绩";
+		}
+		String[] rowName = {"序号","学号","姓名","成绩","班级"};
+		ExportExcel exportExcel = new ExportExcel(title,rowName,objects,response);
+		try {
+			exportExcel.export();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+
 	
 }

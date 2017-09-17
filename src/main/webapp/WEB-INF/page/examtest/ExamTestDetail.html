@@ -7,18 +7,10 @@
 <body>
 <div id="rrapp" class="layui-container">
 	<div class="layui-row">
-		<div class="layui-col-xs6">
-			<h2>考试名称：</h2>
-		</div>
-		<div class="layui-col-xs6">
-			<div class="layui-inline">
-				<input type="text" class="layui-input" id="test1" value="2099-01-01 00:00:00">
-			</div>
-			<blockquote class="layui-elem-quote" style="margin-top: 10px;">
-				<h3>剩余时间：</h3>
-				<div id="test2"></div>
-			</blockquote>
-		</div>
+		<blockquote class="layui-elem-quote" style="margin-top: 10px;">
+			<h2>剩余时间：</h2>
+			<div id="test2" style="margin-top: 10px;"></div>
+		</blockquote>
 	</div>
 	<div class="layui-row">
 		<div class="layui-collapse">
@@ -29,29 +21,41 @@
 
 <script src="${rc.contextPath}/js/examtest/ExamTestDetail.js?_${date.systemTime}"></script>
 <script type="text/javascript">
-    layui.use(['util','element', 'laydate'], function(){
-        var util = layui.util
-            ,laydate = layui.laydate;
-        //倒计时
-        var thisTimer, setCountdown = function(y, M, d, H, m, s){
-            var endTime = new Date(y, M||0, d||1, H||0, m||0, s||0) //结束日期
-                ,serverTime = new Date(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
-            clearTimeout(thisTimer);
-            util.countdown(endTime, serverTime, function(date, serverTime, timer){
-                var str = date[0] + '天' + date[1] + '时' +  date[2] + '分' + date[3] + '秒';
-                lay('#test2').html(str);
-                thisTimer = timer;
+    $(function () {
+        layui.use(['util','element', 'laydate'], function(){
+            var util = layui.util;
+            $.get("../examtest/getExamLeftTime?id="+id, function(r){
+                setCountdown(r.endTime,r.serverTime);
             });
-        };
-        setCountdown(2099,1,1);
-        laydate.render({
-            elem: '#test1'
-            ,type: 'datetime'
-            ,done: function(value, date){
-                setCountdown(date.year, date.month - 1, date.date, date.hours, date.minutes, date.seconds);
-            }
+            //倒计时
+            var thisTimer;
+            var setCountdown = function(endTime,serverTime){
+                clearTimeout(thisTimer);
+                util.countdown(endTime, serverTime, function(date, serverTime, timer){
+					if(date[0]==0&&date[1]==0&&date[2]==5){
+                        //&&date[2]==5
+                        layer.msg("考试剩余时间还有5分钟！",
+							{
+							    time:3000,
+								offset: 't',
+                            	anim: 6
+							})
+					}else if(date[0]==0&&date[1]==0&&date[2]==1){
+                        layer.msg("考试剩余时间还有1分钟！",
+							{
+								time:3000,
+								offset: 't',
+								anim: 6
+                        	})
+					}
+                    var str = date[0] + ' 天&nbsp&nbsp&nbsp' + date[1] + ' 时&nbsp&nbsp&nbsp' +  date[2] + ' 分&nbsp&nbsp&nbsp' + date[3] + ' 秒';
+                    lay('#test2').html(str);
+                    thisTimer = timer;
+                });
+            };
         });
     });
+
     function submitItemTest(itemID) {
 		vm.sendData.text = document.getElementById(itemID).value;
 		vm.sendData.examTestId = id;
@@ -76,9 +80,7 @@
                 layer.close(vm.layIndex);
                 alert('服务器出错，请联系管理员');
             }
-        });
-
-
+        })
     }
 </script>
 </body>

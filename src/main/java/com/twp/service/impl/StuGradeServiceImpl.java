@@ -42,6 +42,10 @@ public class StuGradeServiceImpl implements StuGradeService {
 	public List<Map<String,Object>> StuGradeLists(Map<String, Object> map){
 		return stuGradeDao.StuGradeLists(map);
 	}
+	@Override
+	public int StuGradeListsCount(Map<String, Object> map){
+		return stuGradeDao.StuGradeListsCount(map);
+	}
 	
 	@Override
 	public int queryTotal(Map<String, Object> map){

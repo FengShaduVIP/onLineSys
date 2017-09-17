@@ -176,5 +176,23 @@ public class ExamTestController {
 		
 		return R.ok();
 	}
+
+	/**
+	 * 获取当前系统时间和 考试结束时间
+	 * @param id 考试id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getExamLeftTime")
+	public R getExamLeftTime(Integer id){
+		ExamTestEntity examTest = examTestService.queryObject(id);
+		Date endTimeDate = examTest.getEndTime();
+		Date sysNowTime = new Date();
+		Map<String,Object> map = new HashMap<>();
+		map.put("endTime",endTimeDate);
+		map.put("serverTime",sysNowTime);
+		return R.ok(map);
+	}
+
 	
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.twp.utils.DateUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,6 +94,7 @@ public class ExamPaperController {
 	@RequiresPermissions("tech:exampaper:save")
 	public R save(@RequestBody ExamPaperEntity examPaper,HttpServletRequest request){
 		HttpSession session = request.getSession();
+		examPaper.setCreateTime(DateUtils.time()+"");
 		examPaper.setAuthorId(session.getAttribute("username")+"");
 		examPaperService.save(examPaper);
 		

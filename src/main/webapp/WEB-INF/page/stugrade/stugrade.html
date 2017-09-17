@@ -5,14 +5,24 @@
 #parse("sys/header.html")
 </head>
 <body>
-<div id="rrapp">
-	<div class="grid-btn">
-		<a class="btn btn-default" href="stugrade_add.html">新增</a>
-		<button type="button"  class="btn btn-default" @click="update">修改</button>
-		<button type="button" class="btn btn-default" @click="del">删除</button>
+<div id="rrapp" class="layui-container">
+	<div class="layui-row" style="padding-bottom: 20px">
+		<div class="layui-col-xs1">
+			班级名称 ：
+		</div>
+		<div class="layui-col-xs2">
+			<select name="classSelected" id="classSelected" @change="loadData()">
+				<option value="">请选班级</option>
+			</select>
+		</div>
+		<div class="layui-col-xs8">
+			<button class="btn btn-primary" @click="outPutGrade">导出成绩</button>
+		</div>
 	</div>
-    <table id="jqGrid"></table>
-    <div id="jqGridPager"></div>
+	<div class="layui-row">
+		<table id="jqGrid"></table>
+		<div id="jqGridPager"></div>
+	</div>
 </div>
 
 <script src="${rc.contextPath}/js/stugrade/stugrade.js?_${date.systemTime}"></script>

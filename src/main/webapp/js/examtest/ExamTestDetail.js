@@ -21,13 +21,13 @@ var examItem = Vue.extend({
 				'</div>',
 			'</h2>',
 				'<div class="layui-colla-content">',
-					'<h3>',
-        				'<div v-html="item.context"></div>',
-					'</h3>',
-					'<div class="layui-form-item layui-form-text" style="padding-top: 20px">',
+					'<div v-html="item.context"></div>',
+					'<div class="layui-form-item layui-form-text" style="padding-top: 50px">',
 						'<div class="layui-input-block">',
 							'<textarea :id="item.id"  :key="item.id" placeholder="请输入提交内容" class="layui-textarea"></textarea>',
-							'<button @click="submitItemTest(item.id)">提交</button>',
+						'</div>',
+        				'<div class="layui-input-block" style="padding-top: 20px">',
+        					'<button class="layui-btn layui-btn-radius" @click="submitItemTest(item.id)">提交</button>',
 						'</div>',
 					'</div>',
 				'</div>',
@@ -48,7 +48,6 @@ var vm = new Vue({
 	},
 	created: function() {
 		if(id != null){
-			this.title = "修改";
 			this.getInfo(id)
 		}
     },
