@@ -53,10 +53,15 @@ public class ClassInfoController {
 	@RequestMapping("/list")
 	//@RequiresPermissions("classInfo:list")
 	public R list(Integer page, Integer limit){
+		Long userId = ShiroUtils.getUserId();
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
-		
+		SysUserEntity userObj = ShiroUtils.getUserEntity();
+		if(userObj.getLevel()!=2){
+			map.put("teachId",userId);
+		}
 		//查询列表数据
 		List<ClassInfoEntity> classInfoList = classInfoService.queryList(map);
 		int total = classInfoService.queryTotal(map);
@@ -75,8 +80,11 @@ public class ClassInfoController {
 	//@RequiresPermissions("classInfo:list")
 	public R listOnAdmin(){
 		Map<String, Object> map = new HashMap<>();
-		map.put("teachId",ShiroUtils.getUserId());
-		
+		SysUserEntity userObj = ShiroUtils.getUserEntity();
+		if(userObj.getLevel()!=2){
+			map.put("teachId",ShiroUtils.getUserId());
+		}
+
 		//查询列表数据
 		List<Map<String, Object>> classInfoList = classInfoService.queryOnAdminList(map);
 		return R.ok().put("list", classInfoList);

@@ -16,7 +16,7 @@ public interface ExamPaperService {
 	
 	ExamPaperEntity queryObject(Integer id);
 	
-	List<ExamPaperEntity> queryList(Map<String, Object> map);
+	List<Map<String,String>> queryList(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);
 	

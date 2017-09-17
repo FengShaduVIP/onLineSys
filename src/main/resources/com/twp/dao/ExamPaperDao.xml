@@ -7,15 +7,23 @@
 		select * from exam_paper where id = #{value}
 	</select>
 
-	<select id="queryList" resultType="com.twp.entity.ExamPaperEntity">
-		select * from exam_paper 
+	<select id="queryList2" resultType="java.util.HashMap">
+		select a.id,a.title,a.create_time AS  createTime,b.real_name as authorId from exam_paper a ,sys_user b
+		where
+		 a.author_id = b.user_id
+		<if test="authorId!=null">
+			AND author_id = #{authorId}
+		</if>
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from exam_paper 
+		select count(*) from exam_paper
+		<if test="authorId!=null">
+			WHERE author_id = #{authorId}
+		</if>
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.ExamPaperEntity" useGeneratedKeys="true" keyProperty="id">

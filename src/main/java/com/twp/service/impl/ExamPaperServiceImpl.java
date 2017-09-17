@@ -23,8 +23,8 @@ public class ExamPaperServiceImpl implements ExamPaperService {
 	}
 	
 	@Override
-	public List<ExamPaperEntity> queryList(Map<String, Object> map){
-		return examPaperDao.queryList(map);
+	public List<Map<String,String>> queryList(Map<String, Object> map){
+		return examPaperDao.queryList2(map);
 	}
 	
 	@Override

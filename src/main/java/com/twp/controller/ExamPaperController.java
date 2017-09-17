@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.twp.entity.SysUserEntity;
 import com.twp.utils.DateUtils;
+import com.twp.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,9 +65,12 @@ public class ExamPaperController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
-		
+		SysUserEntity userObj = ShiroUtils.getUserEntity();
+		if(userObj.getLevel()!=2){
+			map.put("authorId",ShiroUtils.getUserId());
+		}
 		//查询列表数据
-		List<ExamPaperEntity> examPaperList = examPaperService.queryList(map);
+		List<Map<String,String>> examPaperList = examPaperService.queryList(map);
 		int total = examPaperService.queryTotal(map);
 		
 		PageUtils pageUtil = new PageUtils(examPaperList, total, limit, page);
@@ -92,12 +97,11 @@ public class ExamPaperController {
 	@ResponseBody
 	@RequestMapping("/save")
 	@RequiresPermissions("tech:exampaper:save")
-	public R save(@RequestBody ExamPaperEntity examPaper,HttpServletRequest request){
-		HttpSession session = request.getSession();
+	public R save(@RequestBody ExamPaperEntity examPaper){
+		String authorId = ShiroUtils.getUserId()+"";
 		examPaper.setCreateTime(DateUtils.time()+"");
-		examPaper.setAuthorId(session.getAttribute("username")+"");
+		examPaper.setAuthorId(authorId);
 		examPaperService.save(examPaper);
-		
 		return R.ok();
 	}
 	
@@ -107,9 +111,9 @@ public class ExamPaperController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("tech:exampaper:update")
-	public R update(@RequestBody ExamPaperEntity examPaper,HttpServletRequest request){
-		HttpSession session = request.getSession();
-		examPaper.setAuthorId(session.getAttribute("username")+"");
+	public R update(@RequestBody ExamPaperEntity examPaper){
+		String authorId = ShiroUtils.getUserId()+"";
+		examPaper.setAuthorId(authorId);
 		examPaperService.update(examPaper);
 		
 		return R.ok();

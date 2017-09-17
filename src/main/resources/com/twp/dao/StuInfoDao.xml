@@ -35,7 +35,10 @@
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_info
-		where class_id = #{classId}
+		<if test="classId!=null">
+			where class_id = #{classId}
+		</if>
+
 	</select>
 	 
 	<insert id="save" parameterType="com.twp.entity.StuInfoEntity" useGeneratedKeys="true" keyProperty="id">
