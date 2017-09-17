@@ -21,7 +21,7 @@ public class FileUtils {
 			String itemId, String fileName) {
 		logger.info("新增问题创建文件—————");
 		logger.info("文件名称： "+fileName);
-		String TI_KU = PublicUtils.getConfig("FILE_PATH")+"TI_KU";
+		String TI_KU = PublicUtils.getConfig("TI_KU");
 		String filePath = TI_KU + File.separator + (itemId) + File.separator
 				+ fileName + "_tb.v";
 		logger.info("文件路径--"+filePath);
@@ -50,7 +50,7 @@ public class FileUtils {
 
 	public static String saveFile(MultipartFile uploadFile,String fileName) {
 		logger.info("新增问题创建文件—————");
-		String TI_KU = PublicUtils.getConfig("FILE_PATH")+"TI_KU";
+		String TI_KU = PublicUtils.getConfig("TI_KU");
 		String filePath = TI_KU + File.separator + fileName;
 		logger.info("文件路径--"+filePath);
 		File file = new File(filePath);
@@ -83,7 +83,7 @@ public class FileUtils {
 	 */
 	public static void updateFile(String itemId, String fileName, String content)
 			throws IOException {
-		String TI_KU = PublicUtils.getConfig("FILE_PATH")+File.separator+"TI_KU";
+		String TI_KU = PublicUtils.getConfig("TI_KU");
 		
 		String filePath = TI_KU + File.separator + (itemId) + File.separator+ fileName + "_tb.v";
 		File file = new File(filePath);

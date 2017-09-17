@@ -1,14 +1,6 @@
 package com.twp.utils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -201,5 +193,98 @@ public class OperateFile {
 		}
 		return properties.getProperty(key);
 	}
+
+	/**使用dos命令强力删除文件
+	 * 强力删除文件
+	 * file 需要删除的文件
+	 * return   如果目录不存在,则返回"目录不存在";
+	 *          删除成功,返回ok;
+	 *          删除失败 ,返回失败原因
+	 *
+	 */
+	public static String forceDeleteFile(String file){
+		File tagFile=new File(file);
+		if(tagFile.exists()){
+			try {
+				String cmd = "cmd /c del "+file;
+				Runtime rt = Runtime.getRuntime(); // 获取运行时系统
+				Process proc = rt.exec(cmd); // 执行命令
+				InputStream stderr =  proc.getInputStream(); // 获取输入流
+				InputStreamReader isr = new InputStreamReader(stderr,"gbk");
+				BufferedReader br = new BufferedReader(isr);
+				String line = null;
+                /*while ((line = br.readLine()) != null) { // 打印出命令执行的结果
+                System.out.println(line);
+            }*/
+			} catch (Throwable t) {
+				t.printStackTrace();
+				return t.getMessage();
+			}
+			return "ok";
+		}else {
+			return "目录不存在";
+		}
+	}
+
+
+
+	/**使用dos命令强力删除指定文件夹下的文件或者文件夹
+	 *
+	 * file 需要删除的文件
+	 * return   如果目录不存在,则返回"目录不存在";
+	 *          删除成功,返回ok;
+	 *          删除失败 ,返回失败原因
+	 *
+	 */
+	public static int forceCleanFileBelowDirectory(String directory){
+		File tagFile=new File(directory);
+		if(tagFile.exists()){
+			if(tagFile.isDirectory()){
+				//是目录,遍历一层,遇鬼杀鬼,遇魔降魔
+				File[] files=tagFile.listFiles();
+				for(File file : files){
+					if(file.isDirectory()){
+						forceDeleteDirectory(file.getAbsolutePath());
+					}else {
+						forceDeleteFile(file.getAbsolutePath());
+					}
+				}
+			}
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+
+	/**使用dos命令强力删除目录
+	 * 强力删除文件夹,里面就算有子文件夹,隐藏的,只读的,都能够全部删除掉.
+	 * directory 需要删除的目录
+	 * return 如果目录不存在,则返回"目录不存在";删除成功,返回ok;删除失败 ,返回失败原因
+	 *
+	 */
+	public static String forceDeleteDirectory(String directory){
+		File tagFile=new File(directory);
+		if(tagFile.exists()){
+			try {
+				String cmd = "cmd /c rd "+directory+" /s/q";
+				Runtime rt = Runtime.getRuntime(); // 获取运行时系统
+				Process proc = rt.exec(cmd); // 执行命令
+				InputStream stderr =  proc.getInputStream(); // 获取输入流
+				InputStreamReader isr = new InputStreamReader(stderr,"gbk");
+				BufferedReader br = new BufferedReader(isr);
+				String line = null;
+                /*while ((line = br.readLine()) != null) { // 打印出命令执行的结果
+                System.out.println(line);
+            }*/
+			} catch (Throwable t) {
+				t.printStackTrace();
+				return t.getMessage();
+			}
+			return "ok";
+		}else {
+			return "目录不存在";
+		}
+	}
+
 
 }

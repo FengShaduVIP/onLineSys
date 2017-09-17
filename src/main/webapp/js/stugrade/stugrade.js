@@ -25,6 +25,7 @@ var vm = new Vue({
                 if(r.code===0){
                     var classList = r.list;
                     var options = [];
+                    var classID = 0;
                     if(classList.length>0){
                         for (var i=0;i<classList.length;i++){
                             var value = classList[i];
@@ -44,8 +45,9 @@ var vm = new Vue({
                         };
                        // document.getElementById("classSelected").innerHTML = options;
                         vm.selectedClassId = classList[0].class_id;
-                        vm.loadDataGrid(classList[0].class_id);
+                        classID = classList[0].class_id;
                     }
+                    vm.loadDataGrid(classID);
                 }else{
                     alert("获取班级列表失败")
                 }

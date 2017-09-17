@@ -43,10 +43,10 @@ import com.twp.utils.ShiroUtils;
 public class SysItemController {
 	@Autowired
 	private SysItemService sysItemService;
-	@Autowired
-	private StuExamItemService stuExamItemService;
+
 	@Autowired
 	private SysUserService sysUserService;
+
 	@Autowired
 	private StuInfoService stuInfoService;
 
@@ -125,62 +125,12 @@ public class SysItemController {
 	//@RequiresPermissions("tech:items:info")
 	public R info(@PathVariable("id") Integer id){
 		SysItemEntity sysItem = sysItemService.queryObject(id);
-		String TI_KU = PublicUtils.getConfig("FILE_PATH")+File.separator+"TI_KU";
+		String TI_KU = PublicUtils.getConfig("TI_KU");
 		String filePath = TI_KU+File.separator+sysItem.getId()+File.separator+sysItem.getName()+"_tb.v";
 		sysItem.setTestBeach(FileUtils.readfile(filePath));
 		return R.ok().put("sysItem", sysItem);
 	}
-	
-	/**
-	 * 提交题目
-	 */
-//	@ResponseBody
-//	@RequestMapping("/tijiao")
-//	public R tijiao(String Text, Integer ItemId,Integer examTestId) throws IOException {
-//			Long userId = ShiroUtils.getUserId();  //登陆人id
-//			String result[] = new String[2];
-//			int isRight = 0;
-//			Integer scorce = 0;
-//			result = onlineTestService.BianYi(Text,ItemId,name);
-//			if(result[1].contains("error")){
-//				result[1] = "<br/>编译代码出错！！<br/><br/>"+result[1];
-//			}else{
-//				try {
-//					OperateFile reade = new OperateFile();
-//					String filePath = result[0]+File.separator+"run_sim.sh";
-//					String read = reade.readfile(result[0]+File.separator+"run_sim.sh");
-//					read = read +"vsim  +nospecify -c -lib work "+name+"_tb   -do 'run -all'";
-//					File file = new File(filePath);
-//					FileWriter out = new FileWriter(file);
-//					out.write(read);
-//					out.close();
-//					
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				if(result[1].contains("Success")||result[1].contains("success")){//仿真通过
-//					isRight = 1;
-//					result[1] = "仿真成功。代码通过验证！！<br/><br/>";
-//				}else if(result[1].contains("Error")||result[1].contains("error")){//仿真失败 代码错误
-//					result[1] = "仿真失败。代码未通过验证！！<br/><br/>";
-//				}else{
-//					result[1] = "请刷新重新上传！";
-//				}
-//			}
-//				StuExamItemEntity stuExamItem = new StuExamItemEntity();
-//				stuExamItem.setExamPaperId(examPaperId);  //试卷id
-//				stuExamItem.setItemId(itemId);            //题目id
-//				stuExamItem.setStuId(stuId);              //登陆人id
-//				stuExamItem.setScore(score);              //分数
-//				stuExamItem.setCreateTime(new Date());    //创建时间
-//				stuExamItem.setClassId(classId);          //班级id
-//				stuExamItem.setExamTestId(examTestId);    //考试Id
-//				stuExamItem.setStatus(status);            //状态
-//				stuExamItemService.save(stuExamItem);
-//			}
-//		return R.ok();
-//	}
-	
+
 	/**
 	 * excel导入
 	 */
@@ -303,9 +253,7 @@ public class SysItemController {
 		
 		return R.ok();
 	}
-	
-	
-	
+
 	/**
 	 * 更改题目状态
 	 */

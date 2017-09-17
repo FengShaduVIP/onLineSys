@@ -10,7 +10,7 @@ public class PublicUtils {
 
 	private static Logger logger = Logger.getLogger(PublicUtils.class);
 
-	public static String CONFIG_FILE = "config.properties";
+	public static String CONFIG_FILE = "upload.properties";
 
 	/**
 	 * 获取配置文件的值

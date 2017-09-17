@@ -9,7 +9,7 @@
 	<!--查询所有管理员列表-->
 	<select id="queryList" resultType="com.twp.entity.SysUserEntity">
 		select * from sys_user
-		where level = 2
+		where level = 2 or level = 1
 		order by user_id desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}

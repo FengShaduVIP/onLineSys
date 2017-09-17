@@ -5,6 +5,11 @@ $(function () {
         colModel: [			
 			{ label: '用户ID', name: 'userId', width: 45, key: true },
 			{ label: '用户名', name: 'username', width: 75 },
+            { label: '角色', name: 'level', width: 75,formatter: function(value, options, row){
+                return value === 2 ?
+                    '<span >管理员</span>' :
+                    '<span >教师</span>';
+			} },
 			{ label: '邮箱', name: 'email', width: 90 },
 			{ label: '手机号', name: 'mobile', width: 100 },
 			{ label: '状态', name: 'status', width: 80, formatter: function(value, options, row){

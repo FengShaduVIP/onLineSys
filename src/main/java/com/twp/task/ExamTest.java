@@ -20,9 +20,7 @@ public class ExamTest {
 	private ExamTestService examTestService;
 	
 	public void closeExamTest(){
-
 		logger.info("执行关闭在线考试任务");
-		
 		List<ExamTestEntity> examTestList = examTestService.queryGoingList();
 		if(examTestList != null && examTestList.size() > 0) {
 			for(int i = 0;i<examTestList.size();i++) {
@@ -35,11 +33,6 @@ public class ExamTest {
 				}
 			}
 		}
-	}
-	
-	
-	public void test2(){
-		logger.info("我是不带参数的test2方法，正在被执行");
 	}
 
 }
