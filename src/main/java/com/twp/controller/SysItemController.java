@@ -205,7 +205,7 @@ public class SysItemController {
 	public R save(HttpServletRequest request){
 		SysItemEntity sysItem = new SysItemEntity();
 		HttpSession session = request.getSession();
-		sysItem.setAuthor(session.getAttribute("username")+"");
+		sysItem.setAuthor(ShiroUtils.getUserId()+"");
 		sysItem.setContext(request.getParameter("context"));
 		sysItem.setLevel(request.getParameter("level"));
 		sysItem.setTitle(request.getParameter("title"));

@@ -239,7 +239,9 @@ public class OperateFile {
 	public static int forceCleanFileBelowDirectory(String directory){
 		File tagFile=new File(directory);
 		if(tagFile.exists()){
+			logger.info("进入文件："+directory);
 			if(tagFile.isDirectory()){
+				logger.info("文件是文件夹");
 				//是目录,遍历一层,遇鬼杀鬼,遇魔降魔
 				File[] files=tagFile.listFiles();
 				for(File file : files){

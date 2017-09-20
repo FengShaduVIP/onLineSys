@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.twp.entity.SysUserEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,7 +71,10 @@ public class ExamTestController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("offset", (page - 1) * limit);
 		map.put("limit", limit);
-		
+		SysUserEntity userObj = ShiroUtils.getUserEntity();
+		if(userObj.getLevel()!=2){
+			map.put("teachId",userObj.getUserId());
+		}
 		//查询列表数据
 		List<ExamTestEntity> examTestList = examTestService.queryList(map);
 		int total = examTestService.queryTotal(map);
@@ -134,10 +138,11 @@ public class ExamTestController {
 	@RequestMapping("/save")
 //	@RequiresPermissions("examtest:save")
 	public R save(@RequestBody ExamTestEntity examTest){
+		Long userId = ShiroUtils.getUserId();
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		examTest.setStartTime(now);
 		examTest.setStatus(1);
-		examTest.setAuthorId((String) ShiroUtils.getSessionAttribute("username"));
+		examTest.setAuthorId(userId+"");
 		examTest.setCreateTime(DateUtils.time());
 		examTestService.save(examTest);
 		ClassTestEntity classTest = new ClassTestEntity();

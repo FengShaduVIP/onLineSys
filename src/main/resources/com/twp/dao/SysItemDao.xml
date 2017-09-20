@@ -8,7 +8,19 @@
 	</select>
 
 	<select id="queryList" resultType="com.twp.entity.SysItemEntity">
-		select * from sys_item 
+		SELECT
+		a.id,
+		a.title,
+		a.level,
+		a.score,
+		a.create_time as createTime,
+		a.is_visible as isVisible,
+		b.real_name as author
+		FROM
+		sys_item a,
+		sys_user b
+		WHERE
+		a.author = b.user_id
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
