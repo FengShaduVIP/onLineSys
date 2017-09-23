@@ -43,7 +43,7 @@ var vm = new Vue({
     },
 	methods: {
 		getInfo: function(id){
-			$.get("../examtest/examTestList?id="+id, function(r){
+			$.get("../examtest/exam_test_list?id="+id, function(r){
                 vm.examList = r.list;
             });
 		},

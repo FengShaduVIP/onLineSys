@@ -36,7 +36,7 @@ $(function () {
 
 //点击题目标题跳转题目详情 做练习
 function statusFmt(cellvalue, options, rowObject) {
-    var v = '<a href="../sysitem/itemDetail.html?itemId='+rowObject.id+'" >'+rowObject.title+'</a>';
+    var v = '<a href="../sysitem/item_detail.html?itemId='+rowObject.id+'" >'+rowObject.title+'</a>';
     return v;
 }
 

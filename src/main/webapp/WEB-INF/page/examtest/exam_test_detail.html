@@ -47,6 +47,13 @@
 								offset: 't',
 								anim: 6
                         	})
+					}else if(date[0]==0&&date[1]==0&&date[2]==0){
+                        layer.alert('该考试已经结束！', {
+                            skin: 'layui-layer-molv' //样式类名
+                            ,closeBtn: 0
+                        }, function(){
+                            history.go(-1);
+                        });
 					}
                     var str = date[0] + ' 天&nbsp&nbsp&nbsp' + date[1] + ' 时&nbsp&nbsp&nbsp' +  date[2] + ' 分&nbsp&nbsp&nbsp' + date[3] + ' 秒';
                     lay('#test2').html(str);
@@ -57,7 +64,7 @@
     });
 
     function submitItemTest(itemID) {
-		vm.sendData.text = document.getElementById(itemID).value;
+		vm.sendData.submitContext = document.getElementById(itemID).value;
 		vm.sendData.examTestId = id;
 		vm.sendData.itemId = itemID;
         $.ajax({

@@ -31,4 +31,6 @@ public interface SysItemService {
 	public Map<String,String> bianYi(String text, String itemName, Integer itemId);
 
 	public String judge_run(String filepath);
+
+	int queryStuTotal(Map<String, Object> map);
 }

@@ -206,16 +206,7 @@ public class OperateFile {
 		File tagFile=new File(file);
 		if(tagFile.exists()){
 			try {
-				String cmd = "cmd /c del "+file;
-				Runtime rt = Runtime.getRuntime(); // 获取运行时系统
-				Process proc = rt.exec(cmd); // 执行命令
-				InputStream stderr =  proc.getInputStream(); // 获取输入流
-				InputStreamReader isr = new InputStreamReader(stderr,"gbk");
-				BufferedReader br = new BufferedReader(isr);
-				String line = null;
-                /*while ((line = br.readLine()) != null) { // 打印出命令执行的结果
-                System.out.println(line);
-            }*/
+				tagFile.delete();
 			} catch (Throwable t) {
 				t.printStackTrace();
 				return t.getMessage();
@@ -268,7 +259,7 @@ public class OperateFile {
 		File tagFile=new File(directory);
 		if(tagFile.exists()){
 			try {
-				String cmd = "cmd /c rd "+directory+" /s/q";
+				String[] cmd = new String[] { "/bin/sh", "-c", "rm -rf "+directory };
 				Runtime rt = Runtime.getRuntime(); // 获取运行时系统
 				Process proc = rt.exec(cmd); // 执行命令
 				InputStream stderr =  proc.getInputStream(); // 获取输入流

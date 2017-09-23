@@ -51,14 +51,14 @@ public class StuGradeController {
 		return "stugrade/stugrade_add.html";
 	}
 
-	@RequestMapping("/myGradeList.html")
+	@RequestMapping("/my_grade_list.html")
 	public String myGradeList(){
-		return "stugrade/MyGradeList.html";
+		return "stugrade/my_grade_list.html";
 	}
 
-	@RequestMapping("/examTestMy.html")
+	@RequestMapping("/exam_test_my.html")
 	public String examTestMy(){
-		return "stugrade/ExamTestMy.html";
+		return "stugrade/exam_test_my.html";
 	}
 
 
@@ -193,15 +193,17 @@ public class StuGradeController {
 		String title = "_";
 		for (int i=0;i<stuGradeLists.size();i++){
 			Map<String, Object> mapStu = stuGradeLists.get(i);
-			Object [] object = new Object[5];
+			Object [] object = new Object[6];
+			//object[0]  是序号
 			object[1] = mapStu.get("stuNo");
 			object[2] = mapStu.get("realName");
 			object[3] = mapStu.get("score");
 			object[4] = mapStu.get("className");
+			object[5] = mapStu.get("classNo");
 			objects.add(object);
 			title = mapStu.get("className")+"-"+examTestEntity.getExamTitle()+"-成绩";
 		}
-		String[] rowName = {"序号","学号","姓名","成绩","班级"};
+		String[] rowName = {"序号","学号","姓名","成绩","班级","班级编号"};
 		ExportExcel exportExcel = new ExportExcel(title,rowName,objects,response);
 		try {
 			exportExcel.export();

@@ -39,7 +39,7 @@ import com.twp.utils.ShiroUtils;
 
 
 @Controller
-@RequestMapping("/sysitem")
+@RequestMapping("sysitem")
 public class SysItemController {
 	@Autowired
 	private SysItemService sysItemService;
@@ -69,12 +69,12 @@ public class SysItemController {
 
 	@RequestMapping("/stuItemList.html")
 	public String stuItemList(){
-		return "onlineitem/itemList.html";
+		return "onlineitem/item_list.html";
 	}
 
-    @RequestMapping("/itemDetail.html")
+    @RequestMapping("/item_detail.html")
     public String itemDetail(){
-        return "onlineitem/itemDetail.html";
+        return "onlineitem/item_detail.html";
     }
 
 	/**
@@ -109,7 +109,7 @@ public class SysItemController {
 		
 		//查询列表数据
 		List<SysItemEntity> sysItemList = sysItemService.queryStuList(map);
-		int total = sysItemService.queryTotal(map);
+		int total = sysItemService.queryStuTotal(map);
 		
 		PageUtils pageUtil = new PageUtils(sysItemList, total, limit, page);
 		

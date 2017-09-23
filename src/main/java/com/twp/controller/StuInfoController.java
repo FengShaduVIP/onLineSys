@@ -1,5 +1,7 @@
 package com.twp.controller;
 
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +13,7 @@ import com.twp.service.ClassInfoService;
 import com.twp.service.SysUserRoleService;
 import com.twp.service.SysUserService;
 
+import com.twp.utils.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +25,9 @@ import org.springframework.stereotype.Controller;
 
 import com.twp.entity.StuInfoEntity;
 import com.twp.service.StuInfoService;
-import com.twp.utils.PageUtils;
-import com.twp.utils.R;
-import com.twp.utils.ShiroUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -182,5 +185,42 @@ public class StuInfoController {
 		stuInfoService.deleteBatch(ids);
 		return R.ok();
 	}
+
+	/**
+	 * 学生导入模板下载
+	 * @param response
+	 */
+	@ResponseBody
+	@RequestMapping("/fileDownload")
+	public void downloadFile(HttpServletRequest request,HttpServletResponse response){
+		String fileName = "学生导入模板.xls".toString(); // 文件的默认保存名
+		// 读到流中
+		InputStream inStream = null;// 文件的存放路径
+		try {
+			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
+				fileName = URLEncoder.encode(fileName, "UTF-8");
+			} else {
+				fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+			}
+			String filePath = UploadUtils.getConfig("DownLoad")+ File.separator+"fileDownload.xls";
+			inStream = new FileInputStream(filePath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		response.reset();
+		response.setContentType("application/x-excel");
+		response.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+		// 循环取出流中的数据
+		byte[] b = new byte[100];
+		int len;
+		try {
+			while ((len = inStream.read(b)) > 0)
+				response.getOutputStream().write(b, 0, len);
+			inStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 }

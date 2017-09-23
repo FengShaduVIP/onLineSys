@@ -8,7 +8,7 @@ $(function () {
 			{ label: '分数', name: 'score', width: 25 },
             { label: '难度', name: 'level', width: 20 ,formatter:levelFmt},
 			{ label: '作者', name: 'author', width: 30 },
-			{ label: '创建时间', name: 'createTime', width: 50,formatter:getLocalTime },
+			{ label: '创建时间', name: 'createTime', width: 50 },
 			{ label: '是否可见', name: 'isVisible', width: 30, formatter:statusFmt}		
         ],
 		viewrecords: true,
@@ -48,9 +48,6 @@ function statusFmt(v) {
 	return v;
 }
 
-function getLocalTime(nS) {
-    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
-}
 
 
 function levelFmt(level) {

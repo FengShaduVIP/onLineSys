@@ -45,14 +45,14 @@ public class ExamPaperController {
 		return "exampaper/exam_item.html";
 	}
 
-	@RequestMapping("/paperDetail.html")
+	@RequestMapping("/paper_detail.html")
 	public String paperDetail(){
-		return "exampaper/paperDetail.html";
+		return "exampaper/paper_detail.html";
 	}
 
-	@RequestMapping("/startExam.html")
+	@RequestMapping("/start_exam.html")
 	public String startExam(){
-		return "exampaper/startExam.html";
+		return "exampaper/start_exam.html";
 	}
 	
 	/**

@@ -33,7 +33,8 @@
 		a.score,
 		c.real_name realName,
 		d.stu_no stuNo,
-		b.class_name className
+		b.class_name className,
+		b.class_no classNo
 		FROM
 		stu_grade a,
 		class_info b,

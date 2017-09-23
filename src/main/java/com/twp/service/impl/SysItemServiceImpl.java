@@ -108,7 +108,7 @@ public class SysItemServiceImpl implements SysItemService {
 			boolean append = true;
 			String filePath = OperateFile.writeFile(text, itemId,itemName,append);
 			logger.info("bianYi获的 临时文件路径："+filePath);
-			str.put("filePaht",filePath);
+			str.put("filePath",filePath);
 			logger.info("创建 filelist文件");
 			String filelist =filePath+ File.separator+"filelist" ;
 			File file = new File(filelist);
@@ -142,6 +142,11 @@ public class SysItemServiceImpl implements SysItemService {
 			e.printStackTrace();
 		}
 		return readLog;
+	}
+
+	@Override
+	public int queryStuTotal(Map<String, Object> map) {
+		return sysItemDao.queryStuTotal(map);
 	}
 
 }

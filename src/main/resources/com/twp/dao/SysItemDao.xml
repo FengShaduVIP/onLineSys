@@ -91,7 +91,28 @@
 	</delete>
 	
 	<select id="queryStuList" resultType="java.util.HashMap">
-		select a.id,a.title,a.level,a.name,b.real_name as author from sys_item a,sys_user b where a.author = b.username and a. is_visible = 1;
+		SELECT
+		a.id,
+		a.title,
+		a. LEVEL,
+		a. NAME,
+		b.real_name AS author
+		FROM
+		sys_item a,
+		sys_user b
+		WHERE
+		a.author = b.user_id
+		AND a.is_visible = 1
+		ORDER  BY a.id ASC
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+
 	</select>
+
+	<select id="queryStuTotal" resultType="int">
+		select count(*) from sys_item a,sys_user b where a.author = b.user_id and a. is_visible = 1;
+	</select>
+
 
 </mapper>

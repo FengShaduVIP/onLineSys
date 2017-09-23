@@ -79,7 +79,7 @@ var vm = new Vue({
             if (examPaperId == null) {
                 return;
             }
-            location.href = "paperDetail.html?examPaperId="+examPaperId;
+            location.href = "paper_detail.html?examPaperId="+examPaperId;
         },
         examStart :function (event) {
             var examPaperId = getSelectedRow();
@@ -95,7 +95,7 @@ var vm = new Vue({
                 closeBtn: 2,
                 shadeClose: false,
                 skin: 'layui-layer-molv',
-                content: 'startExam.html?examPaperId='+examPaperId,
+                content: 'start_exam.html?examPaperId='+examPaperId,
             });
         }
 

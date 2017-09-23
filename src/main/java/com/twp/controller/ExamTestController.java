@@ -46,9 +46,9 @@ public class ExamTestController {
 		return "examtest/examtest.html";
 	}
 
-	@RequestMapping("/examTestHis.html")
+	@RequestMapping("/exam_test_his.html")
 	public String examTestHis(){
-		return "examtest/examTestHis.html";
+		return "examtest/exam_test_his.html";
 	}
 	
 	@RequestMapping("/examtest_add.html")
@@ -56,9 +56,9 @@ public class ExamTestController {
 		return "examtest/examtest_add.html";
 	}
 
-	@RequestMapping("/examTestDetail.html")
+	@RequestMapping("/exam_test_detail.html")
 	public String examTestDetail(){
-		return "examtest/ExamTestDetail.html";
+		return "examtest/exam_test_detail.html";
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class ExamTestController {
 	 * 考试的题目列表查询
 	 */
 	@ResponseBody
-	@RequestMapping("/examTestList")
+	@RequestMapping("/exam_test_list")
 //	@RequiresPermissions("examtest:list")
 	public R examTestList(Integer id){
 		//查询列表数据

@@ -83,7 +83,7 @@ public class OnLineTestController {
 		int score = itemEntity.getScore();
 		logger.info("用户："+userObj.getRealName()+"，提交在线测试题目："+itemEntity.getTitle()+"  题目ID"+itemEntity.getId());
 		String itemName = itemEntity.getName();//提交代码 编译文件名称
-		/*Map<String,String> resultMap  = sysItemService.bianYi(submitContext,itemName,itemId);
+		Map<String,String> resultMap  = sysItemService.bianYi(submitContext,itemName,itemId);
 		String bianYiResult = resultMap.get("bianYiResult");
 		if(bianYiResult.contains("error")||bianYiResult.contains("ERROR")||bianYiResult.contains("Error")) {
 			bianYiResult = "<br/>编译代码出错！！<br/><br/>" + bianYiResult;
@@ -114,11 +114,11 @@ public class OnLineTestController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}*/
+		}
 		stuExamItemService.saveStuExamTestInfo(userId,itemId,examTestId,isRight,score);
 		int stuSumScore = stuExamItemService.queryStuSumScore(Integer.parseInt(userId.toString()),examTestId);
 		stuGradeService.saveStuGrade(userId,examTestId,stuSumScore);
-		return R.ok().put("result","chengg");
+		return R.ok().put("result",bianYiResult);
 	}
 
 
