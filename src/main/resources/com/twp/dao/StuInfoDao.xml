@@ -32,6 +32,13 @@
 		select *  from stu_info
 		where stu_no = #{0} and class_id = #{1}
 	</select>
+
+	<select id="findStuByNo" resultType="java.util.HashMap">
+		SELECT a.stu_no  FROM stu_info a where class_id in(5,4);
+	</select>
+
+
+
 	
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_info
@@ -84,6 +91,13 @@
 	
 	<delete id="deleteBatch">
 		delete from stu_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<delete id="deleteBatchByClassId">
+		delete from stu_info where class_id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

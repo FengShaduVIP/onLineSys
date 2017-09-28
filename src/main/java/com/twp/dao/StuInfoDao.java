@@ -24,4 +24,6 @@ public interface StuInfoDao extends BaseDao<StuInfoEntity> {
 
 	List<Map<String, String>> queryList2(Map<String, Object> map);
 
+	void deleteBatchByClassId(Object[] id);
+
 }

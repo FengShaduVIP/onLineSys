@@ -3,6 +3,7 @@ package com.twp.controller;
 import java.util.*;
 
 import com.twp.entity.SysUserEntity;
+import com.twp.service.StuInfoService;
 import com.twp.service.SysUserService;
 import com.twp.utils.ShiroUtils;
 
@@ -32,6 +33,9 @@ import com.twp.utils.R;
 public class ClassInfoController {
 	@Autowired
 	private ClassInfoService classInfoService;
+
+	@Autowired
+	private StuInfoService stuInfoService;
 
 	@Autowired
 	private SysUserService sysUserService;
@@ -139,6 +143,8 @@ public class ClassInfoController {
 	//@RequiresPermissions("classInfo:delete")
 	public R delete(@RequestBody String[] classIds){
 		classInfoService.deleteBatch(classIds);
+
+		stuInfoService.deleteBatchByClassId(classIds);
 		
 		return R.ok();
 	}

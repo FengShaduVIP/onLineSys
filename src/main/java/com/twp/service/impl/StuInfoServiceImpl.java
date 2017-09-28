@@ -72,5 +72,10 @@ public class StuInfoServiceImpl implements StuInfoService {
 	public List findStuByNo(Integer cId, Integer classid) {
 		return stuInfoDao.findStuByNo(cId,classid);
 	}
-	
+
+	@Override
+	public void deleteBatchByClassId(Object[] ids) {
+		stuInfoDao.deleteBatchByClassId(ids);
+	}
+
 }

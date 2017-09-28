@@ -36,4 +36,6 @@ public interface StuInfoService {
 
 	List findStuByNo(Integer cId, Integer classid);
 
+	void deleteBatchByClassId(Object[] ids);
+
 }
