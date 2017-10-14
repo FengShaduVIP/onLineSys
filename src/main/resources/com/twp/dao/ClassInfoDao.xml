@@ -32,7 +32,7 @@
 		</if>
 	</select>
 	 
-	<insert id="save" parameterType="com.twp.entity.ClassInfoEntity">
+	<insert id="save" parameterType="com.twp.entity.ClassInfoEntity"  keyProperty="classId">
 		insert into class_info
 		(
 			`class_id`, 
@@ -53,6 +53,9 @@
 			#{classSort}, 
 			#{status}
 		)
+		<selectKey keyProperty="classId" resultType="int" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	 
 	<update id="update" parameterType="com.twp.entity.ClassInfoEntity">

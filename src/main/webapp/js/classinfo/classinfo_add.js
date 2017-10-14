@@ -21,11 +21,16 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function (event) {
 			var url = vm.classInfo.classId == null ? "../classInfo/save" : "../classInfo/update";
-			$.ajax({
+            var formData = new FormData($( "#uploadForm" )[0]);
+            $.ajax({
 				type: "POST",
 			    url: url,
-			    data: JSON.stringify(vm.classInfo),
-			    success: function(r){
+			    data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
 							vm.back();

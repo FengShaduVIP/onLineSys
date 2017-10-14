@@ -40,10 +40,6 @@
 		where stu_no = #{0} and class_id = #{1}
 	</select>
 
-	<select id="findStuByNo" resultType="java.util.HashMap">
-		SELECT a.stu_no  FROM stu_info a where class_id in(5,4);
-	</select>
-
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_info
 		<if test="classId!=null">
@@ -96,7 +92,8 @@
 	</update>
 	
 	<delete id="delete">
-		delete from stu_info where id = #{value}
+		delete from sys_user where user_id = (select user_id from stu_info where id = #{id});
+		delete from stu_info where id = #{value};
 	</delete>
 	
 	<delete id="deleteBatch">
@@ -104,6 +101,8 @@
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
+		;
+
 	</delete>
 
 	<!--根据班级ID删除学生信息-->
@@ -117,7 +116,12 @@
 	<delete id="deleteUser">
 		delete from sys_user where user_id = (select user_id from stu_info where id = #{id}) 
 	</delete>
-	
+
+	<delete id="deleteByStuNo">
+		delete from stu_info where  stu_no = #{value};
+		delete from sys_user where username = #{value}
+	</delete>
+
 	<select id="queryStuClass" resultType="int">
 		select class_id from stu_info where user_id = #{userId}
 	</select>

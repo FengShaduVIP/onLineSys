@@ -7,25 +7,26 @@
 <body>
 <div class="panel panel-default" id="rrapp" v-cloak>
 	<div class="panel-heading">{{title}}</div>
-	<form class="form-horizontal">
+	<form class="form-horizontal" id="uploadForm" enctype="multipart/form-data">
 		<div class="form-group">
-		   	<div class="col-sm-2 control-label">班级编号</div>
+		   	<div class="col-sm-2 control-label">班级编号：</div>
 		   	<div class="col-sm-10">
-		      <input type="number" class="form-control" v-model="classInfo.classNo" placeholder="班级编号"/>
+		      <input type="number" class="form-control" v-model="classInfo.classNo" name="classNo" placeholder="班级编号"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		   	<div class="col-sm-2 control-label">班级名称</div>
+		   	<div class="col-sm-2 control-label">班级名称：</div>
 		   	<div class="col-sm-10">
-		      <input type="text" class="form-control" v-model="classInfo.className" placeholder="班级名称"/>
+		      <input type="text" class="form-control" v-model="classInfo.className" name="className" placeholder="班级名称"/>
 		    </div>
 		</div>
 		<div class="form-group">
-		   	<div class="col-sm-2 control-label">排序值</div>
+		   	<div class="col-sm-2 control-label">学生信息文件：</div>
 		   	<div class="col-sm-10">
-		      <input type="number" class="form-control" v-model="classInfo.classSort" placeholder="请输入数字"/>
+				<input class="form-control" type="file" data-options="required:true" name="ImportFile" data-options="required:true"/>
 		    </div>
 		</div>
+		<!--
 		<div class="form-group">
 			<div class="col-sm-2 control-label">状态</div>
 			<label class="radio-inline">
@@ -35,6 +36,7 @@
 				<input type="radio" name="status" value="1" v-model="classInfo.status"/> 正常
 			</label>
 		</div>
+		-->
 		<div class="form-group">
 			<div class="col-sm-2 control-label"></div> 
 			<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>

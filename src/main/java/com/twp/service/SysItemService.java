@@ -11,10 +11,14 @@ public interface SysItemService {
 	SysItemEntity queryObject(Integer id);
 	
 	List<SysItemEntity> queryList(Map<String, Object> map);
+
+	List<SysItemEntity> queryListNoPage();
 	
 	List<SysItemEntity> queryStuList(Map<String, Object> map);
 	
 	int queryTotal(Map<String, Object> map);
+
+	int queryTotalNoPage();
 	
 	void save(SysItemEntity sysItem);
 	
@@ -33,4 +37,6 @@ public interface SysItemService {
 	public String judge_run(String filepath);
 
 	int queryStuTotal(Map<String, Object> map);
+
+
 }

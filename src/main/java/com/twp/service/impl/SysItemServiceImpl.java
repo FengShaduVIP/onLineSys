@@ -38,7 +38,12 @@ public class SysItemServiceImpl implements SysItemService {
 	public List<SysItemEntity> queryList(Map<String, Object> map){
 		return sysItemDao.queryList(map);
 	}
-	
+
+	@Override
+	public List<SysItemEntity> queryListNoPage() {
+		return sysItemDao.queryListNoPage();
+	}
+
 	@Override
 	public List<SysItemEntity> queryStuList(Map<String, Object> map){
 		return sysItemDao.queryStuList(map);
@@ -48,7 +53,12 @@ public class SysItemServiceImpl implements SysItemService {
 	public int queryTotal(Map<String, Object> map){
 		return sysItemDao.queryTotal(map);
 	}
-	
+
+	@Override
+	public int queryTotalNoPage() {
+		return sysItemDao.queryTotalNoPage();
+	}
+
 	@Override
 	public void save(SysItemEntity sysItem){
 		sysItemDao.save(sysItem);

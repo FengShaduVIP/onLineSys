@@ -17,9 +17,14 @@
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-inline">
-				<label class="layui-form-label" style="padding-left:5px ">结束时间：</label>
+				<label class="layui-form-label" style="padding-left:5px ">持续时间：</label>
 				<div class="layui-input-inline">
-					<input type="text" name="date" lay-verify="required" v-model="examTest.endTime"  autocomplete="off" id="endTime" lay-verify="date"  class="layui-input">
+					<input type="number" class="form-control" v-model="examTest.hour" placeholder="小时"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-input-inline">
+					<input type="number" class="form-control" v-model="examTest.minute" placeholder="分钟"/>
 				</div>
 			</div>
 		</div>
@@ -100,8 +105,9 @@
         },
         methods: {
 			startExam:function () {
-			    var endTime = vm.examTest.endTime;
-			    if(endTime==null||endTime==''){
+			    var hour = vm.examTest.hour;
+                var minute = vm.examTest.minute;
+			    if(hour==null||hour==''||minute==null||minute==''){
 			        alert('考试结束时间设置不能为空！');
 			        return
 				}

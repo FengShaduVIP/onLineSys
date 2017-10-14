@@ -2,10 +2,7 @@ package com.twp.controller;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.twp.entity.SysUserEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -138,9 +135,16 @@ public class ExamTestController {
 	@RequestMapping("/save")
 //	@RequiresPermissions("examtest:save")
 	public R save(@RequestBody ExamTestEntity examTest){
+		Integer hour = examTest.getHour();
+		Integer minute = examTest.getMinute();
+		Calendar calendarNew = Calendar.getInstance();
+		//calendarNew.add(calendarNew.HOUR,hour);
+		calendarNew.add(calendarNew.MINUTE,minute+hour*60);
 		Long userId = ShiroUtils.getUserId();
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		examTest.setStartTime(now);
+		Timestamp end = new Timestamp(calendarNew.getTimeInMillis());
+		examTest.setEndTime(end);
 		examTest.setStatus(1);
 		examTest.setAuthorId(userId+"");
 		examTest.setCreateTime(DateUtils.time());

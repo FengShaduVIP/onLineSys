@@ -37,6 +37,27 @@ public class ExamTestEntity implements Serializable {
 	//
 	private List<String> classIds;
 
+	private  Integer hour;
+
+	private  Integer minute;
+
+
+	public Integer getHour() {
+		return hour;
+	}
+
+	public void setHour(Integer hour) {
+		this.hour = hour;
+	}
+
+	public Integer getMinute() {
+		return minute;
+	}
+
+	public void setMinute(Integer minute) {
+		this.minute = minute;
+	}
+
 	/**
 	 * 设置：
 	 */

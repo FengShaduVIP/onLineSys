@@ -91,7 +91,7 @@ var vm = new Vue({
                 offset: '50px',
                 shade: 0,
                 title: '开始考试',
-                area: ['500px', '470px'],
+                area: ['700px', '380px'],
                 closeBtn: 2,
                 shadeClose: false,
                 skin: 'layui-layer-molv',

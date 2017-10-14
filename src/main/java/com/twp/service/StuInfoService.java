@@ -40,4 +40,6 @@ public interface StuInfoService {
 
 	List<StuInfoEntity> queryListByClassIds(Object[] ids);
 
+	void deleteByStuNo(Long id);
+
 }

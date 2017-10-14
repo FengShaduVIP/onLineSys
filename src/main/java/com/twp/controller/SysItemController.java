@@ -96,6 +96,20 @@ public class SysItemController {
 		
 		return R.ok().put("page", pageUtil);
 	}
+
+	@ResponseBody
+	@RequestMapping("/listNoPage")
+	public R listNoPage(){
+		//查询列表数据
+		List<SysItemEntity> sysItemList = sysItemService.queryListNoPage();
+		int total = sysItemService.queryTotalNoPage();
+
+		PageUtils pageUtil = new PageUtils(sysItemList, total, 0, 0);
+
+		return R.ok().put("page", pageUtil);
+	}
+
+
 	
 	/**
 	 * 学生题目列表
@@ -134,7 +148,7 @@ public class SysItemController {
 	/**
 	 * excel导入
 	 */
-	@ResponseBody
+	/*@ResponseBody
 	@RequestMapping("/importExcel")
 	public R ImportExcel(HttpServletRequest request) {
 		String classId = request.getParameter("classId");  //获取班级id
@@ -194,7 +208,7 @@ public class SysItemController {
 			
 		}
 		return R.ok();
-	}
+	}*/
 	
 	/**
 	 * 保存

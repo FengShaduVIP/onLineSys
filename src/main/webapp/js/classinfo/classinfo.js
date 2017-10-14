@@ -83,6 +83,13 @@ var vm = new Vue({
             }
             location.href = "../stuinfo/stuinfo.html?classId="+classId;
         },
+        downloadFile:function () {
+            var url = '../stuinfo/fileDownload';
+            var fileName = "学生导入模板.xls";
+            var form = $("<form></form>").attr("action", url).attr("method", "post");
+            form.append($("<input></input>").attr("type", "hidden").attr("name", "fileName").attr("value", fileName));
+            form.appendTo('body').submit().remove();
+        }
 	},
 });
 

@@ -102,7 +102,9 @@ public class ExamPaperController {
 		examPaper.setCreateTime(DateUtils.time()+"");
 		examPaper.setAuthorId(authorId);
 		examPaperService.save(examPaper);
-		return R.ok();
+		Map<String,Object> map = new HashMap<>();
+		map.put("examPaperId",examPaper.getId());
+		return R.ok(map);
 	}
 	
 	/**
@@ -115,7 +117,6 @@ public class ExamPaperController {
 		String authorId = ShiroUtils.getUserId()+"";
 		examPaper.setAuthorId(authorId);
 		examPaperService.update(examPaper);
-		
 		return R.ok();
 	}
 	

@@ -25,7 +25,15 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
-	
+
+	<select id="queryListNoPage" resultType="com.twp.entity.SysItemEntity">
+		SELECT  *  FROM sys_item ;
+	</select>
+
+	<select id="queryTotalNoPage" resultType="int">
+		select count(*) from sys_item
+	</select>
+
  	<select id="queryTotal" resultType="int">
 		select count(*) from sys_item 
 	</select>
