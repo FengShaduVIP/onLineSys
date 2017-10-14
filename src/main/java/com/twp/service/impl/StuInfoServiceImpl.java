@@ -73,9 +73,23 @@ public class StuInfoServiceImpl implements StuInfoService {
 		return stuInfoDao.findStuByNo(cId,classid);
 	}
 
+	/**
+	 * 根据班级ID 删除stuInfo表中信息和user 表中信息
+	 * @param ids
+	 */
 	@Override
 	public void deleteBatchByClassId(Object[] ids) {
+		List<StuInfoEntity> stuInfoList = this.queryListByClassIds(ids);
+		for(int i=0;i<stuInfoList.size();i++){
+			Long stuInfoId = stuInfoList.get(i).getId();
+			stuInfoDao.deleteUser(stuInfoId);
+		}
 		stuInfoDao.deleteBatchByClassId(ids);
+	}
+
+	@Override
+	public List<StuInfoEntity> queryListByClassIds(Object[] ids) {
+		return stuInfoDao.queryListByClassIds(ids);
 	}
 
 }

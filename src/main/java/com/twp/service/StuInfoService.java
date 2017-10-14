@@ -38,4 +38,6 @@ public interface StuInfoService {
 
 	void deleteBatchByClassId(Object[] ids);
 
+	List<StuInfoEntity> queryListByClassIds(Object[] ids);
+
 }

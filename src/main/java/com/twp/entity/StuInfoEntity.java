@@ -30,6 +30,11 @@ public class StuInfoEntity implements Serializable {
 
 	private String className;
 
+	private Integer classNo;
+
+	private  Integer sortNo;
+
+
 	/**
 	 * 设置：
 	 */
@@ -105,5 +110,21 @@ public class StuInfoEntity implements Serializable {
 
 	public void setClassName(String className) {
 		this.className = className;
+	}
+
+	public Integer getClassNo() {
+		return classNo;
+	}
+
+	public void setClassNo(Integer classNo) {
+		this.classNo = classNo;
+	}
+
+	public Integer getSortNo() {
+		return sortNo;
+	}
+
+	public void setSortNo(Integer sortNo) {
+		this.sortNo = sortNo;
 	}
 }

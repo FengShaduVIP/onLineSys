@@ -7,6 +7,13 @@
 		select * from stu_info where id = #{value}
 	</select>
 
+	<select id="queryListByClassIds" resultType="com.twp.entity.StuInfoEntity">
+		select * from stu_info where class_id in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+
 	<select id="queryList2" resultType="java.util.HashMap">
 		SELECT
 		a.id,
@@ -37,9 +44,6 @@
 		SELECT a.stu_no  FROM stu_info a where class_id in(5,4);
 	</select>
 
-
-
-	
  	<select id="queryTotal" resultType="int">
 		select count(*) from stu_info
 		<if test="classId!=null">
@@ -55,7 +59,9 @@
 			`stu_no`, 
 			`class_id`,
 			`stu_name`,
-			`teach_id`
+			`teach_id`,
+			`class_no`,
+			`sort_no`
 		)
 		values
 		(
@@ -63,7 +69,9 @@
 			#{stuNo}, 
 			#{classId},
 			#{stuName},
-			#{teachId}
+			#{teachId},
+			#{classNo},
+			#{sortNo}
 		)
 	</insert>
 	 
@@ -74,7 +82,9 @@
 			<if test="stuNo != null">`stu_no` = #{stuNo}, </if>
 			<if test="classId != null">`class_id` = #{classId}, </if>
 			<if test="stuName != null">`stu_name` = #{stuName}, </if>
-			<if test="teachId != null">`teach_id` = #{teachId}</if>
+			<if test="teachId != null">`teach_id` = #{teachId},</if>
+			<if test="classNo != null">`class_no` = #{classNo},</if>
+			<if test="sortNo != null">`sort_no` = #{sortNo}</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -96,6 +106,7 @@
 		</foreach>
 	</delete>
 
+	<!--根据班级ID删除学生信息-->
 	<delete id="deleteBatchByClassId">
 		delete from stu_info where class_id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
