@@ -141,15 +141,15 @@ public class ClassInfoController {
 			int i=1;
 			List<List<Object>> oList=tMap.get("page_"+page);
 			if(oList.size()>0){
-				oList.remove(0);
 				for(List<Object> list:oList){
 					i++;
 					if(list.get(0)!=null){
 						String tId=(String) list.get(0);
-						Long stuNo = Long.parseLong(tId);
-						Integer cId=Integer.valueOf(tId);   //获取学生id
 						if(tId.matches("^[0-9]*$")){
-							stuInfoService.deleteByStuNo(stuNo);
+							Long stuNo = Long.parseLong(tId);
+							Integer cId=Integer.valueOf(tId);   //获取学生id
+							Integer classNumber = Integer.valueOf((String) list.get(0));
+							stuInfoService.deleteByStuNo(stuNo,Integer.parseInt(classNo));
 							List lists = stuInfoService.findStuByNo(cId,classid);
 							if(lists.size()==0){
 								//保存到用户信息表中
@@ -172,13 +172,14 @@ public class ClassInfoController {
 								stuInfo.setUserId(sysUser.getUserId());      //用户id
 								stuInfo.setStuNo(cId);        //学号
 								stuInfo.setClassId(classid);
+								stuInfo.setClassNo(classNumber);
 								stuInfo.setTeachId(userId);
 								stuInfoService.save(stuInfo);
 							}else{
 								msgList.add("第"+page+"页 -第"+i+"行 :已在班級中");
 							}
 						}else{
-							msgList.add("学号："+cId+" 姓名："+(String)list.get(1)+" 在该班级已存在！");
+							//msgList.add("学号："+cId+" 姓名："+(String)list.get(1)+" 在该班级已存在！");
 						}
 					}
 				}

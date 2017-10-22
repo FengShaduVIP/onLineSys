@@ -93,8 +93,8 @@ public class StuInfoServiceImpl implements StuInfoService {
 	}
 
 	@Override
-	public void deleteByStuNo(Long id) {
-		stuInfoDao.deleteByStuNo(id);
+	public void deleteByStuNo(Long id,Integer classNo) {
+		stuInfoDao.deleteByStuNo(id,classNo);
 	}
 
 }

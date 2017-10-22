@@ -28,5 +28,5 @@ public interface StuInfoDao extends BaseDao<StuInfoEntity> {
 
 	List queryListByClassIds(Object[] ids);
 
-	void deleteByStuNo (Object id);
+	void deleteByStuNo (Object id,Object classNo);
 }

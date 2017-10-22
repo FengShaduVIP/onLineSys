@@ -118,8 +118,8 @@
 	</delete>
 
 	<delete id="deleteByStuNo">
-		delete from stu_info where  stu_no = #{value};
-		delete from sys_user where username = #{value}
+		delete from stu_info where  stu_no = #{0} AND class_no = #{1};
+		delete from sys_user where username = #{0}
 	</delete>
 
 	<select id="queryStuClass" resultType="int">
