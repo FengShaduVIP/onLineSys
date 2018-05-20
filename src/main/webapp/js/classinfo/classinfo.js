@@ -4,21 +4,23 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'classId', name: 'classId',hidden:true, width: 50, key: true },
-			{ label: '班级编号', name: 'classNo', width: 80 },
+			//{ label: '班级编号', name: 'classNo', width: 80 },
 			{ label: '班级名称', name: 'className', width: 80 },
+            { label: '创建者', name: 'realName', width: 50 },
+            { label: '创建时间', name: 'createTime', width: 50 },
+            { label: '班级届', name: 'createYear', width: 80 },
             { label: '状态', name: 'status', width: 80,
                 formatter: function(value, options, row){
                     return value === 0 ?
                         '<span class="label label-danger">禁用</span>' :
                         '<span class="label label-success">正常</span>';
                 }
-            },
-			{ label: '创建年份班级届', name: 'createYear', width: 80 },
+            }
         ],
 		viewrecords: true,
         height: '400px',
-        rowNum: 10,
-		rowList : [10,30,50],
+        rowNum: 50,
+        rowList : [25,50],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
@@ -41,7 +43,9 @@ $(function () {
         }
     });
 });
-
+function getLocalTime(nS) {
+    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+}
 var vm = new Vue({
 	el:'#rrapp',
 	data:{

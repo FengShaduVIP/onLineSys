@@ -7,22 +7,30 @@
 		select * from class_info where class_id = #{value}
 	</select>
 
-	<select id="queryList" resultType="com.twp.entity.ClassInfoEntity">
-		select * from class_info
+	<select id="queryList" resultType="java.util.HashMap">
+		select a.class_id AS  classId,a.create_year AS  createYear,a.class_name as className,a.create_time as createTime ,s.real_name AS realName
+		from class_info a
+		JOIN sys_user s
+		ON
+		a.teach_id = s.user_id
 		<if test="teachId != null">
 			where teach_id = #{teachId}
 		</if>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
+		order by a.create_time DESC
+
 	</select>
 	
 	<select id="queryOnAdminList" resultType="java.util.HashMap">
-		select a.class_id,a.class_no,a.class_name from class_info a
+		select a.class_id,a.class_no,a.class_name,a.create_time as createTime ,
+		s.real_name AS  realName
+		from class_info a
+		JOIN sys_user s
+		ON
+		a.teach_id = s.user_id
 		<if test="teachId != null">
 			where a.teach_id = #{teachId}
 		</if>
-		 order by a.class_sort DESC
+		order by a.create_time DESC
 	</select>
 	
  	<select id="queryTotal" resultType="int">
@@ -41,7 +49,8 @@
 			`teach_id`, 
 			`create_year`, 
 			`class_sort`, 
-			`status`
+			`status`,
+			`create_time`
 		)
 		values
 		(
@@ -51,7 +60,8 @@
 			#{teachId}, 
 			#{createYear}, 
 			#{classSort}, 
-			#{status}
+			#{status},
+			#{createTime}
 		)
 		<selectKey keyProperty="classId" resultType="int" order="AFTER">
 			select LAST_INSERT_ID()
@@ -66,7 +76,8 @@
 			<if test="teachId != null">`teach_id` = #{teachId}, </if>
 			<if test="createYear != null">`create_year` = #{createYear}, </if>
 			<if test="classSort != null">`class_sort` = #{classSort}, </if>
-			<if test="status != null">`status` = #{status}</if>
+			<if test="status != null">`status` = #{status},</if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
 		</set>
 		where class_id = #{classId}
 	</update>

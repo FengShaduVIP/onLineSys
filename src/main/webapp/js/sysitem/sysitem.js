@@ -8,13 +8,13 @@ $(function () {
 			{ label: '分数', name: 'score', width: 25 },
             { label: '难度', name: 'level', width: 20 ,formatter:levelFmt},
 			{ label: '作者', name: 'author', width: 30 },
-			{ label: '创建时间', name: 'createTime', width: 50 },
+			{ label: '创建时间', name: 'createTime', width: 50,formatter:getLocalTime },
 			{ label: '是否可见', name: 'isVisible', width: 30, formatter:statusFmt}		
         ],
 		viewrecords: true,
         height: '400px',
-        rowNum: 10,
-		rowList : [10,30,50],
+        rowNum: 25,
+        rowList : [25,50],
         rownumbers: true, 
         rownumWidth: 25, 
         autowidth:true,
@@ -125,3 +125,7 @@ var vm = new Vue({
 		}
 	}
 });
+
+function getLocalTime(nS) {
+    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+}

@@ -32,16 +32,17 @@
             var setCountdown = function(endTime,serverTime){
                 clearTimeout(thisTimer);
                 util.countdown(endTime, serverTime, function(date, serverTime, timer){
+                    var str = date[0] + ' 天&nbsp&nbsp&nbsp' + date[1] + ' 时&nbsp&nbsp&nbsp' +  date[2] + ' 分&nbsp&nbsp&nbsp' + date[3] + ' 秒';
 					if(date[0]==0&&date[1]==0&&date[2]==5){
                         //&&date[2]==5
-                        layer.msg("考试剩余时间还有5分钟！",
+                        layer.msg("考试剩余时间还有"+str+"！",
 							{
 							    time:3000,
 								offset: 't',
                             	anim: 6
 							})
 					}else if(date[0]==0&&date[1]==0&&date[2]==1){
-                        layer.msg("考试剩余时间还有1分钟！",
+                        layer.msg("考试剩余时间还有"+str+"！",
 							{
 								time:3000,
 								offset: 't',
@@ -55,7 +56,7 @@
                             history.go(-1);
                         });
 					}
-                    var str = date[0] + ' 天&nbsp&nbsp&nbsp' + date[1] + ' 时&nbsp&nbsp&nbsp' +  date[2] + ' 分&nbsp&nbsp&nbsp' + date[3] + ' 秒';
+
                     lay('#test2').html(str);
                     thisTimer = timer;
                 });

@@ -30,6 +30,8 @@ public class ClassInfoEntity implements Serializable {
 	//是否禁用
 	private Integer status;
 
+	private Date createTime;
+
 	/**
 	 * 设置：
 	 */
@@ -113,5 +115,13 @@ public class ClassInfoEntity implements Serializable {
 	 */
 	public Integer getStatus() {
 		return status;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

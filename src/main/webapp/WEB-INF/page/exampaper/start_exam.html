@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 <title></title>
 #parse("sys/header.html")
@@ -79,6 +79,7 @@
 			examTest:{
                 examPaperId:examPaperId,
 				classIds:[],
+                examTitle : T.p("examPaperName"),
 			},
         },
         created: function() {
@@ -102,6 +103,7 @@
                 classTree = $.fn.zTree.init($("#classTree"), setting, nodes);
                 classTree.expandAll(true);
             })
+
         },
         methods: {
 			startExam:function () {

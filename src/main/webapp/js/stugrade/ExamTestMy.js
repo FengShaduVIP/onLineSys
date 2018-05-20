@@ -1,6 +1,6 @@
 var id = T.p("examTestId");
 
-var examItem = Vue.extend({
+/*var examItem = Vue.extend({
     name: 'exam-item',
     props: {
     	item:{},
@@ -25,6 +25,63 @@ var examItem = Vue.extend({
 				'</div>',
 			'</div>',
 	].join('')
+});*/
+var examItem = Vue.extend({
+    name: 'exam-item',
+    props: {
+        item:{},
+    },
+    template: [
+        '<div class="panel panel-danger" v-if="item.status == 0 ">',
+			'<div class="panel-heading">' ,
+				'题目标题：{{item.title}}' ,
+				'<div style="float: right; width: 300px" >' ,
+					'<div class="layui-col-xs4">',
+						'题目分数:{{item.score}}',
+					'</div>',
+					'<div class="layui-col-xs8">',
+						'<span style="padding-left: 40px" v-if="item.status == 0 " class="glyphicon glyphicon-remove" >&nbsp;&nbsp;错误</span>',
+					'</div>',
+				'</div>',
+			'</div>',
+			'<div class="panel-body">',
+            	'<div v-html="item.context"></div>',
+			'</div>',
+        '</div>',
+        '<div class="panel panel-success" v-else-if="item.status == 1 ">',
+			'<div class="panel-heading">',
+				'题目标题：{{item.title}}',
+			'<div style="float: right; width: 300px" >' ,
+				'<div class="layui-col-xs4">',
+					'题目分数:{{item.score}}',
+				'</div>',
+				'<div class="layui-col-xs8">',
+					'<span style="padding-left: 40px" v-if="item.status == 1 " class="glyphicon glyphicon-ok" >&nbsp;&nbsp;正确</span>',
+				'</div>',
+			'</div>',
+        '</div>',
+        '<div class="panel-body">',
+			'<div v-html="item.context"></div>',
+        		'<div v-html="item.context"></div>',
+			'</div>',
+        '</div>',
+        '<div class="panel panel-default" v-else-if="item.status == 2 " >',
+			'<div class="panel-heading">' ,
+				'题目标题：{{item.title}}',
+				'<div style="float: right; width: 300px" >' ,
+					'<div class="layui-col-xs4">',
+						'题目分数:{{item.score}}',
+					'</div>',
+					'<div class="layui-col-xs8">',
+						'<span style="padding-left: 40px" v-if="item.status == 2 "  >&nbsp;&nbsp;未提交</span>',
+					'</div>',
+				'</div>',
+			'</div>',
+			'<div class="panel-body">',
+            	'<div v-html="item.context"></div>',
+			'</div>',
+        '</div>'
+    ].join('')
 });
 
 //注册试卷题目组件

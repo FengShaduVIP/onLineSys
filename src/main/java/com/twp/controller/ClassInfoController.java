@@ -72,9 +72,9 @@ public class ClassInfoController {
 		}
 		//查询列表数据
 		List<ClassInfoEntity> classInfoList = classInfoService.queryList(map);
-		int total = classInfoService.queryTotal(map);
+		//int total = classInfoService.queryTotal(map);
 		
-		PageUtils pageUtil = new PageUtils(classInfoList, total, limit, page);
+		PageUtils pageUtil = new PageUtils(classInfoList, classInfoList.size(), limit, page);
 		
 		return R.ok().put("page", pageUtil);
 	}
@@ -127,6 +127,7 @@ public class ClassInfoController {
 		int year = c.get(Calendar.YEAR);
 		classInfoEntity.setCreateYear(year);
 		classInfoEntity.setTeachId(userId);
+		classInfoEntity.setCreateTime(new Date());
 		classInfoService.save(classInfoEntity);
 
 		//获取文件

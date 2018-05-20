@@ -45,7 +45,7 @@
 
 	<select id="queryExamTestList" resultType="java.util.HashMap">
 		SELECT
-			re.*, stu_item.status
+			re.*, IFNULL(stu_item.STATUS,2) as status
 		FROM
 			stu_exam_item stu_item
 		RIGHT JOIN (
