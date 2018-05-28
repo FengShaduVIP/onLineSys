@@ -138,7 +138,7 @@ var vm_nohave = new Vue({
                 return ;
             }
             var sendData = {
-                exmaId:examPaperId,
+                examId:examPaperId,
                 itemIds:ids
             }
             $.ajax({

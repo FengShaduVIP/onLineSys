@@ -46,7 +46,7 @@ function addItem (examPaperId) {
         return ;
     }
     var sendData = {
-        exmaId:examPaperId+'',
+        examId:examPaperId+'',
         itemIds:ids
     }
     $.ajax({

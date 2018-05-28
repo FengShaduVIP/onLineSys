@@ -62,12 +62,6 @@ function CurentTime()
 
     clock += day + " ";
 
-    if(hh < 10)
-        clock += "0";
-
-    clock += hh + ":";
-    if (mm < 10) clock += '0';
-    clock += mm;
     return(clock);
 }
 

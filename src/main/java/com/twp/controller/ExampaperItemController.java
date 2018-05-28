@@ -103,12 +103,12 @@ public class ExampaperItemController {
 	@ResponseBody
 	@RequestMapping("/saveExamItem")
 	public R saveExamItem(@RequestBody Map map){
-		String exmaId = (String) map.get("exmaId");
+		String examId = (String) map.get("examId");
 		List<String> itemIds = (List<String>) map.get("itemIds");
 		for(int i = 0;i<itemIds.size() ;i++) {
 			String itemId = itemIds.get(i);
 			ExampaperItemEntity exampaperItem = new ExampaperItemEntity();
-			exampaperItem.setExampaperId(Integer.parseInt(exmaId));
+			exampaperItem.setExampaperId(Integer.parseInt(examId));
 			exampaperItem.setItemId(Integer.parseInt(itemId));
 			exampaperItemService.save(exampaperItem);
 		}

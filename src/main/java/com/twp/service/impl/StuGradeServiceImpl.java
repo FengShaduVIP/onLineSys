@@ -107,6 +107,7 @@ public class StuGradeServiceImpl implements StuGradeService {
 			}else{
 				stuGradeEntity.setScore(stuSumScore);
 			}
+
 			stuGradeEntity.setCreateTime(new Date());
 			stuGradeEntity.setClassId(classId);
 			stuGradeEntity.setExamTestId(examTestId);
